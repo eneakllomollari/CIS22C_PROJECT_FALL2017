@@ -8,7 +8,7 @@ private:
 	std::string winningTeam;
 	std::string goldenBootWinner;
 	std::string hostCountry;
-	std::string *teamsParticipated;
+	//std::string *teamsParticipated;
 	double goalsPerGame;
 
 	long int totAtt;
@@ -22,7 +22,7 @@ public:
 
 	void displayTeamsParticipated();
 
-	void setNumOfTeamsParticipated(int);
+	//void setNumOfTeamsParticipated(int);
 	void setWinningTeam(std::string);
 	void setGoldenBWinner(std::string);
 	void setHostCountry(std::string);
@@ -41,7 +41,7 @@ public:
 	std::string getWinningTeam() const;
 	std::string getGoldenBootWinner() const;
 	std::string getHostCountry() const;
-	int getNumOfTeamsParticipated() const;
+	//int getNumOfTeamsParticipated() const;
 	int getAveAtt() const;
 	int getTotAtt() const;
 	int getYearHeld() const;

@@ -1,13 +1,8 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <iomanip>
 #include "functions.h"
-#include "WorldCup.h"
-#include "FinalMatch.h"
 
-void initializeWorldCupData(WorldCup *);
-void initializeFinalMatchData(FinalMatch *);
 
 int main()
 {
@@ -113,80 +108,14 @@ int main()
 	
 
 	//****************************************************************************************************************
-	//WRITE THE FILE
-	std::ofstream clearFile;
-
-	clearFile.open("worldCupGeneralData.txt", std::ofstream::trunc);
-	clearFile.close();
-
-	for (int i = 0; i < SIZE; i++)
-		worldCup[i].outputFileWorldcupData();
-
-	clearFile.open("TeamsByYear.txt", std::ofstream::trunc);
-	clearFile.close();
-
-	for (int i = 0; i < SIZE; i++)
-		worldCup[i].outputFileTeamsParticipated();
-
-	clearFile.open("FinalMatchData.txt", std::ofstream::trunc);
-	clearFile.close();
-
-	for (int i = 0; i < SIZE; i++)
-		finalMatch[i].outputFileFinalMatch();
-
-
+	// WRITE BACK TO THE FILE
+	writeWorldCupGeneralDataToTxt(worldCup, SIZE);
+	writeTeamsParticipatedToTxt(worldCup, SIZE);
+	writeFinalMatchDataToTxt(finalMatch, SIZE);
 	//****************************************************************************************************************
+	//Freeing the memory allocated
 	delete[] worldCup;
 	delete[] finalMatch;
 	system("pause");
 	return 0;
-}
-
-void initializeWorldCupData(WorldCup *worldC) 
-{
-	int index = 0;																						
-
-	std::string buffer;
-	std::ifstream finWorldCup;
-	std::ifstream finTeamsByYear;
-	finWorldCup.open("worldCupGeneralData.txt");													
-
-	if (!finWorldCup) throw "worldCupGeneralData.txt FILE COULD NOT BE OPENED"; /*2 operations*/	
-	while (getline(finWorldCup, buffer))																
-	{
-		worldC[index].readFileWorldcupData(buffer);					
-		index++;																					
-	}
-	finWorldCup.close();																			
-
-	finTeamsByYear.open("TeamsByYear.txt");														
-
-	if (!finTeamsByYear) throw "TeamsbyYear.txt FILE COULD NOT BE OPENED";							
-	index = 0;																						
-	while (getline(finTeamsByYear, buffer))
-	{
-																									
-		worldC[index].readFileTeamsByYearData(buffer);					
-		index++;																					
-	}
-	finTeamsByYear.close();																		
-}
-
-void initializeFinalMatchData(FinalMatch *finalM) 
-{
-	int index = 0;																	
-
-	std::string buffer;
-
-	std::ifstream finFinalMatch;
-	finFinalMatch.open("FinalMatchData.txt");									
-
-	if (!finFinalMatch) throw "FinalMatchData.txt FILE COULD NOT BE OPENED";	
-	while (getline(finFinalMatch, buffer))
-	{
-
-		finalM[index].readFileFinalMatchData(buffer);
-		index++;
-	}
-	finFinalMatch.close();
 }

@@ -1,7 +1,31 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include "WorldCup.h"
+#include "FinalMatch.h"
+#include "Tree.h"
+
+
 const int WIDTH_BTW_LINES = 50;
+
+//Functions that write back to the txt files at the end of the program
+void writeWorldCupGeneralDataToTxt(WorldCup[], const int);
+void writeTeamsParticipatedToTxt(WorldCup[], const int);
+void writeFinalMatchDataToTxt(FinalMatch[], const int);
+
+//Functions that initialize the data at he beggining of the program
+void initializeWorldCupData(WorldCup *);
+void initializeFinalMatchData(FinalMatch *);
+
+void readFileTeamsByYearData(std::string &);
+void readFileWorldcupData(std::string &);
+
+
 
 void yearChosen();
 void add();
