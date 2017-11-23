@@ -1,62 +1,50 @@
-#include <iostream>
-#include <string>
-#include <iomanip>
 #include "functions.h"
-
+#include "HashTable.h"
 
 int main()
 {
-	Tree<int, WorldCup> yearHeld;
-	Tree<double, WorldCup> goalsPgameTree;
-	Tree<int, WorldCup> aveAtteTree;
-	Tree<int, WorldCup> totAtteTree;
+	//Declaring the trees
+	Tree<int, WorldCup> yearHeld;						//WORKS FINE
+	Tree<double, WorldCup> goalsPgameTree;				//WORKS FINE
+	Tree<int, WorldCup> aveAtteTree;					//WORKS FINE
+	Tree<int, WorldCup> totAtteTree;					//WORKS FINE
+	
+	//Declaring the hash tables
+	HashTable<int, WorldCup> winnerTeamTable;
+
 
 	const int SIZE = 20;
 
 	int choice;
 
-	WorldCup *worldCup = new WorldCup[SIZE];
-	FinalMatch *finalMatch = new FinalMatch[SIZE];
-
 	try
 	{
-		//Initialize the arrays
-		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree);
+		//Initializes the trees correctly
+		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, winnerTeamTable);
 		
-		
-		
-		
-		
-		yearHeld.displayInOrder();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		initializeFinalMatchData(finalMatch);
 
-		for (int i = 0; i < SIZE; i++)
-		{
-			std::cout << "TEMS PARTICIPATED\n";
-			worldCup[i].displayTeamsParticipated();
-		}
-		system("pause");
-		system("cls");
 
-		for (int i = 0; i < SIZE; i++)
-			std::cout << worldCup[i] << std::endl;
-		std::cout << std::endl;
 
-		system("pause");
-		system("cls");
+		//initializeFinalMatchData(finalMatch);
 
-		for (int i = 0; i < SIZE; i++)
-			std::cout << finalMatch[i] << std::endl;
-		std::cout << std::endl;
+		//for (int i = 0; i < SIZE; i++)
+		//{
+		//	std::cout << "TEMS PARTICIPATED\n";
+		//	worldCup[i].displayTeamsParticipated();
+		//}
+		//system("pause");
+		//system("cls");
+
+		//for (int i = 0; i < SIZE; i++)
+		//	std::cout << worldCup[i] << std::endl;
+		//std::cout << std::endl;
+
+		//system("pause");
+		//system("cls");
+
+		//for (int i = 0; i < SIZE; i++)
+		//	std::cout << finalMatch[i] << std::endl;
+		//std::cout << std::endl;
 
 
 
@@ -127,14 +115,14 @@ int main()
 
 	//****************************************************************************************************************
 	// WRITE BACK TO THE FILE
-	writeWorldCupGeneralDataToTxt(worldCup, SIZE);
+	/*writeWorldCupGeneralDataToTxt(worldCup, SIZE);
 	writeTeamsParticipatedToTxt(worldCup, SIZE);
 	writeFinalMatchDataToTxt(finalMatch, SIZE);
-	//****************************************************************************************************************
+	*///****************************************************************************************************************
 
 	//Freeing the memory allocated
-	delete[] worldCup;
-	delete[] finalMatch;
+	/*delete[] worldCup;
+	delete[] finalMatch;*/
 	system("pause");
 	return 0;
 }

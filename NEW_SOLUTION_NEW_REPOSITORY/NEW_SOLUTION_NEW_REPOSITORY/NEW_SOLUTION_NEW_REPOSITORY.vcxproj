@@ -119,6 +119,8 @@
   <ItemGroup>
     <ClInclude Include="FinalMatch.h" />
     <ClInclude Include="functions.h" />
+    <ClInclude Include="HashEntry.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedNode.h" />
     <ClInclude Include="Tree.h" />

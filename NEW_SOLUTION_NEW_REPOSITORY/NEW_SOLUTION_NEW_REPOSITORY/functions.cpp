@@ -21,7 +21,8 @@
 //************************************************************************************************************************************************************************************************
 
 
-void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt)
+void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, 
+							Tree<int, WorldCup>& totalAtt,HashTable<int,WorldCup>&winnerTeamTable)
 {
 	int index = 0;
 
@@ -33,7 +34,7 @@ void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup
 	if (!finWorldCup) throw "worldCupGeneralData.txt FILE COULD NOT BE OPENED"; /*2 operations*/
 	while (getline(finWorldCup, buffer))
 	{
-		/*worldC[index].*/readFileWorldcupData(buffer, yearHeld, gpgT, aveAttT, totalAtt);
+		/*worldC[index].*/readFileWorldcupData(buffer, yearHeld, gpgT, aveAttT, totalAtt, winnerTeamTable);
 		/*index++;*/
 	}
 	finWorldCup.close();
@@ -51,7 +52,8 @@ void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup
 	finTeamsByYear.close();
 }
 
-void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt)
+void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt,
+						  HashTable<int,WorldCup>& winnerTeamTable)
 {
 	//Temporary object to be used for initialization
 	WorldCup tempWorldCup;							
@@ -113,6 +115,7 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	gpgT.insert(tempWorldCup.getGoalsPerGame(), tempWorldCup);
 	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup);
 	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup);
+	winnerTeamTable.put(tempWorldCup.getYearHeld(), tempWorldCup);
 }
 
 void initializeFinalMatchData(/*add parameters here*/)
@@ -237,14 +240,14 @@ void writeWorldCupGeneralDataToTxt(WorldCup wC[], const int SIZE)
 		wC[i].outputFileWorldcupData();
 }
 
-void writeTeamsParticipatedToTxt(WorldCup wc[], const int SIZE)
-{
-	std::ofstream clearFile("TeamsByYear.txt", std::ofstream::trunc);
-	clearFile.close();
-
-	for (int i = 0; i < SIZE; i++)
-		wc[i].outputFileTeamsParticipated();
-}
+//void writeTeamsParticipatedToTxt(WorldCup wc[], const int SIZE)
+//{
+//	std::ofstream clearFile("TeamsByYear.txt", std::ofstream::trunc);
+//	clearFile.close();
+//
+//	for (int i = 0; i < SIZE; i++)
+//		wc[i].outputFileTeamsParticipated();
+//}
 
 void writeFinalMatchDataToTxt(FinalMatch fM[], const int SIZE)
 {

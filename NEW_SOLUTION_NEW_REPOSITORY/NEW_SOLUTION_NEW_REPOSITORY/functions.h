@@ -6,23 +6,25 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 #include "WorldCup.h"
 #include "FinalMatch.h"
 #include "Tree.h"
+#include "HashTable.h"
 
 
 const int WIDTH_BTW_LINES = 50;
 
 //Functions that write back to the txt files at the end of the program
 void writeWorldCupGeneralDataToTxt(WorldCup[], const int);
-void writeTeamsParticipatedToTxt(WorldCup[], const int);
+//void writeTeamsParticipatedToTxt(WorldCup[], const int);
 void writeFinalMatchDataToTxt(FinalMatch[], const int);
 
 //Functions that initialize the data at he beggining of the program
-void initializeWorldCupData(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&);
+void initializeWorldCupData(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&);
 void initializeFinalMatchData(FinalMatch *);
 
-void readFileWorldcupData(std::string &, Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&);
+void readFileWorldcupData(std::string &, Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&);
 void readFileTeamsByYearData(std::string &);
 
 
