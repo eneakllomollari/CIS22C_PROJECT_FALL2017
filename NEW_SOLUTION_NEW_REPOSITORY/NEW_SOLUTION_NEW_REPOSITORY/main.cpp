@@ -1,10 +1,7 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <iomanip>
 #include "functions.h"
-#include "WorldCup.h"
-#include "FinalMatch.h"
 
 void initializeWorldCupData(WorldCup *);
 void initializeFinalMatchData(FinalMatch *);
@@ -113,28 +110,10 @@ int main()
 	
 
 	//****************************************************************************************************************
-	//WRITE THE FILE
-	std::ofstream clearFile;
-
-	clearFile.open("worldCupGeneralData.txt", std::ofstream::trunc);
-	clearFile.close();
-
-	for (int i = 0; i < SIZE; i++)
-		worldCup[i].outputFileWorldcupData();
-
-	clearFile.open("TeamsByYear.txt", std::ofstream::trunc);
-	clearFile.close();
-
-	for (int i = 0; i < SIZE; i++)
-		worldCup[i].outputFileTeamsParticipated();
-
-	clearFile.open("FinalMatchData.txt", std::ofstream::trunc);
-	clearFile.close();
-
-	for (int i = 0; i < SIZE; i++)
-		finalMatch[i].outputFileFinalMatch();
-
-
+	//WRITE TO THE FILE
+	writeGeneralDataToTxt(worldCup, SIZE);
+	writeTeamsByYearToTxt(worldCup, SIZE);
+	writeFinalMatchDataToTxt(finalMatch, SIZE);
 	//****************************************************************************************************************
 	delete[] worldCup;
 	delete[] finalMatch;

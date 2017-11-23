@@ -310,3 +310,41 @@ void remove_year()
 		// call bst.remove(value)
 	} while (choiceYear != 0);
 }
+
+
+void writeGeneralDataToTxt(WorldCup *wc, const int SIZE)
+{
+	std::ofstream clearFile;
+
+	clearFile.open("worldCupGeneralData.txt", std::ofstream::trunc);
+	clearFile.close();
+
+	for (int i = 0; i < SIZE; i++)
+		wc[i].outputFileWorldcupData();
+}
+
+void writeTeamsByYearToTxt(WorldCup *wC, const int SIZE)
+{
+	std::ofstream clearFile;
+
+	clearFile.open("TeamsByYear.txt", std::ofstream::trunc);
+	clearFile.close();
+
+	for (int i = 0; i < SIZE; i++)
+		wC[i].outputFileTeamsParticipated();
+
+}
+
+void writeFinalMatchDataToTxt(FinalMatch *fM, const int SIZE)
+{
+	std::ofstream clearFile;
+	clearFile.open("FinalMatchData.txt", std::ofstream::trunc);
+	clearFile.close();
+
+	for (int i = 0; i < SIZE; i++)
+		fM[i].outputFileFinalMatch();
+
+
+
+}
+

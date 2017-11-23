@@ -1,6 +1,10 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
+#include "WorldCup.h"
+#include "FinalMatch.h"
+#include <fstream>
+
 const int WIDTH_BTW_LINES = 50;
 
 void yearChosen();
@@ -13,6 +17,12 @@ void descending_sort();				//sort function
 int count_efficiency();				//does a count for how many lines of code is processsed in our functions
 void pretty_print();				//prints bst in a pretty way
 void remove_year();					//removes enter node of the year selected
+
+
+
+void writeGeneralDataToTxt(WorldCup *, const int);
+void writeTeamsByYearToTxt(WorldCup *, const int);
+void writeFinalMatchDataToTxt(FinalMatch *, const int);
 
 #endif // !FUNCTION_H
 
