@@ -3,66 +3,65 @@
 
 #include "TreeNode.h"
 
-template <class T>
+template <class K, class T>
 class Tree
 {
 private:
-	TreeNode<T> *root;		//Root of the tree
-
-	int searchOp;
+	TreeNode<K, T> *root;		//Root of the tree
 
 protected:
-	void insertNode(T);
-	int countNodes(TreeNode<T> *)const;
-	int getHeightHelper(TreeNode<T> *);
-	int max(int, int)const;
+	void insertNode(K, T);
+	int countNodes(TreeNode<K, T> *)const;
+	int getHeightHelper(TreeNode<K, T> *);
+	int max(int, int);
 
-	void displayInOrder(TreeNode<T> *)const;
-	void displayPreOrder(TreeNode<T> *)const;
-	void displayPostOrder(TreeNode<T> *)const;
-	
-	void destroySubTree(TreeNode<T>*);
-	
-	void deleteLeafNode(TreeNode<T>*, TreeNode<T>*);
-	
-	TreeNode<T>* getSmallestNode(TreeNode<T>*);
-	TreeNode<T>* getBiggerNode(TreeNode<T>*);
-	TreeNode<T>* getParentOf(TreeNode<T>*);
+	void displayInOrder(TreeNode<K, T> *)const;
+	void displayPreOrder(TreeNode<K, T> *)const;
+	void displayPostOrder(TreeNode<K, T> *)const;
+
+	void destroySubTree(TreeNode<K, T>*);
+	TreeNode<K, T>* deleteNode(TreeNode<K, T>*, K);
+
+	TreeNode<K, T>* getSmallestNode(TreeNode<K, T>*);
+	TreeNode<K, T>* getBiggerNode(TreeNode<K, T>*);
+	TreeNode<K, T>* getParentOf(TreeNode<K, T>*);
+
 public:
 	Tree();
 	virtual ~Tree();
 
-	int getOperationsPerformedBySearch();
-
 	void clear();
-	void insert(T);
-	bool remove(T);
-	bool searchNode(T);
+	void insert(K, T);
+	bool remove(K);
+	TreeNode<K, T>* searchNode(K);
 	bool isEmpty()const;
 
 	int getCountNodes()const;
 	int getHeight();
-	
 	T getRootData() const;
-	void setRootData(T);
+	TreeNode<K, T>* getRootNode() const;
+
+	void setRootData(K, T);
 
 	void displayInOrder()const;
 	void displayPreOrder()const;
 	void displayPostOrder()const;
-
-	TreeNode<T>* deleteNode(TreeNode<T>*, T);
-	void displayTree();		//Function that will display the indented tree
 };
 
-template<class T>
-Tree<T>::Tree()
+template <class K, class T>
+int Tree<K, T>::max(int x, int y)
 {
-	root = nullptr;
-	searchOp = 0;
+	return x > y ? x : y;
 }
 
-template<class T>
-Tree<T>::~Tree()
+template<class K, class T>
+Tree<K, T>::Tree()
+{
+	root = nullptr;
+}
+
+template<class K, class T>
+Tree<K, T>::~Tree()
 {
 	//Deletes the tree by calling the clear function, 
 	//which calls destroySubTree function with root
@@ -70,21 +69,14 @@ Tree<T>::~Tree()
 	clear();
 }
 
-template<class T>
-int Tree<T>::getOperationsPerformedBySearch()
-{
-	return searchOp;
-}
-
-template<class T>
-void Tree<T>::clear()
+template<class K, class T>
+void Tree<K, T>::clear()
 {
 	destroySubTree(root);
-	
-}  
+}
 
-template <class T>
-void Tree<T>::destroySubTree(TreeNode<T>* nodePtr)
+template<class K, class T>
+void Tree<K, T>::destroySubTree(TreeNode<K, T>* nodePtr)
 {
 	if (nodePtr != nullptr)
 	{
@@ -94,42 +86,28 @@ void Tree<T>::destroySubTree(TreeNode<T>* nodePtr)
 	}
 }
 
-template<class T>
-bool Tree<T>::remove(T key)
+template<class K, class T>
+bool Tree<K, T>::remove(K key)
 {
-	if (!searchNode(key)) return true;
-
 	deleteNode(root, key);
 	return true;
 }
 
-template <class T>
-void Tree<T>::deleteLeafNode(TreeNode<T>* parent, TreeNode<T> *nodePtr)
+template<class K, class T>
+TreeNode<K, T>* Tree<K, T>::getParentOf(TreeNode<K, T> *nodePtr)
 {
-	if (parent->getLeft() == nodePtr)
-		parent->setLeft(nullptr);
-	else if (parent->getRight() == nodePtr)
-		parent->setRight(nullptr);
+	TreeNode<K, T> *tempPtr = root;
+	TreeNode<K, T> *parent = nullptr;
 
-	delete nodePtr;
-	nodePtr = nullptr;
-}
+	K key = nodePtr->getKey();
 
-template<class T>
-TreeNode<T>* Tree<T>::getParentOf(TreeNode<T> *nodePtr)
-{
-	TreeNode<T> *tempPtr = root;
-	TreeNode<T> *parent = nullptr;
-	
-	T key = nodePtr->getData();
-
-	while (tempPtr != nullptr) 
+	while (tempPtr != nullptr)
 	{
-		if (tempPtr->getData() == key)	//If the node is found
+		if (tempPtr->getKey() == key)	//If the node is found
 		{
 			return parent;
 		}
-		else if (key < tempPtr->getData())
+		else if (key < tempPtr->getKey())
 		{
 			parent = tempPtr;
 			tempPtr = tempPtr->getLeft();
@@ -143,10 +121,10 @@ TreeNode<T>* Tree<T>::getParentOf(TreeNode<T> *nodePtr)
 	return nullptr;
 }
 
-template<class T>
-TreeNode<T>* Tree<T>::getSmallestNode(TreeNode<T>* rootPtr)
+template<class K, class T>
+TreeNode<K, T>* Tree<K, T>::getSmallestNode(TreeNode<K, T>* rootPtr)
 {
-	TreeNode<T> *tempPtr = rootPtr;
+	TreeNode<K, T> *tempPtr = rootPtr;
 	//Traverse all the way to the left most node which is 
 	//at the same time the smallest node
 	while (tempPtr->getLeft() != nullptr)
@@ -154,30 +132,31 @@ TreeNode<T>* Tree<T>::getSmallestNode(TreeNode<T>* rootPtr)
 	return tempPtr;
 }
 
-template<class T>
-TreeNode<T>* Tree<T>::getBiggerNode(TreeNode<T>* rootPtr)
+template<class K, class T>
+TreeNode<K, T>* Tree<K, T>::getBiggerNode(TreeNode<K, T>* rootPtr)
 {
-	TreeNode<T> *tempPtr = rootPtr;
+	TreeNode<K, T> *tempPtr = rootPtr;
 	while (tempPtr->getRight() != nullptr)
 		tempPtr = tempPtr->getRight();
 
 	//Will return the right most node which is also the biggest node 
-	return tempPtr;	
+	return tempPtr;
 }
 
-template<class T>
-void Tree<T>::insert(T data)
+template<class K, class T>
+void Tree<K, T>::insert(K key, T data)
 {
-	insertNode(data);
+	insertNode(key, data);
 }
 
-template<class T>
-void Tree<T>::insertNode(T d)
+template<class K, class T>
+void Tree<K, T>::insertNode(K k, T d)
 {
-	TreeNode<T>* t = new TreeNode<T>;	//Allocate a new TreeNode
-	TreeNode<T>* parent = nullptr;
+	TreeNode<K, T>* t = new TreeNode<K, T>;	//Allocate a new TreeNode
+	TreeNode<K, T>* parent = nullptr;
 
 	t->setData(d);
+	t->setKey(k);
 	t->setLeft(nullptr);	//Because is will be a leaf node
 	t->setRight(nullptr);
 
@@ -185,102 +164,104 @@ void Tree<T>::insertNode(T d)
 	if (root == nullptr) root = t;
 	else
 	{
-		TreeNode<T> * curr = root;
+		TreeNode<K, T> * curr;
+		curr = root;
 
 		// Find the Node's parent
 		while (curr)
 		{
 			parent = curr;
-			if (t->getData() < curr->getData()) curr = curr->getLeft();
+			if (t->getKey() < curr->getKey()) curr = curr->getLeft();
 			else curr = curr->getRight();
 		}
 
-		if (t->getData() < parent->getData())
+		if (t->getKey() < parent->getKey())
 			parent->setLeft(t);
 		else
 			parent->setRight(t);
 	}
 }
 
-template<class T>
-bool Tree<T>::searchNode(T key)
+template<class K, class T>
+TreeNode<K, T>* Tree<K, T>::searchNode(K key)
 {
-	TreeNode <T>* nodePtr = root;	searchOp++;
+	TreeNode <K, T>* nodePtr = root;
+
 	//Traverse the tree
-	searchOp++;
 	while (nodePtr != nullptr)
 	{
-		if (nodePtr->getData() == key)
-		{
-			searchOp += 2;
-			return true;
-		}//If the data is found, return true
-		else if (key < nodePtr->getData())
-		{
-			searchOp += 2;
-			nodePtr = nodePtr->getLeft();
-		}//Else if the data is less, move to the left of the tree
+		if (nodePtr->getKey() == key)
+			return nodePtr;				//If the data is found, return true
+		else if (key < nodePtr->getKey())
+			nodePtr = nodePtr->getLeft();	//Else if the data is less, move to the left of the tree
 		else
-		{
 			nodePtr = nodePtr->getRight(); //Else, Move to the right
-			searchOp += 2;
-		}
-		searchOp++;
-	}	
-	return false;
+	}
+	return nullptr;
 }
 
-template<class T>
-void Tree<T>::displayInOrder() const
+template<class K, class T>
+void Tree<K, T>::displayInOrder() const
 {
 	displayInOrder(root);
 }
 
-template<class T>
-void Tree<T>::displayPreOrder() const
+template<class K, class T>
+void Tree<K, T>::displayPreOrder() const
 {
 	displayPreOrder(root);
 }
 
-template<class T>
-void Tree<T>::displayPostOrder() const
+template<class K, class T>
+void Tree<K, T>::displayPostOrder() const
 {
 	displayPostOrder(root);
 }
 
-template<class T>
-int Tree<T>::getCountNodes() const
+template<class K, class T>
+int Tree<K, T>::getCountNodes() const
 {
 	return countNodes(root);
 }
 
-template<class T>
-bool Tree<T>::isEmpty() const
+template<class K, class T>
+bool Tree<K, T>::isEmpty() const
 {
 	return root == nullptr;
 }
 
-template<class T>
-int Tree<T>::getHeight() 
+template<class K, class T>
+int Tree<K, T>::getHeight()
 {
 	return getHeightHelper(root);
 }
 
-template<class T>
-T Tree<T>::getRootData() const
+template<class K, class T>
+T Tree<K, T>::getRootData() const
 {
 	return root->data;
 }
 
-template<class T>
-void Tree<T>::setRootData(T newData)
-{	
-	if (root != nullptr) root->setData(newData);
-	else insertNode(newData);
+template<class K, class T>
+TreeNode<K, T>* Tree<K, T>::getRootNode() const
+{
+	return root;
 }
 
-template<class T>
-int Tree<T>::countNodes(TreeNode<T> *nodePtr) const
+template<class K, class T>
+void Tree<K, T>::setRootData(K key_input, T newData)
+{
+	if (root != nullptr)
+	{
+		root->setData(newData);
+		root->setKey(key_input);
+	}
+
+	else insertNode(key_input, newData);
+}
+
+template<class K, class T>
+int Tree<K, T>::countNodes(TreeNode<K, T> *nodePtr) const
 {
 	if (nodePtr == nullptr)
 		return 0;
@@ -295,10 +276,10 @@ int Tree<T>::countNodes(TreeNode<T> *nodePtr) const
 	}
 }
 
-template<class T>
-int Tree<T>::getHeightHelper(TreeNode<T>* nodePtr) 
+template<class K, class T>
+int Tree<K, T>::getHeightHelper(TreeNode<K, T>* nodePtr)
 {
-	if (nodePtr == nullptr) 
+	if (nodePtr == nullptr)
 		return 0;
 	else
 	{
@@ -306,8 +287,8 @@ int Tree<T>::getHeightHelper(TreeNode<T>* nodePtr)
 	}
 }
 
-template<class T>
-void Tree<T>::displayInOrder(TreeNode<T> *nodePtr) const
+template<class K, class T>
+void Tree<K, T>::displayInOrder(TreeNode<K, T> *nodePtr) const
 {
 	if (nodePtr)
 	{
@@ -317,8 +298,8 @@ void Tree<T>::displayInOrder(TreeNode<T> *nodePtr) const
 	}
 }
 
-template<class T>
-void Tree<T>::displayPreOrder(TreeNode<T>* nodePtr) const
+template<class K, class T>
+void Tree<K, T>::displayPreOrder(TreeNode<K, T>* nodePtr) const
 {
 	if (nodePtr)
 	{
@@ -328,8 +309,8 @@ void Tree<T>::displayPreOrder(TreeNode<T>* nodePtr) const
 	}
 }
 
-template<class T>
-void Tree<T>::displayPostOrder(TreeNode<T>* nodePtr) const
+template<class K, class T>
+void Tree<K, T>::displayPostOrder(TreeNode<K, T>* nodePtr) const
 {
 	if (nodePtr)
 	{
@@ -339,18 +320,12 @@ void Tree<T>::displayPostOrder(TreeNode<T>* nodePtr) const
 	}
 }
 
-template<class T>
-int Tree<T>::max(int i,int j)const
-{
-	return i > j ? i : j;
-}
-
-template<class T>
-TreeNode<T>* Tree<T>::deleteNode(TreeNode<T>*root, T value)
+template<class K, class T>
+TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input)
 {
 	if (root == nullptr)return root;
-	else if (value < root->getData())  root->setLeft(deleteNode(root->getLeft(),value));
-	else if (value > root->getData()) root->setRight(deleteNode(root->getRight(), value));
+	else if (key_input < root->getKey())  root->setLeft(deleteNode(root->getLeft(), key_input));
+	else if (key_input > root->getKey()) root->setRight(deleteNode(root->getRight(), key_input));
 	else
 	{
 		if (root->isLeaf())
@@ -361,51 +336,22 @@ TreeNode<T>* Tree<T>::deleteNode(TreeNode<T>*root, T value)
 		else if (root->hasLeftChild() && !root->hasRightChild())
 		{
 			root = root->getLeft();
-			deleteNode(root,value);
+			deleteNode(root, key_input);
 		}
 		else if (root->hasRightChild() && !root->hasLeftChild())
 		{
 			root = root->getRight();
-			deleteNode(root, value);
+			deleteNode(root, key_input);
 		}
 		else
 		{
-			TreeNode<T> *smallestValue = getSmallestNode(root->getRight());
-			T minData = smallestValue->getData();
-			root->setData(minData);
-			root->setRight(deleteNode(root->getRight(), minData));
+			TreeNode<K, T> *smallestValue = getSmallestNode(root->getRight());
+			K minKey_Data = smallestValue->getKey();
+			root->setKey(minKey_Data);
+			root->setRight(deleteNode(root->getRight(), minKey_Data));
 		}
 	}
 	return root;
-}
-
-template<class T>
-void Tree<T>::displayTree()
-{
-	//Breadth-first traversal
-	Stack<TreeNode<std::string>*> q;
-	if (root)
-	{
-		q.push(root);
-		bDayOutFile << root->getData() << "\n";
-	}
-	while (!q.isEmpty())
-	{
-		TreeNode<std::string> *temp_node = q.peek();
-		q.pop();
-
-		if (temp_node->getLeft())
-		{
-			q.push(temp_node->getLeft());
-			bDayOutFile << temp_node->getLeft()->getData() << "\n";
-		}
-		if (temp_node->getRight())
-		{
-			q.push(temp_node->getRight());
-			bDayOutFile << temp_node->getRight()->getData() << "\n";
-		}
-	}
-
 }
 
 #endif // !TREE_H

@@ -1,46 +1,50 @@
-#include <iostream>
-#include <string>
-#include <iomanip>
 #include "functions.h"
-
-void initializeWorldCupData(WorldCup *);
-void initializeFinalMatchData(FinalMatch *);
+#include "HashTable.h"
 
 int main()
 {
+	//Declaring the trees
+	Tree<int, WorldCup> yearHeld;						//WORKS FINE
+	Tree<double, WorldCup> goalsPgameTree;				//WORKS FINE
+	Tree<int, WorldCup> aveAtteTree;					//WORKS FINE
+	Tree<int, WorldCup> totAtteTree;					//WORKS FINE
+	
+	//Declaring the hash tables
+	HashTable<int, WorldCup> winnerTeamTable;
+
+
 	const int SIZE = 20;
 
 	int choice;
 
-	WorldCup *worldCup = new WorldCup[SIZE];
-	FinalMatch *finalMatch = new FinalMatch[SIZE];
-
 	try
 	{
-		//Initialize the arrays
-		initializeWorldCupData(worldCup);
-		initializeFinalMatchData(finalMatch);
-
-		for (int i = 0; i < SIZE; i++)
-		{
-			std::cout << "TEMS PARTICIPATED\n";
-			worldCup[i].displayTeamsParticipated();
-		}
-		system("pause");
-		system("cls");
-
-		for (int i = 0; i < SIZE; i++)
-			std::cout << worldCup[i] << std::endl;
-		std::cout << std::endl;
-
-		system("pause");
-		system("cls");
-
-		for (int i = 0; i < SIZE; i++)
-			std::cout << finalMatch[i] << std::endl;
-		std::cout << std::endl;
+		//Initializes the trees correctly
+		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, winnerTeamTable);
+		
 
 
+
+		//initializeFinalMatchData(finalMatch);
+
+		//for (int i = 0; i < SIZE; i++)
+		//{
+		//	std::cout << "TEMS PARTICIPATED\n";
+		//	worldCup[i].displayTeamsParticipated();
+		//}
+		//system("pause");
+		//system("cls");
+
+		//for (int i = 0; i < SIZE; i++)
+		//	std::cout << worldCup[i] << std::endl;
+		//std::cout << std::endl;
+
+		//system("pause");
+		//system("cls");
+
+		//for (int i = 0; i < SIZE; i++)
+		//	std::cout << finalMatch[i] << std::endl;
+		//std::cout << std::endl;
 
 
 
@@ -103,69 +107,22 @@ int main()
 	}
 
 
-	
+
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	std::cout << std::endl << std::setw(WIDTH_BTW_LINES + 10) << "" << "\"GOODBYE\"" << std::endl << std::endl << std::endl << std::endl << std::endl;
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n";
-	
+
 
 	//****************************************************************************************************************
-	//WRITE TO THE FILE
-	writeGeneralDataToTxt(worldCup, SIZE);
-	writeTeamsByYearToTxt(worldCup, SIZE);
+	// WRITE BACK TO THE FILE
+	/*writeWorldCupGeneralDataToTxt(worldCup, SIZE);
+	writeTeamsParticipatedToTxt(worldCup, SIZE);
 	writeFinalMatchDataToTxt(finalMatch, SIZE);
-	//****************************************************************************************************************
-	delete[] worldCup;
-	delete[] finalMatch;
+	*///****************************************************************************************************************
+
+	//Freeing the memory allocated
+	/*delete[] worldCup;
+	delete[] finalMatch;*/
 	system("pause");
 	return 0;
-}
-
-void initializeWorldCupData(WorldCup *worldC) 
-{
-	int index = 0;																						
-
-	std::string buffer;
-	std::ifstream finWorldCup;
-	std::ifstream finTeamsByYear;
-	finWorldCup.open("worldCupGeneralData.txt");													
-
-	if (!finWorldCup) throw "worldCupGeneralData.txt FILE COULD NOT BE OPENED"; /*2 operations*/	
-	while (getline(finWorldCup, buffer))																
-	{
-		worldC[index].readFileWorldcupData(buffer);					
-		index++;																					
-	}
-	finWorldCup.close();																			
-
-	finTeamsByYear.open("TeamsByYear.txt");														
-
-	if (!finTeamsByYear) throw "TeamsbyYear.txt FILE COULD NOT BE OPENED";							
-	index = 0;																						
-	while (getline(finTeamsByYear, buffer))
-	{
-																									
-		worldC[index].readFileTeamsByYearData(buffer);					
-		index++;																					
-	}
-	finTeamsByYear.close();																		
-}
-
-void initializeFinalMatchData(FinalMatch *finalM) 
-{
-	int index = 0;																	
-
-	std::string buffer;
-
-	std::ifstream finFinalMatch;
-	finFinalMatch.open("FinalMatchData.txt");									
-
-	if (!finFinalMatch) throw "FinalMatchData.txt FILE COULD NOT BE OPENED";	
-	while (getline(finFinalMatch, buffer))
-	{
-
-		finalM[index].readFileFinalMatchData(buffer);
-		index++;
-	}
-	finFinalMatch.close();
 }
