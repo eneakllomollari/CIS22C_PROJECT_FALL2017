@@ -19,11 +19,11 @@ void writeTeamsParticipatedToTxt(WorldCup[], const int);
 void writeFinalMatchDataToTxt(FinalMatch[], const int);
 
 //Functions that initialize the data at he beggining of the program
-void initializeWorldCupData(WorldCup *);
+void initializeWorldCupData(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&);
 void initializeFinalMatchData(FinalMatch *);
 
+void readFileWorldcupData(std::string &, Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&);
 void readFileTeamsByYearData(std::string &);
-void readFileWorldcupData(std::string &);
 
 
 

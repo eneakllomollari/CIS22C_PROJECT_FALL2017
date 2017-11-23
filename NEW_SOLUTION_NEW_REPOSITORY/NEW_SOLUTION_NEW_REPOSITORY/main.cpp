@@ -6,6 +6,11 @@
 
 int main()
 {
+	Tree<int, WorldCup> yearHeld;
+	Tree<double, WorldCup> goalsPgameTree;
+	Tree<int, WorldCup> aveAtteTree;
+	Tree<int, WorldCup> totAtteTree;
+
 	const int SIZE = 20;
 
 	int choice;
@@ -16,7 +21,22 @@ int main()
 	try
 	{
 		//Initialize the arrays
-		initializeWorldCupData(worldCup);
+		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree);
+		
+		
+		
+		
+		
+		yearHeld.displayInOrder();
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		initializeFinalMatchData(finalMatch);
 
 		for (int i = 0; i < SIZE; i++)
@@ -37,8 +57,6 @@ int main()
 		for (int i = 0; i < SIZE; i++)
 			std::cout << finalMatch[i] << std::endl;
 		std::cout << std::endl;
-
-
 
 
 
@@ -101,11 +119,11 @@ int main()
 	}
 
 
-	
+
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	std::cout << std::endl << std::setw(WIDTH_BTW_LINES + 10) << "" << "\"GOODBYE\"" << std::endl << std::endl << std::endl << std::endl << std::endl;
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n";
-	
+
 
 	//****************************************************************************************************************
 	// WRITE BACK TO THE FILE
@@ -113,6 +131,7 @@ int main()
 	writeTeamsParticipatedToTxt(worldCup, SIZE);
 	writeFinalMatchDataToTxt(finalMatch, SIZE);
 	//****************************************************************************************************************
+
 	//Freeing the memory allocated
 	delete[] worldCup;
 	delete[] finalMatch;
