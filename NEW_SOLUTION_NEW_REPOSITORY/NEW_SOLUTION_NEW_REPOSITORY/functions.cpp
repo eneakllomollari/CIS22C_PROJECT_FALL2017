@@ -118,7 +118,7 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	winnerTeamTable.put(tempWorldCup.getYearHeld(), tempWorldCup);
 }
 
-void initializeFinalMatchData(HashTable<int, FinalMatch>& yearHeld)
+void initializeFinalMatchData(HashTable<int, FinalMatch>& finalMatch_hashTable)
 {
 	int index = 0;
 
@@ -130,13 +130,13 @@ void initializeFinalMatchData(HashTable<int, FinalMatch>& yearHeld)
 	if (!finFinalMatch) throw "FinalMatchData.txt FILE COULD NOT BE OPENED";
 	while (getline(finFinalMatch, buffer))
 	{
-		readFileFinalMatchData(buffer);
+		readFileFinalMatchData(buffer, finalMatch_hashTable);
 	}
 	finFinalMatch.close();
 
 }
 
-void readFileTeamsByYearData(/*add paramters here*/)
+void readFileTeamsByYearData(std::string &line)
 {
 	line = line.substr(6);
 	std::istringstream buffer(line);
@@ -160,6 +160,58 @@ void readFileTeamsByYearData(/*add paramters here*/)
 	}*/
 }
 
+void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>& finalMatch_hashTable)
+{
+	// holds the element position of string find function
+	size_t pos, end_pos;
+
+	//Temporary Final Match object
+	FinalMatch temp_FinalMatch_object;
+
+	std::string temp1, temp2;
+	std::string buffer = line;
+
+	//set year
+	pos = buffer.find('|');
+	temp_FinalMatch_object.setYear(stoi(buffer.substr(0, pos - 1)));
+
+	// sets team 1 and team 2
+	buffer = buffer.substr(7);
+	pos = buffer.find(',');
+	temp1 = buffer.substr(0, pos);
+	buffer = buffer.substr(pos + 2);
+	end_pos = buffer.find('.');
+	temp2 = buffer.substr(0, end_pos);
+	temp_FinalMatch_object.setTeams(temp1, temp2);
+
+	// set results
+	pos = buffer.find('|');
+	buffer = buffer.substr(pos + 2);
+	temp1 = buffer.substr(0, 5);
+	end_pos = buffer.find(')');
+
+	if (buffer[6] == '(') {
+		temp1 += buffer.substr(5, end_pos - 4);
+	}
+	temp_FinalMatch_object.setResult(temp1);
+
+	// set stadium
+	pos = buffer.find('|');
+	buffer = buffer.substr(pos + 2);
+	end_pos = buffer.find('.');
+	temp_FinalMatch_object.setStadium(buffer.substr(0, end_pos));
+
+	// set city
+	pos = buffer.find('|');
+	buffer = buffer.substr(pos + 2);
+	end_pos = buffer.find('.');
+	temp_FinalMatch_object.setCity(buffer.substr(0, end_pos));
+
+	//Store data in HashTable
+	//Key = yearHeld
+	//Data = FinalMatch
+	finalMatch_hashTable.put(temp_FinalMatch_object.getYear(), temp_FinalMatch_object);
+}
 
 //************************************************************************************************************************************************************************************************
 //************************************************************************************************************************************************************************************************
