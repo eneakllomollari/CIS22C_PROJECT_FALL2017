@@ -26,47 +26,6 @@ int main()
 		//Initialize data into HashTable from "FinalMatch.txt" file
 		initializeFinalMatchData(finalMatchData);
 
-		//TESTING TESTING BELOW
-		std::cout << "TESTING HASH TABLE FOR FINAL MATCH BELOW: " << std::endl;
-		int key_choice;
-		std::cout << "Enter Year/Key: ";
-		std::cin >> key_choice;
-		FinalMatch FinalMatch_returned = finalMatchData.get(key_choice);
-		std::cout << "DISPLAYING INFORMATION BELOW: " << std::endl;
-		std::cout << FinalMatch_returned << std::endl;
-
-		//TESTING TESTING BELOW
-		std::cout << std::endl;
-		std::cout << "Number of items in *WORLD CUP* hash table:    " << worldCupData.size() << std::endl;
-		std::cout << "Load factor *WORLD CUP* :                      " << worldCupData.getLoadFactor() << std::endl;
-	
-		std::cout << std::endl;
-		std::cout << "# of items *FINAL MATCH* Hash Table: " << finalMatchData.size() << std::endl;
-		std::cout << "Load Factor *FINAL MATCH* Hash Table: " << finalMatchData.getLoadFactor() << std::endl;
-		
-		//initializeFinalMatchData(finalMatch);
-
-		//for (int i = 0; i < SIZE; i++)
-		//{
-		//	std::cout << "TEMS PARTICIPATED\n";
-		//	worldCup[i].displayTeamsParticipated();
-		//}
-		//system("pause");
-		//system("cls");
-
-		//for (int i = 0; i < SIZE; i++)
-		//	std::cout << worldCup[i] << std::endl;
-		//std::cout << std::endl;
-
-		//system("pause");
-		//system("cls");
-
-		//for (int i = 0; i < SIZE; i++)
-		//	std::cout << finalMatch[i] << std::endl;
-		//std::cout << std::endl;
-
-
-
 		//MENU STARTS HERE 
 		// MAKE THIS A FUNCTION
 		//MAIN MENU OF THE PROGRAM
