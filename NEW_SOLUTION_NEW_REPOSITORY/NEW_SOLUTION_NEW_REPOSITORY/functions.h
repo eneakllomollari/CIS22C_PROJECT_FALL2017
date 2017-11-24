@@ -9,6 +9,7 @@
 #include <iomanip>
 #include "WorldCup.h"
 #include "FinalMatch.h"
+#include "TeamsParticipated.h"
 #include "Tree.h"
 #include "HashTable.h"
 
@@ -16,11 +17,11 @@ const int WIDTH_BTW_LINES = 50;
 
 
 //Functions that initialize the data at he beggining of the program
-void initializeWorldCupData(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&);
+void initializeWorldCupData(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&, HashTable<int, TeamsParticipated>&);
 void initializeFinalMatchData();
 
 void readFileWorldcupData(std::string &, Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&);
-void readFileTeamsByYearData(std::string &);
+void readFileTeamsByYearData(std::string &, HashTable<int, TeamsParticipated>&);
 
 
 

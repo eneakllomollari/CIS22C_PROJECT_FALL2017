@@ -13,43 +13,16 @@ int main()
 
 	//Declaring the hash tables
 	HashTable<int, WorldCup> worldCupData;				//APPARENTLY WORKS FINE
+	HashTable<int, TeamsParticipated> teamsByYear;		//NOT TESTED YET
 
 	int choice;
 
 	try
 	{
 		//Initializes the trees correctly
-		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData);
-		
-
-		
-
-		std::cout << std::endl;
-		std::cout << "Number of items in hash table:    " << worldCupData.size() << std::endl;
-		std::cout << "Load factor:                      " << worldCupData.getLoadFactor() << std::endl;
+		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, teamsByYear);
+			
 	
-		//initializeFinalMatchData(finalMatch);
-
-		//for (int i = 0; i < SIZE; i++)
-		//{
-		//	std::cout << "TEMS PARTICIPATED\n";
-		//	worldCup[i].displayTeamsParticipated();
-		//}
-		//system("pause");
-		//system("cls");
-
-		//for (int i = 0; i < SIZE; i++)
-		//	std::cout << worldCup[i] << std::endl;
-		//std::cout << std::endl;
-
-		//system("pause");
-		//system("cls");
-
-		//for (int i = 0; i < SIZE; i++)
-		//	std::cout << finalMatch[i] << std::endl;
-		//std::cout << std::endl;
-
-
 
 		//MENU STARTS HERE 
 		// MAKE THIS A FUNCTION

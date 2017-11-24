@@ -3,10 +3,6 @@
 #include <iostream>
 #include <fstream>
 
-//void WorldCup::setNumOfTeamsParticipated(int s)
-//{
-//	numOfTeamsParticipated = s;
-//}
 
 void WorldCup::setWinningTeam(std::string s)
 {
@@ -48,17 +44,12 @@ void WorldCup::setGoalsPGame(double gpg)
 	goalsPerGame = gpg;
 }
 
-//void WorldCup::setTeamsParticipatedArray(int size)
-//{
-//	this->teamsParticipated = new std::string[size];
-//}
 
 WorldCup::WorldCup()
 {
 	this->winningTeam = "DEFAULT TEAM";
 	this->goldenBootWinner = "DEFAULT PLAYER";
 	this->hostCountry = "DEFAULT COUNTRY";
-	//this->teamsParticipated = nullptr;
 	this->goalsPerGame = 0.0;
 	this->aveAtt = 0;
 	this->totAtt = 0;
@@ -68,18 +59,8 @@ WorldCup::WorldCup()
 
 WorldCup::~WorldCup()
 {
-	//delete[] teamsParticipated;
 }
 
-//void WorldCup::displayTeamsParticipated()
-//{
-//	std::cout << yearHeld << std::endl;
-//	for (int i = 0; i < numOfTeamsParticipated; i++)
-//		std::cout << teamsParticipated[i] << std::endl;
-//
-//	system("pause");
-//	system("CLS");
-//}
 
 std::string WorldCup::getWinningTeam() const
 {
@@ -96,10 +77,6 @@ std::string WorldCup::getHostCountry() const
 	return hostCountry;
 }
 
-//int WorldCup::getNumOfTeamsParticipated() const
-//{
-//	return numOfTeamsParticipated;
-//}
 
 int WorldCup::getAveAtt() const
 {

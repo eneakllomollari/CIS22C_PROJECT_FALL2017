@@ -114,6 +114,7 @@
     <ClCompile Include="FinalMatch.cpp" />
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TeamsParticipated.cpp" />
     <ClCompile Include="WorldCup.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +124,7 @@
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedNode.h" />
+    <ClInclude Include="TeamsParticipated.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TreeNode.h" />
     <ClInclude Include="WorldCup.h" />

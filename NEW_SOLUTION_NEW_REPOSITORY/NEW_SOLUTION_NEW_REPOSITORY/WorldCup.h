@@ -20,8 +20,6 @@ public:
 	WorldCup();
 	~WorldCup();
 
-	void displayTeamsParticipated();
-
 	//void setNumOfTeamsParticipated(int);
 	void setWinningTeam(std::string);
 	void setGoldenBWinner(std::string);
@@ -30,11 +28,9 @@ public:
 	void setTotAtt(int);
 	void setYearHeld(int);
 	void setNumGames(int);
-	void setTeamsParticipatedArray(int size);
 	void setGoalsPGame(double);
 
-	void readFileWorldcupData(std::string &line);
-	void readFileTeamsByYearData(std::string &line);
+	
 	void outputFileWorldcupData();
 	void outputFileTeamsParticipated();
 

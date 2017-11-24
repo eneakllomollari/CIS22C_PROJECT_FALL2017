@@ -22,7 +22,7 @@
 
 
 void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT,
-	Tree<int, WorldCup>& totalAtt,Tree<int,WorldCup>&numGames ,HashTable<int, WorldCup>&winnerTeamTable)
+	Tree<int, WorldCup>& totalAtt, Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&winnerTeamTable, HashTable<int, TeamsParticipated>&teamsParticTable)
 {
 	int index = 0;
 
@@ -31,7 +31,7 @@ void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup
 	std::ifstream finTeamsByYear;
 	finWorldCup.open("worldCupGeneralData.txt");
 	if (!finWorldCup) throw "worldCupGeneralData.txt FILE COULD NOT BE OPENED"; /*2 operations*/
-	
+
 	while (getline(finWorldCup, buffer))
 		readFileWorldcupData(buffer, yearHeld, gpgT, aveAttT, totalAtt, numGames, winnerTeamTable);	//This is the function that initializes everything, 
 	finWorldCup.close();
@@ -41,12 +41,9 @@ void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup
 
 	if (!finTeamsByYear) throw "TeamsbyYear.txt FILE COULD NOT BE OPENED";
 	index = 0;
-	while (getline(finTeamsByYear, buffer))
-	{
 
-		/*worldC[index].*/readFileTeamsByYearData(buffer);
-		index++;
-	}
+	while (getline(finTeamsByYear, buffer))
+		readFileTeamsByYearData(buffer, teamsParticTable);
 	finTeamsByYear.close();
 }
 
@@ -137,8 +134,13 @@ void initializeFinalMatchData(/*add parameters here*/)
 	finFinalMatch.close();
 }
 
-void readFileTeamsByYearData(/*add paramters here*/)
+void readFileTeamsByYearData(std::string& line, HashTable<int,TeamsParticipated>& teamsParticTable)
 {
+	std::string *tempArray_Teams;
+	int numTeamsParticipated;
+	
+	int yearHeld = std::stoi(line.substr(0, 4));
+	
 	line = line.substr(6);
 	std::istringstream buffer(line);
 	std::string temp;
@@ -149,16 +151,18 @@ void readFileTeamsByYearData(/*add paramters here*/)
 		if (i == ',') size++;
 	size += 1;
 
-	//numOfTeamsParticipated = size;
+	numTeamsParticipated = size;
+	tempArray_Teams = new std::string[numTeamsParticipated];
 
-	//setTeamsParticipatedArray(size);
 	int index = 0;
-	/*while (getline(buffer, temp, ','))
+	while (getline(buffer, temp, ','))
 	{
-	temp = temp.substr(1);
-	teamsParticipated[index] = temp;
-	index++;
-	}*/
+		temp = temp.substr(1);
+		tempArray_Teams[index] = temp;
+		index++;
+	}
+	TeamsParticipated tempTeams_Object(numTeamsParticipated, tempArray_Teams);
+	teamsParticTable.put(yearHeld, tempTeams_Object);
 }
 
 
