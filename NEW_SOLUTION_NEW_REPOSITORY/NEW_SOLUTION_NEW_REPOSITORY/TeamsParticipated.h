@@ -11,6 +11,9 @@ public:
 	TeamsParticipated();
 	TeamsParticipated(int, std::string *);
 
+	int getNumTeams()const;
+	std::string *getTeamsArr()const;
+
 	friend std::ostream& operator<<(std::ostream&, const TeamsParticipated&);
 };
 

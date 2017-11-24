@@ -1,5 +1,4 @@
 #include "FinalMatch.h"
-#include <fstream>
 #include <iomanip>
 
 void FinalMatch::setYear(int y)
@@ -28,71 +27,10 @@ void FinalMatch::setCity(std::string c)
 	city = c;
 }
 
-void FinalMatch::readFileFinalMatchData(std::string &line)
-{
-	// holds the element position of string find function
-	size_t pos, end_pos;
-
-	std::string temp1, temp2;
-	std::string buffer = line;
-
-	//set year
-	pos = buffer.find('|');
-	setYear(stoi(buffer.substr(0, pos - 1)));
-
-	// sets team 1 and team 2
-	buffer = buffer.substr(7);
-	pos = buffer.find(',');
-	temp1 = buffer.substr(0, pos);
-	buffer = buffer.substr(pos + 2);
-	end_pos = buffer.find('.');
-	temp2 = buffer.substr(0, end_pos);
-	setTeams(temp1, temp2);
-
-	// set results
-	pos = buffer.find('|');
-	buffer = buffer.substr(pos + 2);
-	temp1 = buffer.substr(0, 5);
-	end_pos = buffer.find(')');
-
-	if (buffer[6] == '(') {
-		temp1 += buffer.substr(5, end_pos - 4);
-	}
-	setResult(temp1);
-
-	// set stadium
-	pos = buffer.find('|');
-	buffer = buffer.substr(pos + 2);
-	end_pos = buffer.find('.');
-	setStadium(buffer.substr(0, end_pos));
-
-	// set city
-	pos = buffer.find('|');
-	buffer = buffer.substr(pos + 2);
-	end_pos = buffer.find('.');
-	setCity(buffer.substr(0, end_pos));
-}
-
-void FinalMatch::outputFileFinalMatch()
-{
-	std::ofstream foutFM;
-
-	foutFM.open("FinalMatchData.txt", std::ofstream::app);
-
-	foutFM << std::left << year << " | ";
-	foutFM << std::left << std::setw(24) << teams[0] + ", " + teams[1] + "." << " | ";
-	foutFM << std::left << std::setw(13) << result << " | ";
-	foutFM << std::left << std::setw(28) << stadium + "." << " | ";
-	foutFM << std::left << std::setw(15) << city + "." << " |" << std::endl;
-
-	foutFM.close();
-}
-
 int FinalMatch::getYear() const
 {
 	return year;
 }
-
 
 std::string FinalMatch::getTeam1() const
 {

@@ -1,5 +1,6 @@
 #include "TeamsParticipated.h"
 #include <iomanip>
+
 TeamsParticipated::TeamsParticipated()
 {
 	numTeams = 0;
@@ -11,6 +12,16 @@ TeamsParticipated::TeamsParticipated(int s, std::string* arr)
 	numTeams = s;
 	teamsArr = new std::string[s];
 	teamsArr = arr;
+}
+
+int TeamsParticipated::getNumTeams() const
+{
+	return numTeams;
+}
+
+std::string* TeamsParticipated::getTeamsArr() const
+{
+	return teamsArr;
 }
 
 std::ostream & operator<<(std::ostream &os, const TeamsParticipated &t)

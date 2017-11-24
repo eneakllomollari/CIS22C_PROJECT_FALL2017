@@ -4,6 +4,7 @@
 int main()
 {
 	std::cout << std::fixed << std::setprecision(2);
+
 	//Declaring the trees
 	Tree<int, WorldCup> yearHeld;						//WORKS FINE
 	Tree<double, WorldCup> goalsPgameTree;				//WORKS FINE
@@ -12,19 +13,35 @@ int main()
 	Tree<int, WorldCup> numGamesTree;					//WORKS FINE
 
 	//Declaring the hash tables
-	HashTable<int, WorldCup> worldCupData;				//APPARENTLY WORKS FINE
-	HashTable<int, FinalMatch> finalMatchData;
-	HashTable<int, TeamsParticipated> teamsByYear;		//NOT TESTED YET
+	HashTable<int, WorldCup> worldCupData;				//WORKS FINE
+	HashTable<int, FinalMatch> finalMatchData;			//WORKS FINE
+	HashTable<int, TeamsParticipated> teamsByYear;		//WORKS FINE
+
 
 	int choice;
 
 	try
 	{
 		//Initializes the trees correctly
-		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData);
+		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, teamsByYear);
 		
 		//Initialize data into HashTable from "FinalMatch.txt" file
 		initializeFinalMatchData(finalMatchData);
+
+
+		std::cout << "Year held height:  " << yearHeld.getHeight() << std::endl;
+		std::cout << "Goals per game height:  " << goalsPgameTree.getHeight() << std::endl;
+		std::cout << "Average att height:  " << aveAtteTree.getHeight() << std::endl;
+		std::cout << "Totat att height:  " << totAtteTree.getHeight() << std::endl;
+		std::cout << "Num Games att height:  " << numGamesTree.getHeight() << std::endl << std::endl;
+
+		std::cout << "WorldCupData load factor: " << worldCupData.getLoadFactor() << std::endl;
+		std::cout << "finalMatchData load factor: " << finalMatchData.getLoadFactor()<< std::endl;
+		std::cout << "teamsByYear load factor: " << teamsByYear.getLoadFactor() << std::endl << std::endl;
+
+
+
+		system("pause");
 
 		//MENU STARTS HERE 
 		// MAKE THIS A FUNCTION
@@ -50,41 +67,48 @@ int main()
 			std::cout << "\n\n";
 			switch (choice)
 			{
-				case 1: yearChosen(); break;
-				case 2: add(); break;
-				case 3: remove_year(); break;
-				case 4: display_year_data(worldCupData);
+				case 1: 
+					yearChosen(); 
 					break;
-				case 5: hashtable_list();  break;
-				case 6: sort_data_by_choice(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree);
+				case 2: 
+					add();
 					break;
-				case 7: pretty_print(); break;
-				//case 8: count_efficiency(); break;
-				case 0: system("CLS"); break;
+				case 3: 
+					remove_year(); 
+					break;
+				case 4: 
+					display_year_data(worldCupData);
+					break;
+				case 5: 
+					hashtable_list();  
+					break;
+				case 6: 
+					sortDataByChoice(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree);
+					break;
+				case 7: 
+					pretty_print(); 
+					break;
+				case 0:
+					system("CLS"); break;
 				default:
 					system("CLS");
-					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl; break;
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl; 
+					break;
 			}
 			std::cin.clear();             //it takes care of the strings entered
 			std::cin.ignore(INT_MAX, '\n');
 
 			std::cout << std::endl << std::endl;
 		} while (choice != 0);	//End of main do while loop
-
-
-
 	}
 	catch (char *msg)
 	{
 		std::cout << msg << "\n";
 	}
 	catch (...)
-
 	{
 		std::cout << "DEFAULT CATCHER" << std::endl;
 	}
-
-
 
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	std::cout << std::endl << std::setw(WIDTH_BTW_LINES + 10) << "" << "\"GOODBYE\"" << std::endl << std::endl << std::endl << std::endl << std::endl;
@@ -92,15 +116,13 @@ int main()
 
 
 	//****************************************************************************************************************
-	// WRITE BACK TO THE FILE
-	/*writeWorldCupGeneralDataToTxt(worldCup, SIZE);
-	writeTeamsParticipatedToTxt(worldCup, SIZE);
-	writeFinalMatchDataToTxt(finalMatch, SIZE);
-	*///****************************************************************************************************************
+	// WRITE BACK TO THE FILES
+	finalMatchData.writeFinalMatchDataToTxt();
+	teamsByYear.writeTeamsParticipatedToTxt();
+	worldCupData.writeWorldCupGeneralDataToTxt();
+	//****************************************************************************************************************
 
-	//Freeing the memory allocated
-	/*delete[] worldCup;
-	delete[] finalMatch;*/
+	
 	system("pause");
 	return 0;
 }

@@ -18,9 +18,7 @@ public:
 	void setResult(std::string);
 	void setStadium(std::string);
 	void setCity(std::string);
-	void readFileFinalMatchData(std::string &line);
-	void outputFileFinalMatch();
-
+	
 	int getYear() const;
 	std::string getTeam1() const;
 	std::string getTeam2() const;

@@ -30,14 +30,9 @@ public:
 	void setNumGames(int);
 	void setGoalsPGame(double);
 
-	
-	void outputFileWorldcupData();
-	void outputFileTeamsParticipated();
-
 	std::string getWinningTeam() const;
 	std::string getGoldenBootWinner() const;
 	std::string getHostCountry() const;
-	//int getNumOfTeamsParticipated() const;
 	int getAveAtt() const;
 	int getTotAtt() const;
 	int getYearHeld() const;

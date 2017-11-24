@@ -1,20 +1,20 @@
 2014 | Germany   | Rodriguez          | 64 | 2.67 | 53592 | 3429873 | Brazil
-2010 | Spain     | Forlan             | 64 | 2.27 | 49670 | 3178856 | South Africa
-2006 | Italy     | Miroslav Klose     | 64 | 2.30 | 52491 | 3359439 | Germany
-2002 | Brazil    | Ronaldo            | 64 | 2.52 | 42269 | 2705197 | South Korea and Japan
-1998 | France    | Davor Suker        | 64 | 2.67 | 43517 | 2785100 | France
-1994 | Brazil    | Hristo Stoichkov   | 52 | 2.69 | 68991 | 3587538 | USA
-1990 | Germany   | Tomas Skuhravy     | 52 | 2.21 | 48389 | 2516215 | Italy
 1986 | Argentina | Gary Lineker       | 52 | 2.54 | 46039 | 2394031 | Mexico
-1982 | Italy     | Paolo Rossi        | 52 | 2.81 | 40572 | 2109723 | Spain
-1978 | Argentina | Mario Kempes       | 38 | 2.68 | 40679 | 1545791 | Argentina
-1974 | Germany   | Grzegorz Lato      | 38 | 2.55 | 49099 | 1865762 | West Germany
-1970 | Brazil    | Gerd Mueller       | 32 | 2.97 | 50127 | 1604065 | Mexico
-1966 | England   | Eusebio            | 33 | 2.79 | 48848 | 1563135 | England
-1962 | Brazil    | Garrincha          | 32 | 2.78 | 27912 | 893172  | Chile
 1958 | Brazil    | Just Fontaine      | 35 | 3.60 | 23423 | 819810  | Sweden
-1954 | Germany   | Sandor Kocsis      | 26 | 5.38 | 29562 | 768607  | Switzerland
-1950 | Uruguay   | Ademir             | 23 | 4.04 | 47511 | 1045246 | Brazil
-1938 | Italy     | Leonidas           | 18 | 4.67 | 20872 | 375000  | France
-1934 | Italy     | Oldrich Nejedly    | 17 | 4.12 | 21353 | 363000  | Italy
+2002 | Brazil    | Ronaldo            | 64 | 2.52 | 42269 | 2705197 | South Korea and Japan
 1930 | Uruguay   | Guillermo Staibile | 18 | 3.89 | 32808 | 590549  | Uruguay
+1974 | Germany   | Grzegorz Lato      | 38 | 2.55 | 49099 | 1865762 | West Germany
+1990 | Germany   | Tomas Skuhravy     | 52 | 2.21 | 48389 | 2516215 | Italy
+1962 | Brazil    | Garrincha          | 32 | 2.78 | 27912 | 893172  | Chile
+2006 | Italy     | Miroslav Klose     | 64 | 2.30 | 52491 | 3359439 | Germany
+1934 | Italy     | Oldrich Nejedly    | 17 | 4.12 | 21353 | 363000  | Italy
+1978 | Argentina | Mario Kempes       | 38 | 2.68 | 40679 | 1545791 | Argentina
+1950 | Uruguay   | Ademir             | 23 | 4.04 | 47511 | 1045246 | Brazil
+1994 | Brazil    | Hristo Stoichkov   | 52 | 2.69 | 68991 | 3587538 | USA
+1966 | England   | Eusebio            | 33 | 2.79 | 48848 | 1563135 | England
+2010 | Spain     | Forlan             | 64 | 2.27 | 49670 | 3178856 | South Africa
+1938 | Italy     | Leonidas           | 18 | 4.67 | 20872 | 375000  | France
+1982 | Italy     | Paolo Rossi        | 52 | 2.81 | 40572 | 2109723 | Spain
+1954 | Germany   | Sandor Kocsis      | 26 | 5.38 | 29562 | 768607  | Switzerland
+1998 | France    | Davor Suker        | 64 | 2.67 | 43517 | 2785100 | France
+1970 | Brazil    | Gerd Mueller       | 32 | 2.97 | 50127 | 1604065 | Mexico
