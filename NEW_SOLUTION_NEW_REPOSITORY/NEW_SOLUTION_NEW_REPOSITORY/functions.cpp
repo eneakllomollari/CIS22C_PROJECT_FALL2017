@@ -1,81 +1,152 @@
 #include "functions.h"
 
+/*
+	Pre: This function requires the addresses of multiple Trees to initialize data into.
+		-Trees needed to be passed(All Have "WorldCup" Object Data in TreeNodes)
+			1) yearHeld (Key: Year World Cup Held)
+			2) gpgT (Key: Goals Per Game)
+			3) aveAttT (Key: Average Attendance World Cup)
+			4) totalAtt (Key: Total Attendance World Cup)
+			5) numGames (Key: Number of Games During World Cup)
 
+	Also, it expects two HashTable references as Input
+		-HashTables Contain Data of WorldCup and TeamsParticipated
+			1) winnerTeamTable, TeamsPariticpated Hashtables (Key: Year World Cup Held)
+
+	Post: Upon completion, this function will initialize the data into the respective Trees and Hashtables passed into it.
+
+	SIDE NOTES: Initialization functions use Read Functions as Helpers
+
+*/
 void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT,
 	Tree<int, WorldCup>& totalAtt, Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&winnerTeamTable, HashTable<int, TeamsParticipated>&teamsParticTable)
 {
-	int index = 0;
-
+	//Declare Local Variables/Objects
 	std::string buffer;
 	std::ifstream finWorldCup;
 	std::ifstream finTeamsByYear;
+	
+	//Open file for reading
 	finWorldCup.open("worldCupGeneralData.txt");
-	if (!finWorldCup) throw "worldCupGeneralData.txt FILE COULD NOT BE OPENED"; /*2 operations*/
 
+	//If the file is unable to open, then throw an error
+	if (!finWorldCup) throw "worldCupGeneralData.txt FILE COULD NOT BE OPENED IN initializeWorldCupData()"; /*2 operations*/
+
+	//Read the file line by line and initialize data
 	while (getline(finWorldCup, buffer))
-		readFileWorldcupData(buffer, yearHeld, gpgT, aveAttT, totalAtt, numGames, winnerTeamTable);	//This is the function that initializes everything, 
+		readFileWorldcupData(buffer, yearHeld, gpgT, aveAttT, totalAtt, numGames, winnerTeamTable);
+	
+	//Close the ifstream object
 	finWorldCup.close();
 
-	//Here starts the teams by year function that needs to be done similar to the previous one
+	//*************************************
+	
+	//Open second file for reading
 	finTeamsByYear.open("TeamsByYear.txt");
 
-	if (!finTeamsByYear) throw "TeamsbyYear.txt FILE COULD NOT BE OPENED";
-	index = 0;
+	//If the file couldn't be opened throw an error
+	if (!finTeamsByYear) throw "TeamsbyYear.txt FILE COULD NOT BE OPENED IN initializeWorldCupData()" ;
 
+	//Read the file line by line and initialize data
 	while (getline(finTeamsByYear, buffer))
 		readFileTeamsByYearData(buffer, teamsParticTable);
+
+	//Close the ifstream object
 	finTeamsByYear.close();
 }
 
+
+
+/*
+	Pre: This function expects a reference of a HashTable(Key: Year World Cup, Data: FinalMatch Object)
+
+	Post: Upon Completion, this function will initialize the finalMatch data into referenced HashTable
+
+	SIDE NOTES: Initialization functions use Read Functions as Helpers
+*/
 void initializeFinalMatchData(HashTable<int, FinalMatch>& finalMatch_hashTable)
 {
-	int index = 0;
-
+	//Declare local variables/objects
 	std::string buffer;
-
 	std::ifstream finFinalMatch;
+
+	//Open file for input
 	finFinalMatch.open("FinalMatchData.txt");
 
-	if (!finFinalMatch) throw "FinalMatchData.txt FILE COULD NOT BE OPENED";
+	//If file is unable to open throw error
+	if (!finFinalMatch) throw "FinalMatchData.txt FILE COULD NOT BE OPENED IN initializeFinalMatchData()";
+
+	//Read file line by line and initialize data
 	while (getline(finFinalMatch, buffer))
 	{
 		readFileFinalMatchData(buffer, finalMatch_hashTable);
 	}
+
+	//Close ifstream object
 	finFinalMatch.close();
 
 }
 
+
+
+
+/*
+	Pre: Reference to String and reference to HashTable(Key: Year World Cup, Data: TeamsParticipated Object)
+
+	Post: Upon completion, this function will have read and stored data into "teamsParticTable" HashTable with (Key: Year World Cup, Data: TeamsParticipated Object)
+
+*/
 void readFileTeamsByYearData(std::string& line, HashTable<int,TeamsParticipated>& teamsParticTable)
 {
-	std::string *tempArray_Teams;
-	int numTeamsParticipated;
+	//Declare local variables/objects
+	int  size = 0, numTeamsParticipated, index = 0;
+	std::string *tempArray_Teams, temp;
 	
+	//Convert the string input YearHeld to an integer value
 	int yearHeld = std::stoi(line.substr(0, 4));
-	
-	line = line.substr(6);
-	std::istringstream buffer(line);
-	std::string temp;
-	int  size = 0;
 
-	// checks size 
+	//Line now stores the year of the World Cup
+	line = line.substr(6);
+
+	std::istringstream buffer(line);
+
+	//Calculates the # of Teams Participated
 	for (auto &i : line)
 		if (i == ',') size++;
 	size += 1;
 
+	//Set the number of teams after caluclation
 	numTeamsParticipated = size;
+
+	//Dynamically allocated array of strings
 	tempArray_Teams = new std::string[numTeamsParticipated];
 
-	int index = 0;
+	//Store the teams between commas into "Temp" string
 	while (getline(buffer, temp, ','))
 	{
 		temp = temp.substr(1);
 		tempArray_Teams[index] = temp;
 		index++;
 	}
+
+	//Create temporary TeamsParticipated object
 	TeamsParticipated tempTeams_Object(numTeamsParticipated, tempArray_Teams);
+
+	//"Put" tempTeams_Object with all the teams participated for 
+	//a specific year into teamsParticTable HashTable
 	teamsParticTable.put(yearHeld, tempTeams_Object);
+
+	//Delete Pointer to Dynamically Allocated array of strings
+	delete[] tempArray_Teams;
 }
 
+
+
+/*
+	Pre: A reference to a string object, and a reference to a HashTable(Key: Year World Cup, Data: FinalMatch Object)
+
+	Post: Upon Completion, this function will have read and stored data into the finalMatch_hashTable
+*/
 void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>& finalMatch_hashTable)
 {
 	// holds the element position of string find function
@@ -129,6 +200,24 @@ void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>& final
 	finalMatch_hashTable.put(temp_FinalMatch_object.getYear(), temp_FinalMatch_object);
 }
 
+
+
+
+/*
+	Pre: This function requires the addresses of multiple Trees to store data into.
+		-Trees needed to be passed(All Have "WorldCup" Object Data in TreeNodes)
+			1) yearHeld (Key: Year World Cup Held)
+			2) gpgT (Key: Goals Per Game)
+			3) aveAttT (Key: Average Attendance World Cup)
+			4) totalAtt (Key: Total Attendance World Cup)
+			5) numGames (Key: Number of Games During World Cup)
+
+	Also, it expects two HashTable references as Input
+		-HashTables Contain Data of WorldCup and TeamsParticipated
+			1) winnerTeamTable, TeamsPariticpated Hashtables (Key: Year World Cup Held)
+
+	Post: Upon completion, this function will have read and stored the data into the respective Trees and Hashtables passed into it.
+*/
 void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt,
 	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>& winnerTeamTable)
 {
@@ -197,15 +286,26 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	winnerTeamTable.put(tempWorldCup.getYearHeld(), tempWorldCup);
 }
 
+/*
+	Pre: N/A
 
+	Post: Upon successful completion, this function will display the World Cup Years to user
+
+	!%@^@#%@$^  THIS CODE NEEDS TO BE FIXED !&@%$^$@*#^^ 
+	It is using useless recursion. 
+
+*/
 void yearChosen()
 {
+	//Declare Local Variables Objects
 	int choiceYear;
 
 	//First do while loop
 	do {
+		//Clear Screen
 		system("CLS");
 
+		//Display Years to User and ask for their choice
 		std::cout << std::setw(WIDTH_BTW_LINES + 2) << "" << "Years a world cup was held on:\n\n";
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1)  1930\t\t\t2)  1934\n";
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3)  1938\t\t\t4)  1950\n";
@@ -218,60 +318,80 @@ void yearChosen()
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "17) 2002\t\t\t18) 2006\n";
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "19) 2010\t\t\t20) 2014\n";
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0) EXIT\n";
-
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice: ";
 		std::cin >> choiceYear;
+		
+		//Skip lines for aesthetics
 		std::cout << "\n\n";
+
+		//Run user choice through swtich statement and run appropriate code
 		switch (choiceYear)
 		{
-		case 1:yearChosen(); break;
-		case 2:yearChosen(); break;
-		case 3:yearChosen(); break;
-		case 4:yearChosen(); break;
-		case 5:yearChosen(); break;
-		case 6:yearChosen(); break;
-		case 7:yearChosen(); break;
-		case 8:yearChosen(); break;
-		case 9:yearChosen(); break;
-		case 10:yearChosen(); break;
-		case 11:yearChosen(); break;
-		case 12:yearChosen(); break;
-		case 13:yearChosen(); break;
-		case 14:yearChosen(); break;
-		case 15:yearChosen(); break;
-		case 16:yearChosen(); break;
-		case 17:yearChosen(); break;
-		case 18:yearChosen(); break;
-		case 19:yearChosen(); break;
-		case 20:yearChosen(); break;
-		case 0:	system("CLS"); break;
-		default: 	system("CLS");
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please choose between 1 - 20!" << std::endl; break;
-			system("CLS");
-		}
-		std::cin.clear();					//it takes care of the strings entered
+			case 1:yearChosen(); break;
+			case 2:yearChosen(); break;
+			case 3:yearChosen(); break;
+			case 4:yearChosen(); break;
+			case 5:yearChosen(); break;
+			case 6:yearChosen(); break;
+			case 7:yearChosen(); break;
+			case 8:yearChosen(); break;
+			case 9:yearChosen(); break;
+			case 10:yearChosen(); break;
+			case 11:yearChosen(); break;
+			case 12:yearChosen(); break;
+			case 13:yearChosen(); break;
+			case 14:yearChosen(); break;
+			case 15:yearChosen(); break;
+			case 16:yearChosen(); break;
+			case 17:yearChosen(); break;
+			case 18:yearChosen(); break;
+			case 19:yearChosen(); break;
+			case 20:yearChosen(); break;
+			case 0:	system("CLS"); break;
+			default: 	system("CLS");
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please choose between 1 - 20!" << std::endl; 
+				system("CLS");
+				break;
+		 }//END SWITCH
+
+		 //it takes care of the strings entered
+		std::cin.clear();					
 		std::cin.ignore(INT_MAX, '\n');
+
+
 	} while (choiceYear != 0);	//End of main do while loop
 
-	system("CLS");              //it makes the UI cleaner
+	//Clear Screen
+	//it makes the UI cleaner
+	system("CLS");              
 }
 
+
+
+
+/*
+	Pre: N/A
+
+	Post:
+
+
+	!^^@%@$%^ THIS CODE NEEDS FIXING.... LOOK NEAR END.... !^%^$@%^$@%@$
+*/
 void add()
 {
 	//*******************************************************************************************
 	//The user should be given a choice to exit in the middle of entering the data
 	//*******************************************************************************************
+
+	//Declare local variables/constants/arrays
 	const int MAX_NUM_TEAMS = 50;
-	int year;
-	int numberOfTeams;
-	int goalScoredFirstTeam, goalScoredSecondTeam;
+	int year, numberOfTeams, goalScoredFirstTeam, goalScoredSecondTeam;
 	std::string teams[MAX_NUM_TEAMS];
-	std::string FirstTeamFinalMatch, SecondteamFinalMatch;
-	std::string stadiumName;
-	std::string cityHost;
+	std::string FirstTeamFinalMatch, SecondteamFinalMatch, stadiumName, cityHost;
 
-
+	//Run entire code in "Try" Block #ExceptionHandling
 	try {
+		//Clear Screen
 		system("CLS");
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year: " << "                            ";
@@ -319,6 +439,11 @@ void add()
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the city that hosted the Final match: ";
 		getline(std::cin, cityHost);
 		std::cin.ignore(INT_MAX, '\n');
+
+		//Need to store into temporary object of some sort
+
+
+		//Push into trees and Hashtables
 	}
 	catch (char *msg)
 	{
@@ -413,7 +538,7 @@ void hashtable_list()
 	//call hashtable file io function (get data from txt, put into hashtable)
 }
 
-void sort_data_by_choice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree)
+void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree)
 {
 	int user_choice;
 	system("CLS");

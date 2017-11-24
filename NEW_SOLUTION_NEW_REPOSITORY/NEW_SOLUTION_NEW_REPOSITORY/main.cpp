@@ -28,8 +28,8 @@ int main()
 		//Initialize data into HashTable from "FinalMatch.txt" file
 		initializeFinalMatchData(finalMatchData);
 
-
-		std::cout << "Year held height:  " << yearHeld.getHeight() << std::endl;
+		//THIS WAS JUST FOR TESTING PURPOSES CAN BE DELETED
+		/*std::cout << "Year held height:  " << yearHeld.getHeight() << std::endl;
 		std::cout << "Goals per game height:  " << goalsPgameTree.getHeight() << std::endl;
 		std::cout << "Average att height:  " << aveAtteTree.getHeight() << std::endl;
 		std::cout << "Totat att height:  " << totAtteTree.getHeight() << std::endl;
@@ -38,10 +38,9 @@ int main()
 		std::cout << "WorldCupData load factor: " << worldCupData.getLoadFactor() << std::endl;
 		std::cout << "finalMatchData load factor: " << finalMatchData.getLoadFactor()<< std::endl;
 		std::cout << "teamsByYear load factor: " << teamsByYear.getLoadFactor() << std::endl << std::endl;
-
-
-
 		system("pause");
+		*/
+
 
 		//MENU STARTS HERE 
 		// MAKE THIS A FUNCTION
