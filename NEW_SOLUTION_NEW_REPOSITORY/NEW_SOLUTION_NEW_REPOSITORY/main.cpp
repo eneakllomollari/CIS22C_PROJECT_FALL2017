@@ -13,6 +13,7 @@ int main()
 
 	//Declaring the hash tables
 	HashTable<int, WorldCup> worldCupData;				//APPARENTLY WORKS FINE
+	HashTable<int, FinalMatch> finalMatchData;
 
 	int choice;
 
@@ -20,6 +21,7 @@ int main()
 	{
 		//Initializes the trees correctly
 		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData);
+		initializeFinalMatchData(finalMatchData);
 		
 
 		

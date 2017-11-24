@@ -118,7 +118,7 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	winnerTeamTable.put(tempWorldCup.getYearHeld(), tempWorldCup);
 }
 
-void initializeFinalMatchData(/*add parameters here*/)
+void initializeFinalMatchData(HashTable<int, FinalMatch>& yearHeld)
 {
 	int index = 0;
 
@@ -130,11 +130,10 @@ void initializeFinalMatchData(/*add parameters here*/)
 	if (!finFinalMatch) throw "FinalMatchData.txt FILE COULD NOT BE OPENED";
 	while (getline(finFinalMatch, buffer))
 	{
-
-		///*finalM[index].*/readFileFinalMatchData(buffer);
-		index++;
+		readFileFinalMatchData(buffer);
 	}
 	finFinalMatch.close();
+
 }
 
 void readFileTeamsByYearData(/*add paramters here*/)
