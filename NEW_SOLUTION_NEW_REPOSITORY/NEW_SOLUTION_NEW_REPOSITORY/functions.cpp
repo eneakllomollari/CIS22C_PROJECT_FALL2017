@@ -413,7 +413,7 @@ void hashtable_list()
 	//call hashtable file io function (get data from txt, put into hashtable)
 }
 
-void sort_data_by_choice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree)
+void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree)
 {
 	int user_choice;
 	system("CLS");
@@ -535,5 +535,3 @@ void remove_year()
 		// call bst.remove(value)
 	} while (choiceYear != 0);
 }
-
-

@@ -8,7 +8,6 @@ private:
 	std::string winningTeam;
 	std::string goldenBootWinner;
 	std::string hostCountry;
-	//std::string *teamsParticipated;
 	double goalsPerGame;
 
 	long int totAtt;
@@ -20,7 +19,6 @@ public:
 	WorldCup();
 	~WorldCup();
 
-	//void setNumOfTeamsParticipated(int);
 	void setWinningTeam(std::string);
 	void setGoldenBWinner(std::string);
 	void setHostCountry(std::string);

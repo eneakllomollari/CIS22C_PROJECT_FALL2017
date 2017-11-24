@@ -57,7 +57,6 @@ LinkedList<T>::LinkedList()
 	eff_counter+=2;
 }
 
-
 /**
 Description:  Constructor
 Pre :	list object
@@ -107,7 +106,6 @@ LinkedList<T>::LinkedList(const LinkedList<T>& aList)
 	}//end if
 }//end of copy constructor
 
-
  /**
  Description: Virtual Destructor
  Pre :	None
@@ -120,7 +118,6 @@ LinkedList<T>::~LinkedList()
 	eff_counter++;
 }
 
-
 /**
 Description:	Sees whether the list is empty
 Pre: None
@@ -132,7 +129,6 @@ bool LinkedList<T>::isEmpty() const
 	return counter == 0;
 	eff_counter++;
 }
-
 
 /**
 Description: Get the number of times a LinkedNode is present in the list
@@ -151,7 +147,6 @@ void LinkedList<T>::displayList() const
 		eff_counter += 2;
 	}
 }
-
 
 template<class T>
 int LinkedList<T>::getFrequencyOf(const T & anEntry) const
@@ -191,7 +186,6 @@ void LinkedList<T>::clear()
 	//LinkedNodeToDel = nullptr;
 	counter = 0;
 }
-
 
 /**
 Description: Return the size of the list
@@ -278,7 +272,6 @@ bool LinkedList<T>::deleteFirst()
 	eff_counter += 5;
 }
 
-
 /**
 Description: Insert LinkedNode in the list
 Pre :	LinkedNode to be inserted
@@ -332,7 +325,6 @@ void LinkedList<T>::insertLinkedNode(const T LinkedNodeToInsert)
 	counter++;
 	eff_counter++;
 }
-
 
 /**
 Description: Insert LinkedNode to the first position in the list

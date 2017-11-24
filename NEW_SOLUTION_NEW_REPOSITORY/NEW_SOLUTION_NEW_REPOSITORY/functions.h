@@ -30,8 +30,8 @@ void add();
 void display_year_data(HashTable<int, WorldCup>);
 void hashtable_list();
 void sortDataByChoice(Tree<int, WorldCup>, Tree<double, WorldCup>, Tree<int, WorldCup>, Tree<int, WorldCup>, Tree<int, WorldCup>);		
-void descending_sort();				
-int count_efficiency();				
+//void descending_sort();				
+//int count_efficiency();				
 void pretty_print();				
 void remove_year();					
 
