@@ -103,44 +103,6 @@ double WorldCup::getGoalsPerGame() const
 	return goalsPerGame;
 }
 
-void WorldCup::outputFileWorldcupData()
-{
-	std::ofstream foutWC;
-
-	foutWC.open("worldCupGeneralData.txt", std::ofstream::app);
-
-	foutWC << std::fixed << std::setprecision(2);
-	foutWC << std::left << yearHeld << " | ";
-	foutWC << std::left << std::setw(9) << winningTeam << " | ";
-	foutWC << std::left << std::setw(18) << goldenBootWinner << " | ";
-	foutWC << std::left << numberOfGamesPlayed << " | ";
-	foutWC << std::left << std::setw(4) << goalsPerGame << " | ";
-	foutWC << std::left << aveAtt << " | ";
-	foutWC << std::left << std::setw(7) << totAtt << " | ";
-	foutWC << std::left << hostCountry << std::endl;
-
-	foutWC.close();
-}
-
-//void WorldCup::outputFileTeamsParticipated()
-//{
-//	std::ofstream foutTY;
-//
-//	foutTY.open("TeamsByYear.txt", std::ofstream::app);
-//
-//	foutTY << std::left << yearHeld << " | ";
-//	for (int i = 0; i < numOfTeamsParticipated; i++) {
-//		if (i == numOfTeamsParticipated - 1)
-//			foutTY << teamsParticipated[i];
-//		else
-//			foutTY << teamsParticipated[i] << ", ";
-//	}
-//
-//	foutTY << std::endl;
-//
-//	foutTY.close();
-//}
-
 std::ostream & operator<<(std::ostream & os, const WorldCup &wC)
 {
 	//Written by Kamaljot Saini
@@ -152,6 +114,7 @@ std::ostream & operator<<(std::ostream & os, const WorldCup &wC)
 	os << std::left << std::setw(6) << wC.getGoalsPerGame();
 	os << std::left << std::setw(8) << wC.getAveAtt();
 	os << std::left << std::setw(10) << wC.getTotAtt();
+	os << std::left << std::setw(10) << wC.getHostCountry();
 
 	return os;
 }
