@@ -1,5 +1,4 @@
 #include "TeamsParticipated.h"
-#include <iomanip>
 
 TeamsParticipated::TeamsParticipated()
 {

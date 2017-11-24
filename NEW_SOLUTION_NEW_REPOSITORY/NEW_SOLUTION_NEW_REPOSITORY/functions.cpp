@@ -660,5 +660,3 @@ void remove_year()
 		// call bst.remove(value)
 	} while (choiceYear != 0);
 }
-
-

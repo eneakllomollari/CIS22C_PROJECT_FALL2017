@@ -121,7 +121,6 @@ int main()
 	worldCupData.writeWorldCupGeneralDataToTxt();
 	//****************************************************************************************************************
 
-	
 	system("pause");
 	return 0;
 }

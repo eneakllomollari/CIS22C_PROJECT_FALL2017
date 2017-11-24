@@ -44,7 +44,6 @@ void WorldCup::setGoalsPGame(double gpg)
 	goalsPerGame = gpg;
 }
 
-
 WorldCup::WorldCup()
 {
 	this->winningTeam = "DEFAULT TEAM";
@@ -61,7 +60,6 @@ WorldCup::~WorldCup()
 {
 }
 
-
 std::string WorldCup::getWinningTeam() const
 {
 	return winningTeam;
@@ -76,7 +74,6 @@ std::string WorldCup::getHostCountry() const
 {
 	return hostCountry;
 }
-
 
 int WorldCup::getAveAtt() const
 {

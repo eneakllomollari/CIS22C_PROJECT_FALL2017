@@ -1,15 +1,11 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
+
 #include "TeamsParticipated.h"
+#include "HashEntry.h"
 
 const int TABLE_SIZE = 29;
 
-//******************************************************
-//				NOTE
-// KEY HAS TO BE AN INTEGER IN THIS IMPLEMENTATION
-//******************************************************
-
-#include "HashEntry.h"
 template <class K, class T>
 class HashTable
 {
@@ -167,6 +163,12 @@ void HashTable<K, T>::display() const
 }
 
 template<class K, class T>
+double HashTable<K, T>::getLoadFactor() const
+{
+	return (double(size()) / double(TABLE_SIZE))*100.00;
+}
+
+template<class K, class T>
 void HashTable<K, T>::writeTeamsParticipatedToTxt()
 {
 
@@ -286,9 +288,4 @@ void HashTable<K, T>::writeFinalMatchDataToTxt()
 	file.close();
 }
 
-template<class K, class T>
-double HashTable<K, T>::getLoadFactor() const
-{
-	return (double(size()) / double(TABLE_SIZE))*100.00;
-}
 #endif // !HASHTABLE_H
