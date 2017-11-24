@@ -89,7 +89,7 @@ void Tree<K, T>::destroySubTree(TreeNode<K, T>* nodePtr)
 template<class K, class T>
 bool Tree<K, T>::remove(K key)
 {
-	deleteNode(root, key);
+	root = deleteNode(root, key);
 	return true;
 }
 

@@ -3,28 +3,31 @@
 
 int main()
 {
+	std::cout << std::fixed << std::setprecision(2);
 	//Declaring the trees
 	Tree<int, WorldCup> yearHeld;						//WORKS FINE
 	Tree<double, WorldCup> goalsPgameTree;				//WORKS FINE
 	Tree<int, WorldCup> aveAtteTree;					//WORKS FINE
 	Tree<int, WorldCup> totAtteTree;					//WORKS FINE
-	
+	Tree<int, WorldCup> numGamesTree;					//WORKS FINE
+
 	//Declaring the hash tables
-	HashTable<int, WorldCup> winnerTeamTable;
-
-
-	const int SIZE = 20;
+	HashTable<int, WorldCup> worldCupData;				//APPARENTLY WORKS FINE
 
 	int choice;
 
 	try
 	{
 		//Initializes the trees correctly
-		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, winnerTeamTable);
+		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData);
 		
 
+		
 
-
+		std::cout << std::endl;
+		std::cout << "Number of items in hash table:    " << worldCupData.size() << std::endl;
+		std::cout << "Load factor:                      " << worldCupData.getLoadFactor() << std::endl;
+	
 		//initializeFinalMatchData(finalMatch);
 
 		//for (int i = 0; i < SIZE; i++)
@@ -54,14 +57,13 @@ int main()
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Welcome to World Cup Soccer Stats " << std::endl << std::endl;
 
 		do {
-
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "The list of possible operations\n" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1) Check previous years stats" << std::endl; // this is the <Team choice menu option>
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2) Add a new year stats" << std::endl; //this is <add new data>
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Remove a year" << std::endl; //this is <delete data>
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) Find and display one data record of a year" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List data in hash table sequence" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) List data in key sequence (sorted)" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) List sorted data" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Print indented tree" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Efficency " << std::endl;
 
@@ -73,19 +75,20 @@ int main()
 			std::cout << "\n\n";
 			switch (choice)
 			{
-			case 1: yearChosen(); break;
-			case 2: add(); break;
-			case 3: remove_year(); break;
-			case 4: display_year_data(); break;
-			case 5: hashtable_list();  break;
-			case 6: sort_data_by_choice();  break;
-			case 7: pretty_print(); break;
+				case 1: yearChosen(); break;
+				case 2: add(); break;
+				case 3: remove_year(); break;
+				case 4: display_year_data(worldCupData);
+					break;
+				case 5: hashtable_list();  break;
+				case 6: sort_data_by_choice(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree);
+					break;
+				case 7: pretty_print(); break;
 				//case 8: count_efficiency(); break;
-			case 0: system("CLS"); break;
-			default:
-				system("CLS");
-				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl; break;
-
+				case 0: system("CLS"); break;
+				default:
+					system("CLS");
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl; break;
 			}
 			std::cin.clear();             //it takes care of the strings entered
 			std::cin.ignore(INT_MAX, '\n');

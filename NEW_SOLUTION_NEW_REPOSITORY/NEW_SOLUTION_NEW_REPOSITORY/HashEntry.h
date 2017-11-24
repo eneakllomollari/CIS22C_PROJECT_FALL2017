@@ -9,6 +9,7 @@ private:
 	T data;
 	HashEntry<K, T> *next;
 public:
+	HashEntry();
 	HashEntry(K,T);
 
 	void setHashKey(K);
@@ -21,6 +22,12 @@ public:
 };
 
 #endif // !HASHENTRY_H
+
+template<class K, class T>
+HashEntry<K, T>::HashEntry()
+{
+	next = nullptr;
+}
 
 template<class K, class T>
 HashEntry<K, T>::HashEntry(K k, T d)
