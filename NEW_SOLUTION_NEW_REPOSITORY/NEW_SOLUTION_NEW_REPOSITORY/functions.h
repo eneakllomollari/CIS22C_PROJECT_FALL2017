@@ -17,10 +17,11 @@ const int WIDTH_BTW_LINES = 50;
 
 
 //Functions that initialize the data at he beggining of the program
-void initializeWorldCupData(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&, HashTable<int, TeamsParticipated>&);
-void initializeFinalMatchData();
+void initializeWorldCupData(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&);
+void initializeFinalMatchData(HashTable<int, FinalMatch>&);
 
 void readFileWorldcupData(std::string &, Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&);
+void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>&);
 void readFileTeamsByYearData(std::string &, HashTable<int, TeamsParticipated>&);
 
 
