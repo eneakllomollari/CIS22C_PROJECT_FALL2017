@@ -404,9 +404,53 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year: " << "                            ";
 		std::cin >> year;
 
+		//VALIDATE YEAR DATA
+		while (std::cin.fail() || year < 1930)
+		{
+			if (std::cin.fail())
+				std::cout << "\t" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only while entering year..." << std::endl;
+			else
+				std::cout << "\t" << "ERROR: INVALID INPUT! Year cannot be less than 1930, as 1930 was the first World Cup...." << std::endl;
+
+			std::cin.clear();
+			std::cin.ignore(INT_MAX, '\n');
+			std::cout << "\t" << "Re-Enter Year: ";
+			std::cin >> year;
+		}
+
 		tempWorldCup.setYearHeld(year);
 		tempFinalMatch.setYear(year);
 		tempTeamsParticipated.setYearHeld(year);
+
+
+		std::cout << "Enter the number of teams: ";
+		std::cin >> numberOfTeams;
+
+		//VALIDATE NUMBER OF TEAMS
+		while (std::cin.fail() || numberOfTeams < 2)
+		{
+			if (std::cin.fail())
+				std::cout << "\t" << "ERROR: INVALID INPUT! Please use only numeric digits 0-9 while entering year..." << std::endl;
+			else
+				std::cout << "\t" << "ERROR: INVALID INPUT! Number of Teams cannot be less than 2... " << std::endl;
+
+			std::cin.clear();
+			std::cin.ignore(INT_MAX, '\n');
+			std::cout << "\t" << "Re-Enter Number Of Teams: ";
+			std::cin >> numberOfTeams;
+		}
+		tempTeamsParticipated.setNumTeams(numberOfTeams);
+		teamsParticipatedArray = new std::string[numberOfTeams];
+
+		std::cout << "Enter the teams: " << std::endl;
+		for (int n = 0; n < numberOfTeams; n++)
+		{
+			std::cout << " " << ">";
+
+			getline(std::cin, teamsParticipatedArray[n], '\n');
+			std::cin.ignore(INT_MAX, '\n');
+		}
+		tempTeamsParticipated.setTeamsArr(teamsParticipatedArray);
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the winning country: " << "                            ";
 		std::cin.ignore(INT_MAX, '\n');
@@ -426,7 +470,6 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 		std::cin >> goalsPerGame;
 		tempWorldCup.setGoalsPGame(goalsPerGame);
 
-
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the average attendance per game: " << "                            ";
 		std::cin >> aveAttendance;
 		tempWorldCup.setAveAtt(aveAttendance);
@@ -439,61 +482,6 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 		std::cin.ignore(INT_MAX, '\n');
 		getline(std::cin, hostCountry);
 		tempWorldCup.setHostCountry(hostCountry);
-
-
-		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID YEAR";
-		std::cin.ignore(INT_MAX, '\n');
-		//Ask user for input entry
-		std::cout << "Enter the year: ";
-		std::cin >> year;		// to be changed with writing in the file
-
-		//VALIDATE YEAR DATA
-		while (std::cin.fail() || year < 1930)
-		{
-			if(std::cin.fail())
-				std::cout << "\t" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only while entering year..." << std::endl;
-			else
-				std::cout << "\t" << "ERROR: INVALID INPUT! Year cannot be less than 1930, as 1930 was the first World Cup...." << std::endl;
-
-			std::cin.clear();
-			std::cin.ignore(INT_MAX, '\n');
-			std::cout << "\t" << "Re-Enter Year: ";
-			std::cin >> year;
-		}
-
-		std::cout << "Enter the number of teams: ";
-		std::cin >> numberOfTeams;
-
-		//VALIDATE NUMBER OF TEAMS
-		while (std::cin.fail() || numberOfTeams < 2)
-		{
-			if (std::cin.fail())
-				std::cout << "\t" << "ERROR: INVALID INPUT! Please use only numeric digits 0-9 while entering year..." << std::endl;
-			else
-				std::cout << "\t" << "ERROR: INVALID INPUT! Number of Teams cannot be less than 2... " << std::endl;
-
-			std::cin.clear();
-			std::cin.ignore(INT_MAX, '\n');
-			std::cout << "\t" << "Re-Enter Number Of Teams: ";
-			std::cin >> numberOfTeams;
-		}
-
-		tempTeamsParticipated.setNumTeams(numberOfTeams);
-		teamsParticipatedArray = new std::string[numberOfTeams];
-
-		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID INPUT";
-
-		std::cout << "Enter the teams: " << std::endl;
-		for (int n = 0; n < numberOfTeams; n++)
-		{
-			std::cout << " " << ">";
-
-			getline(std::cin, teams[n], '\n');
-			std::cin.ignore(INT_MAX, '\n');
-		}
-		tempTeamsParticipated.setTeamsArr(teamsParticipatedArray);
-
-
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the teams in the final match: " << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Team #1: " << "                                   ";
