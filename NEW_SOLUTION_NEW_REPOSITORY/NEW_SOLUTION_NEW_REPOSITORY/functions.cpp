@@ -394,24 +394,50 @@ void add()
 		//Clear Screen
 		system("CLS");
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year: " << "                            ";
-		std::cin >> year;					                                               // to be changed with writing in the file
-		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID YEAR";
-		std::cin.ignore(INT_MAX, '\n');
+		//Ask user for input entry
+		std::cout << "Enter the year: ";
+		std::cin >> year;		// to be changed with writing in the file
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of teams: " << "                 ";
+		//VALIDATE YEAR DATA
+		while (std::cin.fail() || year < 1930)
+		{
+			if(std::cin.fail())
+				std::cout << "\t" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only while entering year..." << std::endl;
+			else
+				std::cout << "\t" << "ERROR: INVALID INPUT! Year cannot be less than 1930, as 1930 was the first World Cup...." << std::endl;
+
+			std::cin.clear();
+			std::cin.ignore(INT_MAX, '\n');
+			std::cout << "\t" << "Re-Enter Year: ";
+			std::cin >> year;
+		}
+
+		std::cout << "Enter the number of teams: ";
 		std::cin >> numberOfTeams;
-		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID INPUT";
-		std::cin.ignore(INT_MAX, '\n');
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the teams: " << std::endl;
+		//VALIDATE NUMBER OF TEAMS
+		while (std::cin.fail() || numberOfTeams < 2)
+		{
+			if (std::cin.fail())
+				std::cout << "\t" << "ERROR: INVALID INPUT! Please use only numeric digits 0-9 while entering year..." << std::endl;
+			else
+				std::cout << "\t" << "ERROR: INVALID INPUT! Number of Teams cannot be less than 2... " << std::endl;
+
+			std::cin.clear();
+			std::cin.ignore(INT_MAX, '\n');
+			std::cout << "\t" << "Re-Enter Number Of Teams: ";
+			std::cin >> numberOfTeams;
+		}
+
+		std::cout << "Enter the teams: " << std::endl;
 		for (int n = 0; n < numberOfTeams; n++)
 		{
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "                                          " << ">";
+			std::cout << " " << ">";
 
 			getline(std::cin, teams[n], '\n');
 			std::cin.ignore(INT_MAX, '\n');
 		}
+
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the teams in the final match: " << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Team #1: " << "                                   ";
