@@ -6,7 +6,7 @@ int main()
 	std::cout << std::fixed << std::setprecision(2);
 
 	//Declaring the trees
-	Tree<int, WorldCup> yearHeld;						//WORKS FINE
+	Tree<int, WorldCup> yearHeldTree;					//WORKS FINE
 	Tree<double, WorldCup> goalsPgameTree;				//WORKS FINE
 	Tree<int, WorldCup> aveAtteTree;					//WORKS FINE
 	Tree<int, WorldCup> totAtteTree;					//WORKS FINE
@@ -23,7 +23,7 @@ int main()
 	try
 	{
 		//Initializes the trees correctly
-		initializeWorldCupData(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, teamsByYear);
+		initializeWorldCupData(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, teamsByYear);
 		
 		//Initialize data into HashTable from "FinalMatch.txt" file
 		initializeFinalMatchData(finalMatchData);
@@ -70,7 +70,7 @@ int main()
 					yearChosen(); 
 					break;
 				case 2: 
-					add();
+					add(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 3: 
 					remove_year(); 
@@ -82,7 +82,7 @@ int main()
 					hashtable_list();  
 					break;
 				case 6: 
-					sortDataByChoice(yearHeld, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree);
+					sortDataByChoice(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree);
 					break;
 				case 7: 
 					pretty_print(); 
