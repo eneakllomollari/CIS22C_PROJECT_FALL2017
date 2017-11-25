@@ -375,12 +375,9 @@ void yearChosen()
 
 	!^^@%@$%^ THIS CODE NEEDS FIXING.... LOOK NEAR END.... !^%^$@%^$@%@$
 */
-void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>&totalAtt, Tree<int, WorldCup>&numGamesTree, HashTable<int, WorldCup>&worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>&teamsByYear)
+void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>&totalAtt, Tree<int, WorldCup>&numGamesTree, 
+		 HashTable<int, WorldCup>&worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>&teamsByYear)
 {
-	//*******************************************************************************************
-	//The user should be given a choice to exit in the middle of entering the data
-	//*******************************************************************************************
-
 	//Declare local variables/constants/arrays
 	WorldCup tempWorldCup;
 	FinalMatch tempFinalMatch;
@@ -389,7 +386,7 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 	int year, numGames, aveAttendance, totAttendance,
 		numberOfTeams;
 	double goalsPerGame;
-	std::string	goalScoredFirstTeam, winningCountry, bestPlayer, hostCountry,
+	std::string	dummy, goalScoredFirstTeam, winningCountry, bestPlayer, hostCountry,
 		goalScoredSecondTeam;
 
 	//std::string teams[MAX_NUM_TEAMS];
@@ -401,21 +398,23 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 		//Clear Screen
 		system("CLS");
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year: " << "                            ";
+		std::cout << "\n\n\n\n";
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year:               " << "                            ";
 		std::cin >> year;
-
+		getline(std::cin, dummy);
+		
 		//VALIDATE YEAR DATA
 		while (std::cin.fail() || year < 1930)
 		{
 			if (std::cin.fail())
-				std::cout << "\t" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only while entering year..." << std::endl;
+				std::cout << std::left << "\t" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only while entering year..." << std::endl;
 			else
-				std::cout << "\t" << "ERROR: INVALID INPUT! Year cannot be less than 1930, as 1930 was the first World Cup...." << std::endl;
+				std::cout << std::left << "\t" << "ERROR: INVALID INPUT! Year cannot be less than 1930, as 1930 was the first World Cup...." << std::endl;
 
 			std::cin.clear();
-			std::cin.ignore(INT_MAX, '\n');
-			std::cout << "\t" << "Re-Enter Year: ";
+			std::cout << std::left << "\t" << "Re-Enter Year: ";
 			std::cin >> year;
+			getline(std::cin, dummy);
 		}
 
 		tempWorldCup.setYearHeld(year);
@@ -423,98 +422,92 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 		tempTeamsParticipated.setYearHeld(year);
 
 
-		std::cout << "Enter the number of teams: ";
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of teams:    " << "                            ";
 		std::cin >> numberOfTeams;
+		getline(std::cin, dummy);
 
 		//VALIDATE NUMBER OF TEAMS
 		while (std::cin.fail() || numberOfTeams < 2)
 		{
 			if (std::cin.fail())
-				std::cout << "\t" << "ERROR: INVALID INPUT! Please use only numeric digits 0-9 while entering year..." << std::endl;
+				std::cout << std::left << "\t" << "ERROR: INVALID INPUT! Please use only numeric digits 0-9 while entering year..." << std::endl;
 			else
-				std::cout << "\t" << "ERROR: INVALID INPUT! Number of Teams cannot be less than 2... " << std::endl;
+				std::cout << std::left << "\t" << "ERROR: INVALID INPUT! Number of Teams cannot be less than 2... " << std::endl;
 
 			std::cin.clear();
-			std::cin.ignore(INT_MAX, '\n');
-			std::cout << "\t" << "Re-Enter Number Of Teams: ";
+			std::cout << std::left << "\t" << "Re-Enter Number Of Teams: ";
 			std::cin >> numberOfTeams;
+			getline(std::cin, dummy);
 		}
+		
 		tempTeamsParticipated.setNumTeams(numberOfTeams);
 		teamsParticipatedArray = new std::string[numberOfTeams];
-
-		std::cout << "Enter the teams: " << std::endl;
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the teams:                " << std::endl;
 		for (int n = 0; n < numberOfTeams; n++)
 		{
-			std::cout << " " << ">";
-
-			getline(std::cin, teamsParticipatedArray[n], '\n');
-			std::cin.ignore(INT_MAX, '\n');
+			std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "                                                          " <<  ">";
+			getline(std::cin, teamsParticipatedArray[n]);
 		}
 		tempTeamsParticipated.setTeamsArr(teamsParticipatedArray);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the winning country: " << "                            ";
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the winning country:    " << "                            ";
 		getline(std::cin, winningCountry);
 		tempWorldCup.setWinningTeam(winningCountry);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the best player: " << "                            ";
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the best player:        " << "                            ";
 		getline(std::cin, bestPlayer);
 		tempWorldCup.setGoldenBWinner(bestPlayer);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of games: " << "                            ";
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of games:    " << "                            ";
 		std::cin >> numGames;
+		getline(std::cin, dummy);
 		tempWorldCup.setNumGames(numGames);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the goals per game: " << "                            ";
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the goals per game:     " << "                            ";
 		std::cin >> goalsPerGame;
+		getline(std::cin, dummy);
 		tempWorldCup.setGoalsPGame(goalsPerGame);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the average attendance per game: " << "                            ";
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the average attendance: " << "                            ";
 		std::cin >> aveAttendance;
+		getline(std::cin, dummy);
 		tempWorldCup.setAveAtt(aveAttendance);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the total attendance: " << "                            ";
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the total attendance:   " << "                            ";
 		std::cin >> totAttendance;
+		getline(std::cin, dummy);
 		tempWorldCup.setTotAtt(totAttendance);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the host country: " << "                            ";
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the host country:       " << "                            ";
 		getline(std::cin, hostCountry);
 		tempWorldCup.setHostCountry(hostCountry);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the teams in the final match: " << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Team #1: " << "                                   ";
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << std::endl << std::endl;
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the final match data below " << std::endl;
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Team #1: " << "                                     ";
 		getline(std::cin, firstTeamFinalMatch);
 
-		std::cin.ignore(INT_MAX, '\n');
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Team #2: " << "                                   ";
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Team #2: " << "                                     ";
 		getline(std::cin, secondteamFinalMatch);
-		std::cin.ignore(INT_MAX, '\n');
 		tempFinalMatch.setTeams(firstTeamFinalMatch, secondteamFinalMatch);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the result of the final match: " << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Goals made by " << firstTeamFinalMatch << " were: " << "                      ";
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Goals scored by " << firstTeamFinalMatch << " were: " << "              ";
 		std::cin >> goalScoredFirstTeam;
+		getline(std::cin, dummy);
 		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID INPUT";
-		std::cin.ignore(INT_MAX, '\n');
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Goals made by " << secondteamFinalMatch << " were: " << "                      ";
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Goals scored by " << secondteamFinalMatch << " were: " << "              ";
 		std::cin >> goalScoredSecondTeam;
+		getline(std::cin, dummy);
 		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID NUMBER OF GOALS";
-		std::cin.ignore(INT_MAX, '\n');
 		tempFinalMatch.setResult(goalScoredFirstTeam + " - " + goalScoredSecondTeam);
 
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the stadium's name: " << "                  ";
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the stadium's name:                     ";
 		getline(std::cin, stadiumName);
 		tempFinalMatch.setStadium(stadiumName);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the city that hosted the Final match: ";
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter final match host city: " << "                 ";
 		getline(std::cin, cityHost);
 		tempFinalMatch.setCity(cityHost);
 	}
@@ -526,6 +519,10 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 	{
 		std::cout << "ERROR" << std::endl;
 	}
+	std::cout << tempTeamsParticipated << std::endl;
+
+
+
 	yearHeld.insert(tempWorldCup.getYearHeld(), tempWorldCup);
 	gpgT.insert(tempWorldCup.getGoalsPerGame(), tempWorldCup);
 	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup);
@@ -534,6 +531,12 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup);
 	finalMatchData.put(tempFinalMatch.getYear(), tempFinalMatch);
 	teamsByYear.put(tempTeamsParticipated.getYearHeld(), tempTeamsParticipated);
+
+	std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Operation Successful" << std::endl << std::endl;
+
+	std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "";
+	system("pause");
+	system("CLS");
 }
 
 void display_year_data(HashTable<int, WorldCup> table)
@@ -621,13 +624,19 @@ void hashtable_list()
 
 void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree)
 {
+	double aveGoalsPerGame;
+	int average_of_aveAttendance, 
+		average_of_totAttendance, 
+		average_of_NumGames;
+
+
 	int user_choice;
 	system("CLS");
 	do
 	{
 
 		try {
-			std::cout << std::setw(WIDTH_BTW_LINES + 2) << "" << "By which information do you want our database to be sorted in?:\n\n";
+			std::cout << std::setw(WIDTH_BTW_LINES + 2) << "" << "You can sort data based on these attributes\n\n";
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1) Year Held\n";
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2) Goals per game\n";
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Number of games\n";
@@ -645,6 +654,7 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 			case 1:
 				system("CLS");
 				std::cout << "\n\n\n";
+				printGeneralWorldCupDataHeader();
 				yearTree.displayInOrder();
 				std::cout << "\n\n";
 				system("pause");
@@ -653,7 +663,10 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 			case 2:
 				system("CLS");
 				std::cout << "\n\n\n";
+				printGeneralWorldCupDataHeader();
 				goalsPerGameTree.displayInOrder();
+				std::cout << "\n\n";
+				std::cout << "Average number of goals per game in World Cup history is " << goalsPerGameTree.getAverageOfKey() << " goals" << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS");
@@ -661,7 +674,10 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 			case 3:
 				system("CLS");
 				std::cout << "\n\n\n";
+				printGeneralWorldCupDataHeader();
 				numGamesTree.displayInOrder();
+				std::cout << "\n\n";
+				std::cout << "Average number of games in World Cup history is " << numGamesTree.getAverageOfKey() << " games" << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS"); 
@@ -669,7 +685,10 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 			case 4:
 				system("CLS");
 				std::cout << "\n\n\n";
+				printGeneralWorldCupDataHeader();
 				aveAttTree.displayInOrder();
+				std::cout << "\n\n";
+				std::cout << "Average attendance in World Cup history is " << aveAttTree.getAverageOfKey() << " spectators" << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS");
@@ -677,7 +696,10 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 			case 5:
 				system("CLS");
 				std::cout << "\n\n\n";
+				printGeneralWorldCupDataHeader();
 				totAttTree.displayInOrder();
+				std::cout << "\n\n";
+				std::cout << "Average of total attendance in World Cup history " << (aveAttTree.getAverageOfKey())*(aveAttTree.getCountNodes()) << " spectators" << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS");
@@ -740,4 +762,20 @@ void remove_year()
 		//
 		// call bst.remove(value)
 	} while (choiceYear != 0);
+}
+
+void printGeneralWorldCupDataHeader()
+{
+	int numDashes = 140;
+	std::cout << std::left << std::setw(6) << "Year";
+	std::cout << std::left << std::setw(18) << "Winner";
+	std::cout << std::left << std::setw(23) << "Best Player";
+	std::cout << std::left << std::setw(13) << "#Games";
+	std::cout << std::left << std::setw(20) << "Goals per game";
+	std::cout << std::left << std::setw(24) << "Average Attendance";
+	std::cout << std::left << std::setw(20) << "Total Attendance";
+	std::cout << std::left << std::setw(20) << "Host Country";
+	std::cout << std::endl;
+	for (int i = 0; i < numDashes; i++)std::cout << "_";
+	std::cout << std::endl;
 }

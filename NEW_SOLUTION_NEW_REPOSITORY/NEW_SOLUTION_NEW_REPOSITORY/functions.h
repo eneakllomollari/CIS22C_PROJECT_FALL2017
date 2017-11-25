@@ -34,7 +34,6 @@ void sortDataByChoice(Tree<int, WorldCup>, Tree<double, WorldCup>, Tree<int, Wor
 //int count_efficiency();				
 void pretty_print();				
 void remove_year();					
-
+void printGeneralWorldCupDataHeader();
 
 #endif // !FUNCTION_H
-

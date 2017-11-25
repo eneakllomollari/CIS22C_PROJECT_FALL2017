@@ -8,7 +8,7 @@ class Tree
 {
 private:
 	TreeNode<K, T> *root;		//Root of the tree
-
+	int itemCount;
 protected:
 	void insertNode(K, T);
 	int countNodes(TreeNode<K, T> *)const;
@@ -36,6 +36,8 @@ public:
 	TreeNode<K, T>* searchNode(K);
 	bool isEmpty()const;
 
+	K getAverageOfKey() const;
+
 	int getCountNodes()const;
 	int getHeight();
 	T getRootData() const;
@@ -58,6 +60,7 @@ template<class K, class T>
 Tree<K, T>::Tree()
 {
 	root = nullptr;
+	itemCount = 0;
 }
 
 template<class K, class T>
@@ -67,6 +70,7 @@ Tree<K, T>::~Tree()
 	//which calls destroySubTree function with root
 	//as a parameter
 	clear();
+	itemCount = 0;
 }
 
 template<class K, class T>
@@ -90,6 +94,7 @@ template<class K, class T>
 bool Tree<K, T>::remove(K key)
 {
 	root = deleteNode(root, key);
+	itemCount--;
 	return true;
 }
 
@@ -147,6 +152,7 @@ template<class K, class T>
 void Tree<K, T>::insert(K key, T data)
 {
 	insertNode(key, data);
+	itemCount++;
 }
 
 template<class K, class T>
@@ -221,13 +227,32 @@ void Tree<K, T>::displayPostOrder() const
 template<class K, class T>
 int Tree<K, T>::getCountNodes() const
 {
-	return countNodes(root);
+	return itemCount;
 }
 
 template<class K, class T>
 bool Tree<K, T>::isEmpty() const
 {
 	return root == nullptr;
+}
+
+template<class K, class T>
+K Tree<K, T>::getAverageOfKey() const
+{
+	K sum = 0.0;
+	calculateSum(root, sum);
+	return sum / (K)itemCount;
+}
+
+template<class K, class T>
+void calculateSum(TreeNode<K, T>*nodePtr, K& sum)
+{
+	if (nodePtr)
+	{
+		sum += nodePtr->getKey();
+		calculateSum(nodePtr->getLeft(), sum);
+		calculateSum(nodePtr->getRight(), sum);
+	}
 }
 
 template<class K, class T>

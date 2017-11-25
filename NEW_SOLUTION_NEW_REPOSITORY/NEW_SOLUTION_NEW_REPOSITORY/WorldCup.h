@@ -14,7 +14,6 @@ private:
 	int aveAtt;
 	int numberOfGamesPlayed;
 	int yearHeld;
-	int numOfTeamsParticipated;
 public:
 	WorldCup();
 	~WorldCup();

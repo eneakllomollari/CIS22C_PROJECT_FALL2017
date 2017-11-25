@@ -4,14 +4,14 @@
 #include "TeamsParticipated.h"
 #include "HashEntry.h"
 
-const int TABLE_SIZE = 29;
-
 template <class K, class T>
 class HashTable
 {
 private:
 	HashEntry<K, T> **table;
 
+	const int TABLE_SIZE = 29;
+	int itemCount;
 	int hash(K);
 
 public:
@@ -20,7 +20,8 @@ public:
 
 	T get(const K&);
 	void put(const K&, const T&);
-	void remove(const K&);
+	bool remove(const K&);
+	
 	int size()const;
 	void display()const;
 	double getLoadFactor()const;
@@ -31,18 +32,13 @@ public:
 };
 
 template<class K, class T>
-int HashTable<K, T>::hash(K k)
-{
-	return (2 * k + 3) % TABLE_SIZE;
-}
-
-template<class K, class T>
 HashTable<K, T>::HashTable()
 {
 	//Dynamically allocate an array of HashEntries
 	table = new HashEntry<K, T>*[TABLE_SIZE];
 	for (int i = 0; i < TABLE_SIZE; i++)
 		table[i] = nullptr;
+	itemCount = 0;
 }
 
 template<class K, class T>
@@ -57,10 +53,18 @@ HashTable<K, T>::~HashTable()
 			HashEntry<K, T> *prev = entry;
 			entry = entry->getNext();
 			delete prev;
+			prev = nullptr;
 		}
 		table[i] = nullptr;
 	}
 	delete[]table;
+	table = nullptr;
+}
+
+template<class K, class T>
+int HashTable<K, T>::hash(K k)
+{
+	return (2 * k + 3) % TABLE_SIZE;
 }
 
 template<class K, class T>
@@ -87,64 +91,55 @@ template<class K, class T>
 void HashTable<K, T>::put(const K& key, const T& data)
 {
 	int index = hash(key);
-	
-	if (table[index] == nullptr)
-		table[index] = new HashEntry<K,T>(key, data);
-	else
-	{
-		HashEntry<K, T>*entry = table[index];
-		while (entry->getNext() != nullptr)
-			entry = entry->getNext();
-		if (entry->getHashKey() == key)
-			entry->setHashData(data);
-		else
-			entry->setNext(new HashEntry<K, T>(key, data));
-	}
-}
 
-template<class K, class T>
-void HashTable<K, T>::remove(const K& key)
-{
-	int index = hash(key);
-
-	HashEntry<K, T> *prev = nullptr;
-	HashEntry<K, T> *entry = table[hashValue];
-
-	while (entry != nullptr && entry.getKey() != key)
+	HashEntry<K, T>*prev = nullptr;
+	HashEntry<K, T>*entry = table[index];
+	while (entry != nullptr)
 	{
 		prev = entry;
 		entry = entry->getNext();
 	}
-	
-	if (entry = nullptr) //Entry not found
-		return false;
-	else
+	if (entry == nullptr)
 	{
+		entry = new HashEntry<K, T>(key, data);
 		if (prev == nullptr)
-			//remove the first bucket of the list
-			table[index] = entry->getNext();
+			table[index] = entry;
 		else
-			prev->setNext(entry->getNext());
-		delete entry;
-		return true;
+			prev->setNext(entry);
 	}
+	else
+		entry->setHashData(data);
+}
+
+template<class K, class T>
+bool HashTable<K, T>::remove(const K& key)
+{
+	//Compute the index
+	int index = hash(key);
+
+	bool itemFound = false;
+	HashEntry<K, T>*entry = table[index];
+	HashEntry<K, T>*prevPtr = nullptr;
+
+	if (entry == nullptr || key != entry->getHashKey())
+		return false;
+	while (entry->getNext() != nullptr)
+	{
+		prevPtr = prevPtr;
+		entry = entry->getNext();
+	}
+	if (prevPtr != nullptr)
+		prevPtr->setNext(entry->getNext());
+	delete entry;
+
+	itemCount--;
+	return itemFound;
 }
 
 template<class K, class T>
 int HashTable<K, T>::size() const
 {
-	HashEntry<K, T> *entryPtr;
-	int sum = 0;
-	for (int i = 0; i < TABLE_SIZE; i++)
-	{
-		entryPtr = table[i];
-		while (entryPtr != nullptr)
-		{
-			sum++;
-			entryPtr = entryPtr->getNext();
-		}
-	}
-	return sum;
+	return itemCount;
 }
 
 template<class K, class T>
