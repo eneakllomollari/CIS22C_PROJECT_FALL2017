@@ -4,6 +4,7 @@
 2002 | Germany, Brazil.         | 0 - 2         | Yokohama Stadium.            | Yokohama.       |
 1930 | Uruguay, Argentina.      | 4 - 2         | Estadio Centenario.          | Montevideo.     |
 1974 | Netherlands, Germany.    | 1 - 2         | Olympiastadion.              | Munich.         |
+2018 | , .                      | 1 - 10        | .                            | .               |
 1990 | West Germany, Agentina.  | 1 - 0         | Stadio Olimpico.             | Rome.           |
 1962 | Brazil, Czechoslovakia.  | 3 - 1         | Estadio Nacional.            | Santiago.       |
 2006 | Italy, France.           | 1 - 1 (5 - 3) | Olympiastadion.              | Berlin.         |

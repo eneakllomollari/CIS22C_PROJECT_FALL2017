@@ -11,7 +11,7 @@
 
 	Also, it expects two HashTable references as Input
 		-HashTables Contain Data of WorldCup and TeamsParticipated
-			1) winnerTeamTable, TeamsPariticpated Hashtables (Key: Year World Cup Held)
+			1) worldCupData, TeamsPariticpated Hashtables (Key: Year World Cup Held)
 
 	Post: Upon completion, this function will initialize the data into the respective Trees and Hashtables passed into it.
 
@@ -19,7 +19,7 @@
 
 */
 void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT,
-	Tree<int, WorldCup>& totalAtt, Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&winnerTeamTable, HashTable<int, TeamsParticipated>&teamsParticTable)
+	Tree<int, WorldCup>& totalAtt, Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&worldCupData, HashTable<int, TeamsParticipated>&teamsParticTable)
 {
 	//Declare Local Variables/Objects
 	std::string buffer;
@@ -34,7 +34,7 @@ void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup
 
 	//Read the file line by line and initialize data
 	while (getline(finWorldCup, buffer))
-		readFileWorldcupData(buffer, yearHeld, gpgT, aveAttT, totalAtt, numGames, winnerTeamTable);
+		readFileWorldcupData(buffer, yearHeld, gpgT, aveAttT, totalAtt, numGames, worldCupData);
 	
 	//Close the ifstream object
 	finWorldCup.close();
@@ -137,7 +137,7 @@ void readFileTeamsByYearData(std::string& line, HashTable<int,TeamsParticipated>
 	teamsParticTable.put(yearHeld, tempTeams_Object);
 
 	//Delete Pointer to Dynamically Allocated array of strings
-	delete[] tempArray_Teams;
+	//delete[] tempArray_Teams;
 }
 
 
@@ -214,12 +214,12 @@ void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>& final
 
 	Also, it expects two HashTable references as Input
 		-HashTables Contain Data of WorldCup and TeamsParticipated
-			1) winnerTeamTable, TeamsPariticpated Hashtables (Key: Year World Cup Held)
+			1) worldCupData, TeamsPariticpated Hashtables (Key: Year World Cup Held)
 
 	Post: Upon completion, this function will have read and stored the data into the respective Trees and Hashtables passed into it.
 */
 void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt,
-	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>& winnerTeamTable)
+	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>& worldCupData)
 {
 	//Temporary object to be used for initialization
 	WorldCup tempWorldCup;
@@ -283,7 +283,7 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup);
 	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup);
 	numGames.insert(tempWorldCup.getNumGames(), tempWorldCup);
-	winnerTeamTable.put(tempWorldCup.getYearHeld(), tempWorldCup);
+	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup);
 }
 
 /*
@@ -367,8 +367,6 @@ void yearChosen()
 }
 
 
-
-
 /*
 	Pre: N/A
 
@@ -377,23 +375,74 @@ void yearChosen()
 
 	!^^@%@$%^ THIS CODE NEEDS FIXING.... LOOK NEAR END.... !^%^$@%^$@%@$
 */
-void add()
+void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>&totalAtt, Tree<int, WorldCup>&numGamesTree, HashTable<int, WorldCup>&worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>&teamsByYear)
 {
 	//*******************************************************************************************
 	//The user should be given a choice to exit in the middle of entering the data
 	//*******************************************************************************************
 
 	//Declare local variables/constants/arrays
-	const int MAX_NUM_TEAMS = 50;
-	int year, numberOfTeams, goalScoredFirstTeam, goalScoredSecondTeam;
-	std::string teams[MAX_NUM_TEAMS];
-	std::string FirstTeamFinalMatch, SecondteamFinalMatch, stadiumName, cityHost;
+	WorldCup tempWorldCup;
+	FinalMatch tempFinalMatch;
+	TeamsParticipated tempTeamsParticipated;
+
+	int year, numGames, aveAttendance, totAttendance,
+		numberOfTeams;
+	double goalsPerGame;
+	std::string	goalScoredFirstTeam, winningCountry, bestPlayer, hostCountry,
+		goalScoredSecondTeam;
+
+	//std::string teams[MAX_NUM_TEAMS];
+	std::string firstTeamFinalMatch, secondteamFinalMatch, stadiumName, cityHost,
+		*teamsParticipatedArray;
 
 	//Run entire code in "Try" Block #ExceptionHandling
 	try {
 		//Clear Screen
 		system("CLS");
 
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year: " << "                            ";
+		std::cin >> year;
+
+		tempWorldCup.setYearHeld(year);
+		tempFinalMatch.setYear(year);
+		tempTeamsParticipated.setYearHeld(year);
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the winning country: " << "                            ";
+		std::cin.ignore(INT_MAX, '\n');
+		getline(std::cin, winningCountry);
+		tempWorldCup.setWinningTeam(winningCountry);
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the best player: " << "                            ";
+		std::cin.ignore(INT_MAX, '\n');
+		getline(std::cin, bestPlayer);
+		tempWorldCup.setGoldenBWinner(bestPlayer);
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of games: " << "                            ";
+		std::cin >> numGames;
+		tempWorldCup.setNumGames(numGames);
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the goals per game: " << "                            ";
+		std::cin >> goalsPerGame;
+		tempWorldCup.setGoalsPGame(goalsPerGame);
+
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the average attendance per game: " << "                            ";
+		std::cin >> aveAttendance;
+		tempWorldCup.setAveAtt(aveAttendance);
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the total attendance: " << "                            ";
+		std::cin >> totAttendance;
+		tempWorldCup.setTotAtt(totAttendance);
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the host country: " << "                            ";
+		std::cin.ignore(INT_MAX, '\n');
+		getline(std::cin, hostCountry);
+		tempWorldCup.setHostCountry(hostCountry);
+
+
+		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID YEAR";
+		std::cin.ignore(INT_MAX, '\n');
 		//Ask user for input entry
 		std::cout << "Enter the year: ";
 		std::cin >> year;		// to be changed with writing in the file
@@ -429,6 +478,11 @@ void add()
 			std::cin >> numberOfTeams;
 		}
 
+		tempTeamsParticipated.setNumTeams(numberOfTeams);
+		teamsParticipatedArray = new std::string[numberOfTeams];
+
+		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID INPUT";
+
 		std::cout << "Enter the teams: " << std::endl;
 		for (int n = 0; n < numberOfTeams; n++)
 		{
@@ -437,39 +491,44 @@ void add()
 			getline(std::cin, teams[n], '\n');
 			std::cin.ignore(INT_MAX, '\n');
 		}
+		tempTeamsParticipated.setTeamsArr(teamsParticipatedArray);
+
 
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the teams in the final match: " << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Team #1: " << "                                   ";
-		getline(std::cin, FirstTeamFinalMatch);
+		std::cin.ignore(INT_MAX, '\n');
+		getline(std::cin, firstTeamFinalMatch);
+
 		std::cin.ignore(INT_MAX, '\n');
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Team #2: " << "                                   ";
-		getline(std::cin, SecondteamFinalMatch);
 		std::cin.ignore(INT_MAX, '\n');
+		getline(std::cin, secondteamFinalMatch);
+		std::cin.ignore(INT_MAX, '\n');
+		tempFinalMatch.setTeams(firstTeamFinalMatch, secondteamFinalMatch);
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the result of the final match: " << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Goals made by " << FirstTeamFinalMatch << " were: " << "                      ";
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Goals made by " << firstTeamFinalMatch << " were: " << "                      ";
 		std::cin >> goalScoredFirstTeam;
 		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID INPUT";
 		std::cin.ignore(INT_MAX, '\n');
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Goals made by " << SecondteamFinalMatch << " were: " << "                      ";
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Goals made by " << secondteamFinalMatch << " were: " << "                      ";
 		std::cin >> goalScoredSecondTeam;
 		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID NUMBER OF GOALS";
 		std::cin.ignore(INT_MAX, '\n');
+		tempFinalMatch.setResult(goalScoredFirstTeam + " - " + goalScoredSecondTeam);
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the stadium's name? " << "                  ";
-		getline(std::cin, stadiumName);
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the stadium's name: " << "                  ";
 		std::cin.ignore(INT_MAX, '\n');
+		getline(std::cin, stadiumName);
+		tempFinalMatch.setStadium(stadiumName);
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the city that hosted the Final match: ";
-		getline(std::cin, cityHost);
 		std::cin.ignore(INT_MAX, '\n');
-
-		//Need to store into temporary object of some sort
-
-
-		//Push into trees and Hashtables
+		getline(std::cin, cityHost);
+		tempFinalMatch.setCity(cityHost);
 	}
 	catch (char *msg)
 	{
@@ -479,6 +538,14 @@ void add()
 	{
 		std::cout << "ERROR" << std::endl;
 	}
+	yearHeld.insert(tempWorldCup.getYearHeld(), tempWorldCup);
+	gpgT.insert(tempWorldCup.getGoalsPerGame(), tempWorldCup);
+	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup);
+	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup);
+	numGamesTree.insert(tempWorldCup.getNumGames(), tempWorldCup);
+	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup);
+	finalMatchData.put(tempFinalMatch.getYear(), tempFinalMatch);
+	teamsByYear.put(tempTeamsParticipated.getYearHeld(), tempTeamsParticipated);
 }
 
 void display_year_data(HashTable<int, WorldCup> table)

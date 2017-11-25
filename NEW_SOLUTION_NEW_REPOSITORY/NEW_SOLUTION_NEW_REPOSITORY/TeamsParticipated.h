@@ -10,11 +10,16 @@ class TeamsParticipated
 private:
 	std::string *teamsArr;
 	int numTeams;
-
+	int yearHeld;
 public:
 	TeamsParticipated();
 	TeamsParticipated(int, std::string *);
 
+	void setYearHeld(int);
+	void setNumTeams(int);
+	void setTeamsArr(std::string *);
+
+	int getYearHeld()const;
 	int getNumTeams()const;
 	std::string *getTeamsArr()const;
 
