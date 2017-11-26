@@ -46,18 +46,27 @@ std::string* TeamsParticipated::getTeamsArr() const
 
 std::ostream & operator<<(std::ostream &os, const TeamsParticipated &t)
 {
-	const int NUM_COL = 1;
+	const int NUM_COL = 6;
+	const int NUM_DASHES = 150;
+	const int SPACING = 25;
+
 	os << std::endl;
-	os << "________________________\n";
-	os << "\t" <<  t.yearHeld << std::endl;
-	os << "________________________\n";
+	for (int i = 0; i < NUM_DASHES; i++)os << "_";
+	os << std::endl;
+	os << "\t\t\t\t\t" <<  t.yearHeld << std::endl;
+	for (int i = 0; i < NUM_DASHES; i++)os << "_";
+	os << std::endl;
+
+	os << std::setw(SPACING) << std::left;
 	for (int i = 0; i < t.numTeams; i++)
 	{
 		if (i > 0 && i % NUM_COL == 0) os << std::endl;
-		os << i + 1 << ".  " << t.teamsArr[i] << std::right << std::setw(20) << "";
+		os << t.teamsArr[i] << std::setw(SPACING) << std::left;
 	}
-	os << std::endl;
-	for (int i = 0; i < 24; i++)os << "-";
+	os << std::setw(0) << std::endl;
+	for (int i = 0; i < NUM_DASHES; i++)os << std::left << "-";
+	os  << "\n\t\t\t" << t.getNumTeams() << " teams participated in " << t.getYearHeld() << std::endl;
+	for (int i = 0; i < NUM_DASHES; i++)os<<std::left << "-";
 
 	return os;
 }

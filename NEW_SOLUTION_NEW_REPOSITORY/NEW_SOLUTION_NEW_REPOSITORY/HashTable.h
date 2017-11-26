@@ -8,10 +8,13 @@ template <class K, class T>
 class HashTable
 {
 private:
+	const int TABLE_SIZE = 31;
+
 	HashEntry<K, T> **table;
 
-	const int TABLE_SIZE = 31;
 	int itemCount;
+protected:
+	
 	int hash(K);
 
 public:
@@ -19,12 +22,12 @@ public:
 	~HashTable();
 
 	bool get(const K&, T&);
-	void put(const K&, const T&);
+	bool put(const K&, const T&);
 	bool remove(const K&);
 	
 	int size()const;
 	void display()const;
-	double getLoadFactor()const;
+	double loadFactor()const;
 
 	void writeTeamsParticipatedToTxt();
 	void writeWorldCupGeneralDataToTxt();
@@ -68,71 +71,87 @@ int HashTable<K, T>::hash(K k)
 }
 
 template<class K, class T>
-bool HashTable<K, T>::get(const K& key, T& data)
+bool HashTable<K, T>::get(const K& key, T&data)
 {
-	bool flag = false;
-	//Hash the key and get the index
-	int index = hash(key);
-	HashEntry<K, T> *entry = table[index];
+	int hashValue = hash(key);
+	HashEntry<K, T> *entry = table[hashValue];
 
-	while (entry != nullptr)
+	while (entry != nullptr) 
 	{
-		if (entry->getHashKey() == key)
+		if (entry->getHashKey() == key) 
 		{
 			data = entry->getHashData();
-			flag = true;
+			return true;
 		}
 		entry = entry->getNext();
 	}
-	return flag;
+	return false;
 }
 
-template<class K, class T>
-void HashTable<K, T>::put(const K& key, const T& data)
+template < class K, class T>
+bool HashTable<K, T>::put(const K& searchKey, const T& newItem)
 {
-	int index = hash(key);
+	// Create entry to add to dictionary
+	HashEntry<K, T>* entryToAddPtr = new HashEntry<K, T>(searchKey, newItem);
 
-	HashEntry<K, T>*prev = nullptr;
-	HashEntry<K, T>*entry = table[index];
-	while (entry != nullptr)
-	{
-		prev = entry;
-		entry = entry->getNext();
-	}
-	if (entry == nullptr)
-	{
-		entry = new HashEntry<K, T>(key, data);
-		if (prev == nullptr)
-			table[index] = entry;
-		else
-			prev->setNext(entry);
-	}
+	// Compute the hashed index into the array
+	int itemHashIndex = hash(searchKey);
+
+	// Add the entry to the chain at itemHashIndex
+	if (table[itemHashIndex] == nullptr)
+		table[itemHashIndex] = entryToAddPtr;
 	else
-		entry->setHashData(data);
+	{
+		//Insert it at the beggining of the chain
+		entryToAddPtr->setNext(table[itemHashIndex]);
+		table[itemHashIndex] = entryToAddPtr;
+	}
+	itemCount++;
+	return true;
 }
 
-template<class K, class T>
-bool HashTable<K, T>::remove(const K& key)
+template < class K, class T>
+bool HashTable<K, T>::remove(const K& searchKey)
 {
-	//Compute the index
-	int index = hash(key);
-
 	bool itemFound = false;
-	HashEntry<K, T>*entry = table[index];
-	HashEntry<K, T>*prevPtr = nullptr;
-
-	if (entry == nullptr || key != entry->getHashKey())
-		return false;
-	while (entry->getNext() != nullptr)
+	// Compute the hashed index into the array
+	int itemHashIndex = hash(searchKey);
+	
+	if (table[itemHashIndex] != nullptr)
 	{
-		prevPtr = prevPtr;
-		entry = entry->getNext();
+		// Special case - first node has target
+		if (searchKey == table[itemHashIndex]->getHashKey())
+		{
+			HashEntry<K, T>* entryToRemovePtr = table[itemHashIndex];
+			table[itemHashIndex] = table[itemHashIndex]->getNext();
+			delete entryToRemovePtr;
+			itemCount--;
+			entryToRemovePtr = nullptr; // For safety
+			itemFound = true;
+		}
+		else // Search the rest of the chain
+		{
+			HashEntry<K, T>* prevPtr = table[itemHashIndex];
+			HashedEntry<K, T>* curPtr = prevPtr->getNext();
+			while ((curPtr != nullptr) && !itemFound)
+			{
+				// Found item in chain so remove that node
+				if (searchKey == curPtr->getKey())
+				{
+					prevPtr->setNext(curPtr->getNext());
+					delete curPtr;
+					itemCount--;
+					curPtr = nullptr; // For safety
+					itemFound = true;
+				}
+				else // Look at next entry in chain
+				{
+					prevPtr = curPtr;
+					curPtr = curPtr->getNext();
+				} 
+			} 
+		} 
 	}
-	if (prevPtr != nullptr)
-		prevPtr->setNext(entry->getNext());
-	delete entry;
-
-	itemCount--;
 	return itemFound;
 }
 
@@ -158,7 +177,7 @@ void HashTable<K, T>::display() const
 }
 
 template<class K, class T>
-double HashTable<K, T>::getLoadFactor() const
+double HashTable<K, T>::loadFactor() const
 {
 	return (double(size()) / double(TABLE_SIZE))*100.00;
 }

@@ -18,8 +18,8 @@
 	SIDE NOTES: Initialization functions use Read Functions as Helpers
 
 */
-void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT,
-	Tree<int, WorldCup>& totalAtt, Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&worldCupData, HashTable<int, TeamsParticipated>&teamsParticTable)
+void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt,
+	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&worldCupData, HashTable<int, TeamsParticipated>&teamsParticTable, Tree<int, TeamsParticipated>&numTeamsTree)
 {
 	//Declare Local Variables/Objects
 	std::string buffer;
@@ -49,7 +49,7 @@ void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup
 
 	//Read the file line by line and initialize data
 	while (getline(finTeamsByYear, buffer))
-		readFileTeamsByYearData(buffer, teamsParticTable);
+		readFileTeamsByYearData(buffer, teamsParticTable, numTeamsTree);
 
 	//Close the ifstream object
 	finTeamsByYear.close();
@@ -96,7 +96,7 @@ void initializeFinalMatchData(HashTable<int, FinalMatch>& finalMatch_hashTable)
 	Post: Upon completion, this function will have read and stored data into "teamsParticTable" HashTable with (Key: Year World Cup, Data: TeamsParticipated Object)
 
 */
-void readFileTeamsByYearData(std::string& line, HashTable<int,TeamsParticipated>& teamsParticTable)
+void readFileTeamsByYearData(std::string& line, HashTable<int, TeamsParticipated>& teamsParticTable, Tree<int, TeamsParticipated>&numTeamsTree)
 {
 	//Declare local variables/objects
 	int  size = 0, numTeamsParticipated, index = 0;
@@ -135,7 +135,7 @@ void readFileTeamsByYearData(std::string& line, HashTable<int,TeamsParticipated>
 	//"Put" tempTeams_Object with all the teams participated for 
 	//a specific year into teamsParticTable HashTable
 	teamsParticTable.put(yearHeld, tempTeams_Object);
-
+	numTeamsTree.insert(numTeamsParticipated, tempTeams_Object);
 	//Delete Pointer to Dynamically Allocated array of strings
 	//delete[] tempArray_Teams;
 }
@@ -553,9 +553,7 @@ void display_year_data(HashTable<int, WorldCup> table)
 	//Sample on how to display the elements of the hash table
 	try {
 		WorldCup worldCupObject;
-		bool found = table.get(choiceYear, worldCupObject);
-
-		if (!found) throw "THIS YEAR DOES NOT EXIST IN OUR RECORDS";
+		table.get(choiceYear, worldCupObject);
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "YEAR HELD:             " << worldCupObject.getYearHeld() << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "WINNING COUNTRY:       " << worldCupObject.getWinningTeam() << std::endl;
@@ -651,7 +649,7 @@ void hashtable_list(const HashTable<int, WorldCup> worldCupData,const HashTable<
 	system("CLS");
 }
 
-void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree)
+void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree, Tree<int, TeamsParticipated> numTeamsTree)
 {
 	int user_choice;
 
@@ -666,11 +664,12 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Number of games\n";
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) Average Attendance\n";
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) Total Attendance\n";
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) Number of teams\n";
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0) EXIT\n";
 
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice: ";
 			std::cin >> user_choice;
-			if (std::cin.fail() || user_choice < 0 || user_choice >= 6)throw "INVALID CHOICE. PLEASE ENTER A CHOICE 1-20 !";
+			if (std::cin.fail() || user_choice < 0 || user_choice >= 7)throw "INVALID CHOICE. PLEASE ENTER A CHOICE 1-20 !";
 
 			std::cout << "\n\n";
 			switch (user_choice)
@@ -728,7 +727,18 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 				system("pause");
 				system("CLS");
 				break;
-			case 0: break;
+			case 6:
+				system("CLS");
+				std::cout << "\n\n\n";
+				numTeamsTree.displayInOrder();
+				std::cout << "\n\n";
+				std::cout << "Average number of teams participated in World Cup history " << numTeamsTree.getAverageOfKey() << " teams" << std::endl;
+				std::cout << "\n\n";
+				system("pause");
+				system("CLS");
+				break;
+			case 0: 
+				break;
 			default:
 				system("CLS");
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 6!" << std::endl; break;

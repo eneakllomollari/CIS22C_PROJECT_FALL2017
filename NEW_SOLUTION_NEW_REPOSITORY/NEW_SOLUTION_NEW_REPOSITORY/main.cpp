@@ -2,7 +2,8 @@
 #include "HashTable.h"
 
 //***********************************************************************************************
-//I need to add a tree that will sort by the number of teams that participated
+//	Need to fix the hash table implementation, has some problems in get and display functions
+//  Some expetions are thrown 
 //***********************************************************************************************
 
 int main()
@@ -15,6 +16,7 @@ int main()
 	Tree<int, WorldCup> aveAtteTree;					//WORKS FINE
 	Tree<int, WorldCup> totAtteTree;					//WORKS FINE
 	Tree<int, WorldCup> numGamesTree;					//WORKS FINE
+	Tree<int, TeamsParticipated> numTeamsTree;
 
 	//Declaring the hash tables
 	HashTable<int, WorldCup> worldCupData;				//WORKS FINE
@@ -27,7 +29,7 @@ int main()
 	try
 	{
 		//Initializes the trees correctly
-		initializeWorldCupData(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, teamsByYear);
+		initializeWorldCupData(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, teamsByYear, numTeamsTree);
 
 		//Initialize data into HashTable from "FinalMatch.txt" file
 		initializeFinalMatchData(finalMatchData);
@@ -72,7 +74,7 @@ int main()
 					hashtable_list(worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 6: 
-					sortDataByChoice(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree);
+					sortDataByChoice(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree);
 					break;
 				case 7: 
 					pretty_print(); 
