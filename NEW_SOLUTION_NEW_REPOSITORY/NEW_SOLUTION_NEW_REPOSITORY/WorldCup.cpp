@@ -100,6 +100,18 @@ double WorldCup::getGoalsPerGame() const
 	return goalsPerGame;
 }
 
+void WorldCup::operator=(const WorldCup &wC)
+{
+	this->winningTeam = wC.getWinningTeam();
+	this->goldenBootWinner = wC.getGoldenBootWinner();
+	this->hostCountry = wC.getHostCountry();
+	this->goalsPerGame = wC.getGoalsPerGame();
+	this->yearHeld = wC.getYearHeld();
+	this->aveAtt = wC.getAveAtt();
+	this->totAtt = wC.getTotAtt();
+	this->numberOfGamesPlayed = wC.getNumGames();
+}
+
 std::ostream & operator<<(std::ostream & os, const WorldCup &wC)
 {
 	//Written by Kamaljot Saini

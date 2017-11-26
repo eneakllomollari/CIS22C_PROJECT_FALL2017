@@ -61,10 +61,11 @@ std::ostream& operator<<(std::ostream &o, FinalMatch &m)
 {
 
 	o << std::fixed << std::setprecision(2)
-		<< std::left << std::setw(15) << m.teams[0]
-		<< std::left << std::setw(18) << m.teams[1]
-		<< std::left << std::setw(15) << m.result
-		<< std::left << std::setw(30) << m.stadium
-		<< std::left << std::setw(30) << m.city;
+		<< std::left << std::setw(6) << m.year
+		<< std::left << std::setw(18) << m.teams[0]
+		<< std::left << std::setw(25) << m.teams[1]
+		<< std::left << std::setw(20) << m.result
+		<< std::left << std::setw(35) << m.stadium
+		<< std::left << std::setw(40) << m.city;
 	return o;
 }

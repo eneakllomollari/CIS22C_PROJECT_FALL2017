@@ -36,6 +36,7 @@ public:
 	int getNumGames() const;
 	double getGoalsPerGame() const;
 
+	void operator=(const WorldCup&);
 	friend std::ostream &operator<<(std::ostream &, const WorldCup&);
 	friend bool operator<(const WorldCup&, const WorldCup&);
 	friend bool operator>(const WorldCup &, const WorldCup&);

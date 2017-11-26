@@ -13,7 +13,7 @@ private:
 	int yearHeld;
 public:
 	TeamsParticipated();
-	TeamsParticipated(int, std::string *);
+	TeamsParticipated(int, int, std::string *);
 
 	void setYearHeld(int);
 	void setNumTeams(int);

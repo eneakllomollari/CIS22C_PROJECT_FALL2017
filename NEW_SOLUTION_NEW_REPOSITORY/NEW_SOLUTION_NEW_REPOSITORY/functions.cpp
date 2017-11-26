@@ -130,7 +130,7 @@ void readFileTeamsByYearData(std::string& line, HashTable<int,TeamsParticipated>
 	}
 
 	//Create temporary TeamsParticipated object
-	TeamsParticipated tempTeams_Object(numTeamsParticipated, tempArray_Teams);
+	TeamsParticipated tempTeams_Object(yearHeld, numTeamsParticipated, tempArray_Teams);
 
 	//"Put" tempTeams_Object with all the teams participated for 
 	//a specific year into teamsParticTable HashTable
@@ -539,6 +539,7 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 	system("CLS");
 }
 
+
 void display_year_data(HashTable<int, WorldCup> table)
 {
 	int choiceYear;
@@ -551,7 +552,10 @@ void display_year_data(HashTable<int, WorldCup> table)
 
 	//Sample on how to display the elements of the hash table
 	try {
-		WorldCup worldCupObject = table.get(choiceYear);
+		WorldCup worldCupObject;
+		bool found = table.get(choiceYear, worldCupObject);
+
+		if (!found) throw "THIS YEAR DOES NOT EXIST IN OUR RECORDS";
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "YEAR HELD:             " << worldCupObject.getYearHeld() << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "WINNING COUNTRY:       " << worldCupObject.getWinningTeam() << std::endl;
@@ -617,20 +621,40 @@ void display_year_data(HashTable<int, WorldCup> table)
 
 };*/
 
-void hashtable_list()
+void hashtable_list(const HashTable<int, WorldCup> worldCupData,const HashTable<int, FinalMatch> finalMatchData, const HashTable<int, TeamsParticipated> teamsByYear)
 {
-	//call hashtable file io function (get data from txt, put into hashtable)
+
+	system("CLS");
+	std::cout << "\n\n\n";
+	
+	printGeneralWorldCupDataHeader();
+	worldCupData.display();
+	for (int i = 0; i < 148; i++)std::cout << "-";
+	std::cout << "\n\n\n";
+
+	system("pause");
+	system("CLS");
+
+	printFinalMatchDataHeader();
+	finalMatchData.display();
+	for (int i = 0; i < 120; i++)std::cout << "-";
+	std::cout << "\n\n\n";
+	
+	system("pause");
+	system("CLS");
+
+	teamsByYear.display();
+	
+	std::cout << "\n\n\n";
+
+	system("pause");
+	system("CLS");
 }
 
 void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree)
 {
-	double aveGoalsPerGame;
-	int average_of_aveAttendance, 
-		average_of_totAttendance, 
-		average_of_NumGames;
-
-
 	int user_choice;
+
 	system("CLS");
 	do
 	{
@@ -766,7 +790,9 @@ void remove_year()
 
 void printGeneralWorldCupDataHeader()
 {
-	int numDashes = 140;
+	int numDashes = 148;
+	for (int i = 0; i < numDashes; i++)std::cout << "_";
+	std::cout << std::endl;
 	std::cout << std::left << std::setw(6) << "Year";
 	std::cout << std::left << std::setw(18) << "Winner";
 	std::cout << std::left << std::setw(23) << "Best Player";
@@ -775,6 +801,22 @@ void printGeneralWorldCupDataHeader()
 	std::cout << std::left << std::setw(24) << "Average Attendance";
 	std::cout << std::left << std::setw(20) << "Total Attendance";
 	std::cout << std::left << std::setw(20) << "Host Country";
+	std::cout << std::endl;
+	for (int i = 0; i < numDashes; i++)std::cout << "_";
+	std::cout << std::endl;
+}
+
+void printFinalMatchDataHeader()
+{
+	int numDashes = 120;
+	for (int i = 0; i < numDashes; i++)std::cout << "_";
+	std::cout << std::endl;
+	std::cout << std::left << std::setw(6) << "Year";
+	std::cout << std::left << std::setw(18) << "Finalist 1";
+	std::cout << std::left << std::setw(25) << "Finalist 2";
+	std::cout << std::left << std::setw(20) << "Final Result";
+	std::cout << std::left << std::setw(35) << "Stadium";
+	std::cout << std::left << std::setw(40) << "City";
 	std::cout << std::endl;
 	for (int i = 0; i < numDashes; i++)std::cout << "_";
 	std::cout << std::endl;

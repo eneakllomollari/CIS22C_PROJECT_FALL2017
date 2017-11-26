@@ -1,6 +1,10 @@
 #include "functions.h"
 #include "HashTable.h"
 
+//***********************************************************************************************
+//I need to add a tree that will sort by the number of teams that participated
+//***********************************************************************************************
+
 int main()
 {
 	std::cout << std::fixed << std::setprecision(2);
@@ -24,23 +28,9 @@ int main()
 	{
 		//Initializes the trees correctly
 		initializeWorldCupData(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, teamsByYear);
-		
+
 		//Initialize data into HashTable from "FinalMatch.txt" file
 		initializeFinalMatchData(finalMatchData);
-
-		//THIS WAS JUST FOR TESTING PURPOSES CAN BE DELETED
-		/*std::cout << "Year held height:  " << yearHeld.getHeight() << std::endl;
-		std::cout << "Goals per game height:  " << goalsPgameTree.getHeight() << std::endl;
-		std::cout << "Average att height:  " << aveAtteTree.getHeight() << std::endl;
-		std::cout << "Totat att height:  " << totAtteTree.getHeight() << std::endl;
-		std::cout << "Num Games att height:  " << numGamesTree.getHeight() << std::endl << std::endl;
-
-		std::cout << "WorldCupData load factor: " << worldCupData.getLoadFactor() << std::endl;
-		std::cout << "finalMatchData load factor: " << finalMatchData.getLoadFactor()<< std::endl;
-		std::cout << "teamsByYear load factor: " << teamsByYear.getLoadFactor() << std::endl << std::endl;
-		system("pause");
-		*/
-
 
 		//MENU STARTS HERE 
 		// MAKE THIS A FUNCTION
@@ -79,7 +69,7 @@ int main()
 					display_year_data(worldCupData);
 					break;
 				case 5: 
-					hashtable_list();  
+					hashtable_list(worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 6: 
 					sortDataByChoice(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree);

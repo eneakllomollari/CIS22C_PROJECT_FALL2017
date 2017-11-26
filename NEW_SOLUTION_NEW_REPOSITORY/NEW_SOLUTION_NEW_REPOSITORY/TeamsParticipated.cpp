@@ -6,8 +6,9 @@ TeamsParticipated::TeamsParticipated()
 	teamsArr = nullptr;
 }
 
-TeamsParticipated::TeamsParticipated(int s, std::string* arr)
+TeamsParticipated::TeamsParticipated(int y, int s, std::string* arr)
 {
+	yearHeld = y;
 	numTeams = s;
 	teamsArr = new std::string[s];
 	teamsArr = arr;
@@ -45,12 +46,18 @@ std::string* TeamsParticipated::getTeamsArr() const
 
 std::ostream & operator<<(std::ostream &os, const TeamsParticipated &t)
 {
-	const int NUM_COL = 2;
-	os << t.yearHeld << std::endl;
+	const int NUM_COL = 1;
+	os << std::endl;
+	os << "________________________\n";
+	os << "\t" <<  t.yearHeld << std::endl;
+	os << "________________________\n";
 	for (int i = 0; i < t.numTeams; i++)
 	{
 		if (i > 0 && i % NUM_COL == 0) os << std::endl;
-		os << std::left << std::setw(40) << t.teamsArr[i];
+		os << i + 1 << ".  " << t.teamsArr[i] << std::right << std::setw(20) << "";
 	}
+	os << std::endl;
+	for (int i = 0; i < 24; i++)os << "-";
+
 	return os;
 }

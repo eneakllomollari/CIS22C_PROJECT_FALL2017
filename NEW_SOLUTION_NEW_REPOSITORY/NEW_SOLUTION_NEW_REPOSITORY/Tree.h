@@ -239,7 +239,7 @@ bool Tree<K, T>::isEmpty() const
 template<class K, class T>
 K Tree<K, T>::getAverageOfKey() const
 {
-	K sum = 0.0;
+	K sum = 0;
 	calculateSum(root, sum);
 	return sum / (K)itemCount;
 }

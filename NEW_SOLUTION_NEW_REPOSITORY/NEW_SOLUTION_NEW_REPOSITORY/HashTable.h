@@ -10,7 +10,7 @@ class HashTable
 private:
 	HashEntry<K, T> **table;
 
-	const int TABLE_SIZE = 29;
+	const int TABLE_SIZE = 31;
 	int itemCount;
 	int hash(K);
 
@@ -18,7 +18,7 @@ public:
 	HashTable();
 	~HashTable();
 
-	T get(const K&);
+	bool get(const K&, T&);
 	void put(const K&, const T&);
 	bool remove(const K&);
 	
@@ -68,9 +68,9 @@ int HashTable<K, T>::hash(K k)
 }
 
 template<class K, class T>
-T HashTable<K, T>::get(const K& key)
+bool HashTable<K, T>::get(const K& key, T& data)
 {
-	T value;
+	bool flag = false;
 	//Hash the key and get the index
 	int index = hash(key);
 	HashEntry<K, T> *entry = table[index];
@@ -79,12 +79,12 @@ T HashTable<K, T>::get(const K& key)
 	{
 		if (entry->getHashKey() == key)
 		{
-			value = entry->getHashData();
-			return value;
+			data = entry->getHashData();
+			flag = true;
 		}
 		entry = entry->getNext();
 	}
-	throw "THERE IS NO OBJECT STORED AT THIS KEY";
+	return flag;
 }
 
 template<class K, class T>
