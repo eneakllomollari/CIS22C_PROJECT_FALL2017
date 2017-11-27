@@ -19,12 +19,13 @@ protected:
 	void displayPreOrder(TreeNode<K, T> *)const;
 	void displayPostOrder(TreeNode<K, T> *)const;
 
+	void calculateSum(TreeNode<K, T>*, K&)const;
 	void destroySubTree(TreeNode<K, T>*);
 	TreeNode<K, T>* deleteNode(TreeNode<K, T>*, K);
 
-	TreeNode<K, T>* getSmallestNode(TreeNode<K, T>*);
-	TreeNode<K, T>* getBiggerNode(TreeNode<K, T>*);
-	TreeNode<K, T>* getParentOf(TreeNode<K, T>*);
+	TreeNode<K, T>* getSmallestNode(TreeNode<K, T>*)const;
+	TreeNode<K, T>* getBiggestNode(TreeNode<K, T>*)const;
+	TreeNode<K, T>* getParentOf(TreeNode<K, T>*)const;
 
 public:
 	Tree();
@@ -36,7 +37,9 @@ public:
 	TreeNode<K, T>* searchNode(K);
 	bool isEmpty()const;
 
-	K getAverageOfKey() const;
+	K getAverage() const;
+	K getSmallest() const;
+	K getLargest() const;
 
 	int getCountNodes()const;
 	int getHeight();
@@ -49,12 +52,6 @@ public:
 	void displayPreOrder()const;
 	void displayPostOrder()const;
 };
-
-template <class K, class T>
-int Tree<K, T>::max(int x, int y)
-{
-	return x > y ? x : y;
-}
 
 template<class K, class T>
 Tree<K, T>::Tree()
@@ -80,6 +77,17 @@ void Tree<K, T>::clear()
 }
 
 template<class K, class T>
+void Tree<K, T>::calculateSum(TreeNode<K, T>*nodePtr, K &sum) const
+{
+	if (nodePtr)
+	{
+		sum += nodePtr->getKey();
+		calculateSum(nodePtr->getLeft(), sum);
+		calculateSum(nodePtr->getRight(), sum);
+	}
+}
+
+template<class K, class T>
 void Tree<K, T>::destroySubTree(TreeNode<K, T>* nodePtr)
 {
 	if (nodePtr != nullptr)
@@ -99,7 +107,7 @@ bool Tree<K, T>::remove(K key)
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::getParentOf(TreeNode<K, T> *nodePtr)
+TreeNode<K, T>* Tree<K, T>::getParentOf(TreeNode<K, T> *nodePtr)const
 {
 	TreeNode<K, T> *tempPtr = root;
 	TreeNode<K, T> *parent = nullptr;
@@ -127,7 +135,7 @@ TreeNode<K, T>* Tree<K, T>::getParentOf(TreeNode<K, T> *nodePtr)
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::getSmallestNode(TreeNode<K, T>* rootPtr)
+TreeNode<K, T>* Tree<K, T>::getSmallestNode(TreeNode<K, T>* rootPtr)const
 {
 	TreeNode<K, T> *tempPtr = rootPtr;
 	//Traverse all the way to the left most node which is 
@@ -138,7 +146,7 @@ TreeNode<K, T>* Tree<K, T>::getSmallestNode(TreeNode<K, T>* rootPtr)
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::getBiggerNode(TreeNode<K, T>* rootPtr)
+TreeNode<K, T>* Tree<K, T>::getBiggestNode(TreeNode<K, T>* rootPtr)const
 {
 	TreeNode<K, T> *tempPtr = rootPtr;
 	while (tempPtr->getRight() != nullptr)
@@ -237,7 +245,7 @@ bool Tree<K, T>::isEmpty() const
 }
 
 template<class K, class T>
-K Tree<K, T>::getAverageOfKey() const
+K Tree<K, T>::getAverage() const
 {
 	K sum = 0;
 	calculateSum(root, sum);
@@ -245,14 +253,15 @@ K Tree<K, T>::getAverageOfKey() const
 }
 
 template<class K, class T>
-void calculateSum(TreeNode<K, T>*nodePtr, K& sum)
+K Tree<K, T>::getSmallest() const
 {
-	if (nodePtr)
-	{
-		sum += nodePtr->getKey();
-		calculateSum(nodePtr->getLeft(), sum);
-		calculateSum(nodePtr->getRight(), sum);
-	}
+	return getSmallestNode(root)->getKey();
+}
+
+template<class K, class T>
+K Tree<K, T>::getLargest() const
+{
+	return getBiggestNode(root)->getKey();
 }
 
 template<class K, class T>
@@ -377,6 +386,12 @@ TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input)
 		}
 	}
 	return root;
+}
+
+template <class K, class T>
+int Tree<K, T>::max(int x, int y)
+{
+	return x > y ? x : y;
 }
 
 #endif // !TREE_H

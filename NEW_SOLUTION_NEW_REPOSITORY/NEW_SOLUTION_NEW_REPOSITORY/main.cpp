@@ -18,7 +18,6 @@ int main()
 	HashTable<int, FinalMatch> finalMatchData;			//WORKS FINE
 	HashTable<int, TeamsParticipated> teamsByYear;		//WORKS FINE
 
-
 	int choice;
 
 	try

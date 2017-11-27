@@ -687,7 +687,9 @@ void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, W
 				printGeneralWorldCupDataHeader();
 				goalsPerGameTree.displayInOrder();
 				std::cout << "\n\n";
-				std::cout << "Average number of goals per game in World Cup history is " << goalsPerGameTree.getAverageOfKey() << " goals" << std::endl;
+				std::cout << "Average record is: " << goalsPerGameTree.getAverage() << " goals per game." << std::endl;
+				std::cout << "Highest record is: " << goalsPerGameTree.getLargest() << " goals per game." << std::endl;
+				std::cout << "Lowest  record is: " << goalsPerGameTree.getSmallest() << " goals per game." << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS");
@@ -698,7 +700,9 @@ void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, W
 				printGeneralWorldCupDataHeader();
 				numGamesTree.displayInOrder();
 				std::cout << "\n\n";
-				std::cout << "Average number of games in World Cup history is " << numGamesTree.getAverageOfKey() << " games" << std::endl;
+				std::cout << "Average number of games is: " << numGamesTree.getAverage() << " games" << std::endl;
+				std::cout << "Highest number of games is: " << numGamesTree.getLargest() << " games." << std::endl;
+				std::cout << "Lowest  number of games is: " << numGamesTree.getSmallest() << " games." << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS");
@@ -709,7 +713,9 @@ void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, W
 				printGeneralWorldCupDataHeader();
 				aveAttTree.displayInOrder();
 				std::cout << "\n\n";
-				std::cout << "Average attendance in World Cup history is " << aveAttTree.getAverageOfKey() << " spectators" << std::endl;
+				std::cout << "Average attendance is: " << aveAttTree.getAverage() << " spectators" << std::endl;
+				std::cout << "Highest attendance is: " << aveAttTree.getLargest() << " spectators." << std::endl;
+				std::cout << "Lowest  attendance is: " << aveAttTree.getSmallest() << " spectators." << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS");
@@ -720,7 +726,9 @@ void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, W
 				printGeneralWorldCupDataHeader();
 				totAttTree.displayInOrder();
 				std::cout << "\n\n";
-				std::cout << "Average of total attendance in World Cup history " << (aveAttTree.getAverageOfKey())*(aveAttTree.getCountNodes()) << " spectators" << std::endl;
+				std::cout << "Average number of overall attendance is: " << totAttTree.getAverage() << " spectators" << std::endl;
+				std::cout << "Highest number of overall attendance is: " << totAttTree.getLargest() << " spectators." << std::endl;
+				std::cout << "Lowest  number of overall attendance is: " << totAttTree.getSmallest() << " spectators." << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS");
@@ -730,7 +738,9 @@ void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, W
 				std::cout << "\n\n\n";
 				numTeamsTree.displayInOrder();
 				std::cout << "\n\n";
-				std::cout << "Average number of teams participated in World Cup history " << numTeamsTree.getAverageOfKey() << " teams" << std::endl;
+				std::cout << "Average number of teams participating is: " << numTeamsTree.getAverage() << " teams" << std::endl;
+				std::cout << "Highest number of teams participating is: " << numTeamsTree.getLargest() << " teams." << std::endl;
+				std::cout << "Lowest  number of teams participating is: " << numTeamsTree.getSmallest() << " teams." << std::endl;
 				std::cout << "\n\n";
 				system("pause");
 				system("CLS");
