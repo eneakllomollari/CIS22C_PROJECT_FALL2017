@@ -1,5 +1,5 @@
 #include "functions.h"
-#include "HashTable.h"
+#include "initializerFunctions.h"
 
 int main()
 {
@@ -35,14 +35,14 @@ int main()
 
 		do {
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "The list of possible operations\n" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1) Check previous years stats" << std::endl; // this is the <Team choice menu option>
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2) Add a new year stats" << std::endl; //this is <add new data>
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Remove a year" << std::endl; //this is <delete data>
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) Find and display one data record of a year" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List data in hash table sequence" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) List sorted data" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Print indented tree" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Efficency " << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1) Add a new year stats" << std::endl; //this is <add new data>
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2) Remove a year" << std::endl; //this is <delete data>
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Find and display one data record of a year" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) List data in hash table sequence" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List sorted data" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) Print indented tree" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Efficency " << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Load Factor " << std::endl;
 
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0) EXIT\n";
 
@@ -53,25 +53,28 @@ int main()
 			switch (choice)
 			{
 				case 1: 
-					yearChosen(); 
-					break;
-				case 2: 
 					add(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, finalMatchData, teamsByYear);
 					break;
+				case 2: 
+					remove_year(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear);
+					break;
 				case 3: 
-					remove_year(); 
+					display_year_data(worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 4: 
-					display_year_data(worldCupData);
-					break;
-				case 5: 
 					hashtable_list(worldCupData, finalMatchData, teamsByYear);
 					break;
-				case 6: 
+				case 5: 
 					sortDataByChoice(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree);
 					break;
-				case 7: 
+				case 6: 
 					pretty_print(); 
+					break;
+				case 7:
+					//EFFICENY HERE
+					break;
+				case 8:
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Hash Table load factor: " << worldCupData.loadFactor() << "%" << std::endl;
 					break;
 				case 0:
 					system("CLS"); break;

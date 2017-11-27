@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{610EF752-6770-4C22-9A05-96BA6D8CF2CF}</ProjectGuid>
     <RootNamespace>NEW_SOLUTION_NEW_REPOSITORY</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="FinalMatch.cpp" />
     <ClCompile Include="functions.cpp" />
+    <ClCompile Include="initializerFunctions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TeamsParticipated.cpp" />
     <ClCompile Include="WorldCup.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="functions.h" />
     <ClInclude Include="HashEntry.h" />
     <ClInclude Include="HashTable.h" />
+    <ClInclude Include="initializerFunctions.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedNode.h" />
     <ClInclude Include="TeamsParticipated.h" />

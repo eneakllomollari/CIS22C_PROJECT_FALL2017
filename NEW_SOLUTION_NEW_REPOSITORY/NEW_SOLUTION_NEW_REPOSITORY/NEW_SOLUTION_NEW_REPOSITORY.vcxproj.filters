@@ -30,6 +30,9 @@
     <ClCompile Include="TeamsParticipated.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="initializerFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FinalMatch.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TeamsParticipated.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="initializerFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

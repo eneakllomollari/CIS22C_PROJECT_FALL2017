@@ -369,13 +369,20 @@ TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input)
 		}
 		else if (root->hasLeftChild() && !root->hasRightChild())
 		{
-			root = root->getLeft();
-			deleteNode(root, key_input);
+			TreeNode<K, T> *temp = root->getLeft();
+			
+			//deleteNode(root, key_input);
+			delete root;
+			root = nullptr;
+			return temp;
 		}
 		else if (root->hasRightChild() && !root->hasLeftChild())
 		{
-			root = root->getRight();
-			deleteNode(root, key_input);
+			TreeNode<K, T>*temp = root->getRight();
+			//deleteNode(root, key_input);
+			delete root;
+			root = nullptr;
+			return temp;
 		}
 		else
 		{

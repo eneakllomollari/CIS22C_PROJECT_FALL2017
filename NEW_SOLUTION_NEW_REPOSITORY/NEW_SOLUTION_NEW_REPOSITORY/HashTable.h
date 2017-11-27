@@ -85,7 +85,7 @@ T HashTable<K, T>::get(const K& searchKey)const
 		else
 			entry = entry->getNext();
 	}
-	throw "YEAR NOT FOUND";
+	throw "THIS YEAR DOES NOT EXIST IN OUR RECORDS";
 }
 
 template < class K, class T>
@@ -120,7 +120,7 @@ bool HashTable<K, T>::remove(const K& searchKey)
 	if (table[itemHashIndex] != nullptr)
 	{
 		// Special case - first node has target
-		if (searchKey == table[itemHashIndex]->getHashKey())
+		if (searchKey == table[itemHashIndex]->getKey())
 		{
 			HashEntry<K, T>* entryToRemovePtr = table[itemHashIndex];
 			table[itemHashIndex] = table[itemHashIndex]->getNext();
@@ -132,7 +132,7 @@ bool HashTable<K, T>::remove(const K& searchKey)
 		else // Search the rest of the chain
 		{
 			HashEntry<K, T>* prevPtr = table[itemHashIndex];
-			HashedEntry<K, T>* curPtr = prevPtr->getNext();
+			HashEntry<K, T>* curPtr = prevPtr->getNext();
 			while ((curPtr != nullptr) && !itemFound)
 			{
 				// Found item in chain so remove that node

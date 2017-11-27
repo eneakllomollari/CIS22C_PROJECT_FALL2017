@@ -50,6 +50,7 @@ std::ostream & operator<<(std::ostream &os, const TeamsParticipated &t)
 	const int NUM_DASHES = 150;
 	const int SPACING = 25;
 
+
 	os << std::endl;
 	for (int i = 0; i < NUM_DASHES; i++)os << "_";
 	os << std::endl;
