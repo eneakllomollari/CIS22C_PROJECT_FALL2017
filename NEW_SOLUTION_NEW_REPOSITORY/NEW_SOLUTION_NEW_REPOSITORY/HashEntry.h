@@ -7,18 +7,24 @@ class HashEntry
 private:
 	K key;
 	T data;
+
 	HashEntry<K, T> *next;
+
+protected:
+	void setKey(const K&);
+
 public:
 	HashEntry();
 	HashEntry(K,T);
 
-	void setHashKey(K);
-	void setHashData(T);
+	void setData(const T&);
 	void setNext(HashEntry<K, T>*);
 
-	K getHashKey() const;
-	T getHashData() const;
+	K getKey() const;
+	T getData() const;
 	HashEntry<K, T>* getNext() const;
+
+	//bool operator==(const HashEntry<K, T>&)const;
 };
 
 #endif // !HASHENTRY_H
@@ -38,13 +44,13 @@ HashEntry<K, T>::HashEntry(K k, T d)
 }
 
 template<class K, class T>
-void HashEntry<K, T>::setHashKey(K k)
+void HashEntry<K, T>::setKey(const K& k)
 {
 	key = k;
 }
 
 template<class K, class T>
-void HashEntry<K, T>::setHashData(T d)
+void HashEntry<K, T>::setData(const T& d)
 {
 	data = d;
 }
@@ -56,13 +62,13 @@ void HashEntry<K, T>::setNext(HashEntry<K, T>* n)
 }
 
 template<class K, class T>
-K HashEntry<K, T>::getHashKey() const
+K HashEntry<K, T>::getKey() const
 {
 	return key;
 }
 
 template<class K, class T>
-T HashEntry<K, T>::getHashData() const
+T HashEntry<K, T>::getData() const
 {
 	return data;
 }

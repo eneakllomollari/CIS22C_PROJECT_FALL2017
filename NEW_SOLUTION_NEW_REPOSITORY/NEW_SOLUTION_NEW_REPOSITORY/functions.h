@@ -27,9 +27,9 @@ void readFileTeamsByYearData(std::string &, HashTable<int, TeamsParticipated>&, 
 
 void yearChosen();
 void add(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&, HashTable<int, FinalMatch>&, HashTable<int, TeamsParticipated>&);
-void display_year_data(HashTable<int, WorldCup>);
-void hashtable_list(const HashTable<int, WorldCup>,const HashTable<int, FinalMatch>,const HashTable<int, TeamsParticipated>);
-void sortDataByChoice(Tree<int, WorldCup>, Tree<double, WorldCup>, Tree<int, WorldCup>, Tree<int, WorldCup>, Tree<int, WorldCup>, Tree<int, TeamsParticipated>);
+void display_year_data(const HashTable<int, WorldCup>&);
+void hashtable_list(const HashTable<int, WorldCup>&,const HashTable<int, FinalMatch>&,const HashTable<int, TeamsParticipated>&);
+void sortDataByChoice(const Tree<int, WorldCup>&, const Tree<double, WorldCup>&, const Tree<int, WorldCup>&, const Tree<int, WorldCup>&, const Tree<int, WorldCup>&, const Tree<int, TeamsParticipated>&);
 //void descending_sort();				
 //int count_efficiency();				
 void pretty_print();				

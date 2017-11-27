@@ -1,11 +1,6 @@
 #include "functions.h"
 #include "HashTable.h"
 
-//***********************************************************************************************
-//	Need to fix the hash table implementation, has some problems in get and display functions
-//  Some expetions are thrown 
-//***********************************************************************************************
-
 int main()
 {
 	std::cout << std::fixed << std::setprecision(2);

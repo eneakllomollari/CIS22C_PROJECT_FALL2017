@@ -15,16 +15,17 @@ private:
 	int itemCount;
 protected:
 	
-	int hash(K);
+	int hash(const K&)const;
 
 public:
 	HashTable();
 	~HashTable();
 
-	bool get(const K&, T&);
+	T get(const K&)const;
 	bool put(const K&, const T&);
 	bool remove(const K&);
-	
+
+	bool isEmpty()const;
 	int size()const;
 	void display()const;
 	double loadFactor()const;
@@ -60,32 +61,31 @@ HashTable<K, T>::~HashTable()
 		}
 		table[i] = nullptr;
 	}
+	itemCount = 0;
 	delete[]table;
 	table = nullptr;
 }
 
 template<class K, class T>
-int HashTable<K, T>::hash(K k)
+int HashTable<K, T>::hash(const K& k)const
 {
 	return (2 * k + 3) % TABLE_SIZE;
 }
 
 template<class K, class T>
-bool HashTable<K, T>::get(const K& key, T&data)
+T HashTable<K, T>::get(const K& searchKey)const
 {
-	int hashValue = hash(key);
-	HashEntry<K, T> *entry = table[hashValue];
+	int i = hash(searchKey);
+	HashEntry<K, T> *entry = table[i];
 
-	while (entry != nullptr) 
+	while (entry != nullptr)
 	{
-		if (entry->getHashKey() == key) 
-		{
-			data = entry->getHashData();
-			return true;
-		}
-		entry = entry->getNext();
+		if (entry->getKey() == searchKey)
+			return entry->getData();
+		else
+			entry = entry->getNext();
 	}
-	return false;
+	throw "YEAR NOT FOUND";
 }
 
 template < class K, class T>
@@ -156,6 +156,12 @@ bool HashTable<K, T>::remove(const K& searchKey)
 }
 
 template<class K, class T>
+inline bool HashTable<K, T>::isEmpty() const
+{
+	return itemCount == 0;
+}
+
+template<class K, class T>
 int HashTable<K, T>::size() const
 {
 	return itemCount;
@@ -170,7 +176,7 @@ void HashTable<K, T>::display() const
 		entry = table[i];
 		while (entry != nullptr)
 		{
-			std::cout << entry->getHashData() << std::endl;
+			std::cout << entry->getData() << std::endl;
 			entry = entry->getNext();
 		}
 	}
@@ -207,13 +213,13 @@ void HashTable<K, T>::writeTeamsParticipatedToTxt()
 			//Create a temporary TeamsParticipated object
 			//that stores the data of the first Node
 			//in the LinkedList at index of HashTable array
-			TeamsParticipated myTeam = entry->getHashData();
+			TeamsParticipated myTeam = entry->getData();
 
 			//Create a pointer of type "String" to cycle through array of Teams
 			std::string *tempTeamsArray = myTeam.getTeamsArr();
 
 			//The key is the year of the WorldCup
-			file << std::left << entry->getHashKey() << " | ";
+			file << std::left << entry->getKey() << " | ";
 
 			//Now print the teams that participated in specific year
 			for (int i = 0; i < myTeam.getNumTeams(); i++)
@@ -247,7 +253,7 @@ void HashTable<K, T>::writeWorldCupGeneralDataToTxt()
 
 		while (entry != nullptr)
 		{
-			WorldCup tempWc_object = entry->getHashData();
+			WorldCup tempWc_object = entry->getData();
 
 			file << std::fixed << std::setprecision(2);
 			file << std::left << tempWc_object.getYearHeld() << " | ";
@@ -285,7 +291,7 @@ void HashTable<K, T>::writeFinalMatchDataToTxt()
 		while (entry != nullptr)
 		{
 			//Create temporary object that stores FinalMatch object
-			FinalMatch FinalMatch_temp = entry->getHashData();
+			FinalMatch FinalMatch_temp = entry->getData();
 
 			//Output to the file below
 			file << std::left << FinalMatch_temp.getYear() << " | ";

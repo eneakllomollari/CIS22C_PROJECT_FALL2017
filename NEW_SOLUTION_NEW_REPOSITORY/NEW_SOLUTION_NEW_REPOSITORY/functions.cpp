@@ -19,7 +19,7 @@
 
 */
 void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt,
-	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&worldCupData, HashTable<int, TeamsParticipated>&teamsParticTable, Tree<int, TeamsParticipated>&numTeamsTree)
+	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&worldCupData,  HashTable<int, TeamsParticipated>&teamsParticTable, Tree<int, TeamsParticipated>&numTeamsTree)
 {
 	//Declare Local Variables/Objects
 	std::string buffer;
@@ -219,7 +219,7 @@ void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>& final
 	Post: Upon completion, this function will have read and stored the data into the respective Trees and Hashtables passed into it.
 */
 void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt,
-	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>& worldCupData)
+	Tree<int, WorldCup>&numGames,  HashTable<int, WorldCup>& worldCupData)
 {
 	//Temporary object to be used for initialization
 	WorldCup tempWorldCup;
@@ -376,7 +376,7 @@ void yearChosen()
 	!^^@%@$%^ THIS CODE NEEDS FIXING.... LOOK NEAR END.... !^%^$@%^$@%@$
 */
 void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>&totalAtt, Tree<int, WorldCup>&numGamesTree, 
-		 HashTable<int, WorldCup>&worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>&teamsByYear)
+	 HashTable<int, WorldCup>&worldCupData,  HashTable<int, FinalMatch>&finalMatchData,  HashTable<int, TeamsParticipated>&teamsByYear)
 {
 	//Declare local variables/constants/arrays
 	WorldCup tempWorldCup;
@@ -389,7 +389,6 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 	std::string	dummy, goalScoredFirstTeam, winningCountry, bestPlayer, hostCountry,
 		goalScoredSecondTeam;
 
-	//std::string teams[MAX_NUM_TEAMS];
 	std::string firstTeamFinalMatch, secondteamFinalMatch, stadiumName, cityHost,
 		*teamsParticipatedArray;
 
@@ -540,7 +539,7 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 }
 
 
-void display_year_data(HashTable<int, WorldCup> table)
+void display_year_data(const HashTable<int, WorldCup>& table)
 {
 	int choiceYear;
 	system("CLS");
@@ -552,8 +551,7 @@ void display_year_data(HashTable<int, WorldCup> table)
 
 	//Sample on how to display the elements of the hash table
 	try {
-		WorldCup worldCupObject;
-		table.get(choiceYear, worldCupObject);
+		WorldCup worldCupObject = table.get(choiceYear);
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "YEAR HELD:             " << worldCupObject.getYearHeld() << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "WINNING COUNTRY:       " << worldCupObject.getWinningTeam() << std::endl;
@@ -619,7 +617,7 @@ void display_year_data(HashTable<int, WorldCup> table)
 
 };*/
 
-void hashtable_list(const HashTable<int, WorldCup> worldCupData,const HashTable<int, FinalMatch> finalMatchData, const HashTable<int, TeamsParticipated> teamsByYear)
+void hashtable_list(const HashTable<int, WorldCup>& worldCupData,const HashTable<int, FinalMatch>& finalMatchData, const HashTable<int, TeamsParticipated>& teamsByYear)
 {
 
 	system("CLS");
@@ -649,7 +647,7 @@ void hashtable_list(const HashTable<int, WorldCup> worldCupData,const HashTable<
 	system("CLS");
 }
 
-void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goalsPerGameTree, Tree<int, WorldCup> aveAttTree, Tree<int, WorldCup> totAttTree,Tree<int,WorldCup> numGamesTree, Tree<int, TeamsParticipated> numTeamsTree)
+void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, WorldCup>& goalsPerGameTree, const  Tree<int, WorldCup>& aveAttTree, const  Tree<int, WorldCup>& totAttTree, const Tree<int, WorldCup>& numGamesTree, const  Tree<int, TeamsParticipated>& numTeamsTree)
 {
 	int user_choice;
 
@@ -703,7 +701,7 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 				std::cout << "Average number of games in World Cup history is " << numGamesTree.getAverageOfKey() << " games" << std::endl;
 				std::cout << "\n\n";
 				system("pause");
-				system("CLS"); 
+				system("CLS");
 				break;
 			case 4:
 				system("CLS");
@@ -737,7 +735,7 @@ void sortDataByChoice(Tree<int, WorldCup> yearTree, Tree<double, WorldCup> goals
 				system("pause");
 				system("CLS");
 				break;
-			case 0: 
+			case 0:
 				break;
 			default:
 				system("CLS");
