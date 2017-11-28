@@ -53,7 +53,7 @@ int main()
 			switch (choice)
 			{
 				case 1: 
-					add(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, finalMatchData, teamsByYear);
+					add(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 2: 
 					remove_year(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear);
