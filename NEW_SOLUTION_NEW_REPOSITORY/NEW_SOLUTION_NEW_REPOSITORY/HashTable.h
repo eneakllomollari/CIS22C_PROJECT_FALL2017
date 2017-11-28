@@ -15,16 +15,16 @@ private:
 	int itemCount;
 	int numCollisions;
 protected:
-	
+
 	int hash(const K&)const;
 
 public:
 	HashTable();
 	~HashTable();
 
-	T get(const K&)const;
-	bool put(const K&, const T&);
-	bool remove(const K&);
+	T get(const K&, int&)const;///////////////////////////////////////
+	bool put(const K&, const T&, int&);///////////////////////////////////////////
+	bool remove(const K&, int&);/////////////////////////////////////////////
 
 	bool isEmpty()const;
 	int size()const;
@@ -76,85 +76,92 @@ int HashTable<K, T>::hash(const K& k)const
 }
 
 template<class K, class T>
-T HashTable<K, T>::get(const K& searchKey)const
+T HashTable<K, T>::get(const K& searchKey, int& getCounter)const
 {
-	int i = hash(searchKey);
-	HashEntry<K, T> *entry = table[i];
-
+	getCounter = 0;
+	int i = hash(searchKey);                            getCounter++;
+	HashEntry<K, T> *entry = table[i];                  getCounter++;
+														getCounter++;
 	while (entry != nullptr)
 	{
-		if (entry->getKey() == searchKey)
-			return entry->getData();
-		else
-			entry = entry->getNext();
+		if (entry->getKey() == searchKey) {
+			return entry->getData();					getCounter += 2;
+		}
+		else {
+			entry = entry->getNext();					getCounter++;
+		}
 	}
-	throw "THIS YEAR DOES NOT EXIST IN OUR RECORDS";
+	throw "\nTHIS YEAR DOES NOT EXIST IN OUR RECORDS";
 }
 
 template < class K, class T>
-bool HashTable<K, T>::put(const K& searchKey, const T& newItem)
+bool HashTable<K, T>::put(const K& searchKey, const T& newItem, int &putCounter)
 {
+	putCounter = 0;
 	// Create entry to add to dictionary
-	HashEntry<K, T>* entryToAddPtr = new HashEntry<K, T>(searchKey, newItem);
+	HashEntry<K, T>* entryToAddPtr = new HashEntry<K, T>(searchKey, newItem); putCounter++;
 
 	// Compute the hashed index into the array
-	int itemHashIndex = hash(searchKey);
+	int itemHashIndex = hash(searchKey);                                      putCounter++;
 
 	// Add the entry to the chain at itemHashIndex
-	if (table[itemHashIndex] == nullptr)
-		table[itemHashIndex] = entryToAddPtr;
+	if (table[itemHashIndex] == nullptr) {
+		table[itemHashIndex] = entryToAddPtr;								  putCounter += 2;
+	}
 	else
 	{
 		numCollisions++;
 		//Insert it at the beggining of the chain
-		entryToAddPtr->setNext(table[itemHashIndex]);
-		table[itemHashIndex] = entryToAddPtr;
+		entryToAddPtr->setNext(table[itemHashIndex]);                         putCounter++;
+		table[itemHashIndex] = entryToAddPtr;                                 putCounter++;
 	}
-	itemCount++;
+	itemCount++;                                                              putCounter++;
 	return true;
 }
 
 template < class K, class T>
-bool HashTable<K, T>::remove(const K& searchKey)
+bool HashTable<K, T>::remove(const K& searchKey, int &removeCounter)
 {
-	bool itemFound = false;
+	removeCounter = 0;
+	bool itemFound = false;                                                 removeCounter++;
 	// Compute the hashed index into the array
-	int itemHashIndex = hash(searchKey);
-	
+	int itemHashIndex = hash(searchKey);                                    removeCounter++;
+
 	if (table[itemHashIndex] != nullptr)
 	{
+																			removeCounter++;
 		// Special case - first node has target
 		if (searchKey == table[itemHashIndex]->getKey())
 		{
-			HashEntry<K, T>* entryToRemovePtr = table[itemHashIndex];
-			table[itemHashIndex] = table[itemHashIndex]->getNext();
-			delete entryToRemovePtr;
-			itemCount--;
-			entryToRemovePtr = nullptr; // For safety
-			itemFound = true;
+			HashEntry<K, T>* entryToRemovePtr = table[itemHashIndex];       removeCounter++;
+			table[itemHashIndex] = table[itemHashIndex]->getNext();         removeCounter++;
+			delete entryToRemovePtr;                                        removeCounter++;
+			itemCount--;                                                    removeCounter++;
+			entryToRemovePtr = nullptr;  /*For safety */                    removeCounter++;
+			itemFound = true;                                               removeCounter++;
 		}
 		else // Search the rest of the chain
 		{
-			HashEntry<K, T>* prevPtr = table[itemHashIndex];
-			HashEntry<K, T>* curPtr = prevPtr->getNext();
-			while ((curPtr != nullptr) && !itemFound)
+			HashEntry<K, T>* prevPtr = table[itemHashIndex];                removeCounter++;
+			HashEntry<K, T>* curPtr = prevPtr->getNext();                   removeCounter++;
+			while ((curPtr != nullptr) && !itemFound)                       
 			{
-				// Found item in chain so remove that node
-				if (searchKey == curPtr->getKey())
+				/* Found item in chain so remove that node */               removeCounter += 2;
+				if (searchKey == curPtr->getKey())                         
 				{
-					prevPtr->setNext(curPtr->getNext());
-					delete curPtr;
-					itemCount--;
-					curPtr = nullptr; // For safety
-					itemFound = true;
+					prevPtr->setNext(curPtr->getNext());                    removeCounter++;
+					delete curPtr;                                          removeCounter++;
+					itemCount--;                                            removeCounter++;
+					curPtr = nullptr; /*For safety*/                        removeCounter++;
+					itemFound = true;                                       removeCounter++;
 				}
 				else // Look at next entry in chain
 				{
-					prevPtr = curPtr;
-					curPtr = curPtr->getNext();
-				} 
-			} 
-		} 
+					prevPtr = curPtr;                                       removeCounter++;
+					curPtr = curPtr->getNext();                             removeCounter++;
+				}
+			}
+		}
 	}
 	return itemFound;
 }
@@ -269,12 +276,12 @@ void HashTable<K, T>::writeWorldCupGeneralDataToTxt()
 			file << std::left << tempWc_object.getYearHeld() << " | ";
 			file << std::left << std::setw(9) << tempWc_object.getWinningTeam() << " | ";
 			file << std::left << std::setw(18) << tempWc_object.getGoldenBootWinner() << " | ";
-			file << std::left << tempWc_object.getNumGames()<< " | ";
+			file << std::left << tempWc_object.getNumGames() << " | ";
 			file << std::left << std::setw(4) << tempWc_object.getGoalsPerGame() << " | ";
 			file << std::left << tempWc_object.getAveAtt() << " | ";
 			file << std::left << std::setw(7) << tempWc_object.getTotAtt() << " | ";
 			file << std::left << tempWc_object.getHostCountry() << std::endl;
-			
+
 			entry = entry->getNext();
 		}
 	}

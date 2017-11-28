@@ -21,7 +21,7 @@ protected:
 
 	void calculateSum(TreeNode<K, T>*, K&)const;
 	void destroySubTree(TreeNode<K, T>*);
-	TreeNode<K, T>* deleteNode(TreeNode<K, T>*, K);
+	TreeNode<K, T>* deleteNode(TreeNode<K, T>*, K,int&);///////////////////////////////
 
 	TreeNode<K, T>* getSmallestNode(TreeNode<K, T>*)const;
 	TreeNode<K, T>* getBiggestNode(TreeNode<K, T>*)const;
@@ -32,8 +32,8 @@ public:
 	virtual ~Tree();
 
 	void clear();
-	void insert(K, T);
-	bool remove(K);
+	void insert(K, T,int&);////////////////////////
+	bool remove(K,int&);//////////////////////////
 	TreeNode<K, T>* searchNode(K);
 	bool isEmpty()const;
 
@@ -92,17 +92,19 @@ void Tree<K, T>::destroySubTree(TreeNode<K, T>* nodePtr)
 {
 	if (nodePtr != nullptr)
 	{
-		destroySubTree(nodePtr->getLeft());
-		destroySubTree(nodePtr->getRight());
-		delete nodePtr;
+		destroySubTree(nodePtr->getLeft());				
+		destroySubTree(nodePtr->getRight());			
+		delete nodePtr;									
 	}
 }
 
 template<class K, class T>
-bool Tree<K, T>::remove(K key)
+bool Tree<K, T>::remove(K key,int & removeCounter)
 {
-	root = deleteNode(root, key);
-	itemCount--;
+	int deleteCounter = 0;
+	removeCounter = 0;
+	root = deleteNode(root, key, deleteCounter);		removeCounter += deleteCounter;
+	itemCount--;						removeCounter++;
 	return true;
 }
 
@@ -157,10 +159,11 @@ TreeNode<K, T>* Tree<K, T>::getBiggestNode(TreeNode<K, T>* rootPtr)const
 }
 
 template<class K, class T>
-void Tree<K, T>::insert(K key, T data)
+void Tree<K, T>::insert(K key, T data,int &insertCounter)
 {
-	insertNode(key, data);
-	itemCount++;
+	insertCounter=0;
+	insertNode(key, data);				insertCounter++;
+	itemCount++;						insertCounter++;
 }
 
 template<class K, class T>
@@ -355,44 +358,54 @@ void Tree<K, T>::displayPostOrder(TreeNode<K, T>* nodePtr) const
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input)
+TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input,int &deleteCounter)
 {
-	if (root == nullptr)return root;
-	else if (key_input < root->getKey())  root->setLeft(deleteNode(root->getLeft(), key_input));
-	else if (key_input > root->getKey()) root->setRight(deleteNode(root->getRight(), key_input));
+	deleteCounter = 0;
+	if (root == nullptr)
+	{
+		return root;												deleteCounter++;
+	}
+	else if (key_input < root->getKey())
+	{
+		root->setLeft(deleteNode(root->getLeft(), key_input,deleteCounter));		deleteCounter++;
+	}
+	else if (key_input > root->getKey())
+	{
+		root->setRight(deleteNode(root->getRight(), key_input, deleteCounter));	deleteCounter++;
+	}
 	else
 	{
 		if (root->isLeaf())
 		{
-			delete root;
-			root = nullptr;
+			delete root;											deleteCounter++;
+			root = nullptr;											deleteCounter++;
 		}
 		else if (root->hasLeftChild() && !root->hasRightChild())
 		{
-			TreeNode<K, T> *temp = root->getLeft();
+			TreeNode<K, T> *temp = root->getLeft();					deleteCounter++;
 			
 			//deleteNode(root, key_input);
-			delete root;
-			root = nullptr;
-			return temp;
+			delete root;											deleteCounter++;
+			root = nullptr;											//deleteCounter++;
+			return temp;											//deleteCounter++;
 		}
 		else if (root->hasRightChild() && !root->hasLeftChild())
 		{
-			TreeNode<K, T>*temp = root->getRight();
+			TreeNode<K, T>*temp = root->getRight();					deleteCounter++;
 			//deleteNode(root, key_input);
-			delete root;
-			root = nullptr;
-			return temp;
+			delete root;											deleteCounter++;
+			root = nullptr;											//deleteCounter++;
+			return temp;											//deleteCounter++;
 		}
 		else
 		{
-			TreeNode<K, T> *smallestValue = getSmallestNode(root->getRight());
-			K minKey_Data = smallestValue->getKey();
-			root->setKey(minKey_Data);
-			root->setRight(deleteNode(root->getRight(), minKey_Data));
+			TreeNode<K, T> *smallestValue = getSmallestNode(root->getRight());		deleteCounter++;
+			K minKey_Data = smallestValue->getKey();								deleteCounter++;
+			root->setKey(minKey_Data);												deleteCounter++;
+			root->setRight(deleteNode(root->getRight(), minKey_Data, deleteCounter));				deleteCounter++;
 		}
 	}
-	return root;
+	return root;																	deleteCounter++;
 }
 
 template <class K, class T>

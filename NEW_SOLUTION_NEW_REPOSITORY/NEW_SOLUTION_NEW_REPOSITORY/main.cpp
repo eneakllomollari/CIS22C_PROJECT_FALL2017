@@ -60,8 +60,7 @@ int main()
 			switch (choice)
 			{
 				case 1: 
-					system("CLS");
-					add(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, finalMatchData, teamsByYear);
+					add(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 2: 
 					system("CLS");
@@ -119,8 +118,8 @@ int main()
 					system("pause");
 					break;
 				case 0:
-					system("CLS"); 
-					break;
+					system("pause");
+					system("CLS"); break;
 				default:
 					system("CLS");
 					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl; 
@@ -134,7 +133,7 @@ int main()
 	}
 	catch (char *msg)
 	{
-		std::cout << msg << "\n";
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << "\n";
 	}
 	catch (...)
 	{
