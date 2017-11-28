@@ -77,6 +77,7 @@ int main()
 					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Hash Table load factor: " << worldCupData.loadFactor() << "%" << std::endl;
 					break;
 				case 0:
+					system("pause");
 					system("CLS"); break;
 				default:
 					system("CLS");
@@ -91,7 +92,7 @@ int main()
 	}
 	catch (char *msg)
 	{
-		std::cout << msg << "\n";
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << "\n";
 	}
 	catch (...)
 	{

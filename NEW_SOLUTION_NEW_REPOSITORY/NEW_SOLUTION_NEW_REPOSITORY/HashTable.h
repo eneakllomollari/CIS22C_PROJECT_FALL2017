@@ -88,7 +88,7 @@ T HashTable<K, T>::get(const K& searchKey, int& getCounter)const
 			entry = entry->getNext();					getCounter++;
 		}
 	}
-	throw "THIS YEAR DOES NOT EXIST IN OUR RECORDS";
+	throw "\nTHIS YEAR DOES NOT EXIST IN OUR RECORDS";
 }
 
 template < class K, class T>
