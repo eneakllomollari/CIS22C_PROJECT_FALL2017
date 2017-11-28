@@ -85,6 +85,9 @@
 void restoreDlte(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gdgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>&totalAttT, Tree<int, WorldCup>&numGamesT, Tree<int, TeamsParticipated>&numTeamsTree, HashTable<int, WorldCup>&worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>&teamsByYear, Stack<WorldCup>&wC_Stack, Stack<FinalMatch>&fM_Stack, Stack<TeamsParticipated>&tP_Stack)
 
 {
+	int yearHeldCounter = 0, gpgTCounter = 0, aveAttTCounter = 0, totAttTCounter = 0, numGamesTCounter = 0, numTeamsTreeCounter = 0,
+		wCCounter = 0, fMCounter = 0, teamsByYearCounter = 0;
+
 	WorldCup tempWC = wC_Stack.peek();
 	TeamsParticipated tempTP = tP_Stack.peek();
 	FinalMatch tempFM = fM_Stack.peek();
@@ -93,15 +96,18 @@ void restoreDlte(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gdgT, Tree
 	tP_Stack.pop();
 	fM_Stack.pop();
 
-	yearHeld.insert(tempWC.getYearHeld(), tempWC);
-	gdgT.insert(tempWC.getGoalsPerGame(), tempWC);
-	aveAttT.insert(tempWC.getAveAtt(), tempWC);
-	totalAttT.insert(tempWC.getAveAtt(), tempWC);
-	numGamesT.insert(tempWC.getNumGames(), tempWC);
-	numTeamsTree.insert(tempTP.getYearHeld(), tempTP);
-	worldCupData.put(tempWC.getYearHeld(), tempWC);
-	finalMatchData.put(tempFM.getYear(), tempFM);
-	teamsByYear.put(tempTP.getYearHeld(), tempTP);
+	yearHeld.insert(tempWC.getYearHeld(), tempWC, yearHeldCounter);
+	gdgT.insert(tempWC.getGoalsPerGame(), tempWC, gpgTCounter);
+	aveAttT.insert(tempWC.getAveAtt(), tempWC, aveAttTCounter);
+	totalAttT.insert(tempWC.getAveAtt(), tempWC, totAttTCounter);
+	numGamesT.insert(tempWC.getNumGames(), tempWC, numGamesTCounter);
+	numTeamsTree.insert(tempTP.getYearHeld(), tempTP, numTeamsTreeCounter);
+	
+	worldCupData.put(tempWC.getYearHeld(), tempWC, wCCounter);
+	finalMatchData.put(tempFM.getYear(), tempFM, fMCounter);
+	teamsByYear.put(tempTP.getYearHeld(), tempTP, teamsByYearCounter);
+
+	//NEED TO DECIDE WHETHER WE SHOULD USE THE COUNTERS HERE OR NOT
 }
 
 
