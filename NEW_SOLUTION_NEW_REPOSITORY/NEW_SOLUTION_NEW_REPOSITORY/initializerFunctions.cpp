@@ -102,7 +102,7 @@ void readFileTeamsByYearData(std::string& line, HashTable<int, TeamsParticipated
 {
 	//Declare local variables/objects
 	int  size = 0, numTeamsParticipated, index = 0;
-	int insertCounter;
+	int insertCounter, putCounter;
 	std::string *tempArray_Teams, temp;
 
 	//Convert the string input YearHeld to an integer value
@@ -137,7 +137,7 @@ void readFileTeamsByYearData(std::string& line, HashTable<int, TeamsParticipated
 
 	//"Put" tempTeams_Object with all the teams participated for 
 	//a specific year into teamsParticTable HashTable
-	teamsParticTable.put(yearHeld, tempTeams_Object);
+	teamsParticTable.put(yearHeld, tempTeams_Object, putCounter);
 	numTeamsTree.insert(numTeamsParticipated, tempTeams_Object, insertCounter);
 	//Delete Pointer to Dynamically Allocated array of strings
 	//delete[] tempArray_Teams;
@@ -154,6 +154,8 @@ void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>& final
 {
 	// holds the element position of string find function
 	size_t pos, end_pos;
+
+	int putCounter;
 
 	//Temporary Final Match object
 	FinalMatch temp_FinalMatch_object;
@@ -200,7 +202,7 @@ void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>& final
 	//Store data in HashTable
 	//Key = yearHeld
 	//Data = FinalMatch
-	finalMatch_hashTable.put(temp_FinalMatch_object.getYear(), temp_FinalMatch_object);
+	finalMatch_hashTable.put(temp_FinalMatch_object.getYear(), temp_FinalMatch_object, putCounter);
 }
 
 
@@ -230,7 +232,7 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	// holds the element position of string find function
 	size_t pos, end_pos;
 
-	int insertCounter;
+	int insertCounter, putCounter;
 	std::string temp;
 	std::string buffer = line;
 
@@ -287,5 +289,5 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup, insertCounter);
 	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup, insertCounter);
 	numGames.insert(tempWorldCup.getNumGames(), tempWorldCup, insertCounter);
-	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup);
+	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup, putCounter);
 }

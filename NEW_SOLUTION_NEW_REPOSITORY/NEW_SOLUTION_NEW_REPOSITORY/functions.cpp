@@ -99,6 +99,7 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 
 	int yearHeldInsertCounter, gpgTInsertCounter, aveAttTInsertCounter, totalAttInsertCounter,
 		numGamesTreeInsertCounter;
+	int putCounterYearHeld, putCounterGetYear, putCounterTeamsParticYearHeld;
 	int year, numGames, aveAttendance, totAttendance,
 		numberOfTeams;
 	double goalsPerGame;
@@ -243,9 +244,9 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup, aveAttTInsertCounter);
 	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup, totalAttInsertCounter);
 	numGamesTree.insert(tempWorldCup.getNumGames(), tempWorldCup, numGamesTreeInsertCounter);
-	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup);
-	finalMatchData.put(tempFinalMatch.getYear(), tempFinalMatch);
-	teamsByYear.put(tempTeamsParticipated.getYearHeld(), tempTeamsParticipated);
+	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup, putCounterYearHeld);
+	finalMatchData.put(tempFinalMatch.getYear(), tempFinalMatch, putCounterGetYear);
+	teamsByYear.put(tempTeamsParticipated.getYearHeld(), tempTeamsParticipated, putCounterTeamsParticYearHeld);
 
 	std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Operation Successful" << std::endl << std::endl;
 
@@ -349,6 +350,8 @@ void remove_year(Tree<int, WorldCup>& yearHeldTree, Tree<double, WorldCup>&goals
 	int yearHeldTreeRemoveCounter, goalsPerGameTreeRemoveCounter, aveAtteTreeRemoveCounter,
 		totAttTreeRemoveCounter, numGamesTreeRemoveCounter, numTeamsTreeRemoveCounter;
 
+	int getCounterWorldCup, getCounterTeamsPaticipated, getCounterFinalMatch, hashRemoveCounterWC, hashRemoveCounterFM, hashRemoveCounterTY; 
+
 	int choiceYear;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "If you want to go back enter \" 0 \"" << std::endl;
 
@@ -380,13 +383,13 @@ void remove_year(Tree<int, WorldCup>& yearHeldTree, Tree<double, WorldCup>&goals
 		return;
 	}
 
-	WorldCup worldCupObject = worldCupData.get(choiceYear);
-	TeamsParticipated teamsParticipatedObject = teamsByYear.get(choiceYear);
-	FinalMatch finalMatchObject = finalMatchData.get(choiceYear);
+	WorldCup worldCupObject = worldCupData.get(choiceYear, getCounterWorldCup);
+	TeamsParticipated teamsParticipatedObject = teamsByYear.get(choiceYear, getCounterTeamsPaticipated);
+	FinalMatch finalMatchObject = finalMatchData.get(choiceYear, getCounterFinalMatch);
 
-	worldCupData.remove(choiceYear);
-	finalMatchData.remove(choiceYear);
-	teamsByYear.remove(choiceYear);
+	worldCupData.remove(choiceYear, hashRemoveCounterWC);
+	finalMatchData.remove(choiceYear, hashRemoveCounterFM);
+	teamsByYear.remove(choiceYear, hashRemoveCounterTY);
 	yearHeldTree.remove(choiceYear, yearHeldTreeRemoveCounter);
 	goalsPerGameTree.remove(worldCupObject.getGoalsPerGame(), goalsPerGameTreeRemoveCounter);
 	aveAtteTree.remove(worldCupObject.getAveAtt(), aveAtteTreeRemoveCounter);
@@ -400,6 +403,15 @@ void remove_year(Tree<int, WorldCup>& yearHeldTree, Tree<double, WorldCup>&goals
 	std::cout << totAttTreeRemoveCounter << std::endl;
 	std::cout << numGamesTreeRemoveCounter << std::endl;
 	std::cout << numTeamsTreeRemoveCounter << std::endl;
+
+	std::cout << getCounterWorldCup << std::endl;
+	std::cout << getCounterFinalMatch << std::endl;
+	std::cout << getCounterTeamsPaticipated << std::endl;
+	std::cout << hashRemoveCounterFM << std::endl;
+	std::cout << hashRemoveCounterTY << std::endl;
+	std::cout << hashRemoveCounterWC << std::endl;
+
+
 
 }
 
@@ -526,6 +538,9 @@ void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, W
 void display_year_data(const HashTable<int, WorldCup>& table, const HashTable <int, FinalMatch>&finalMatch, const HashTable<int, TeamsParticipated>&teams)
 {
 	int choiceYear;
+
+	int getCounterWC, getCounterTP, getCounterTM;
+	
 	system("CLS");
 	try
 	{
@@ -560,9 +575,9 @@ void display_year_data(const HashTable<int, WorldCup>& table, const HashTable <i
 			return;
 		}
 
-		WorldCup worldCupObject = table.get(choiceYear);
-		FinalMatch finalMatchObject = finalMatch.get(choiceYear);
-		TeamsParticipated teamsParticiaptedObject = teams.get(choiceYear);
+		WorldCup worldCupObject = table.get(choiceYear, getCounterWC);
+		FinalMatch finalMatchObject = finalMatch.get(choiceYear, getCounterTM);
+		TeamsParticipated teamsParticiaptedObject = teams.get(choiceYear, getCounterTP);
 
 		std::string *teamsParic = teamsParticiaptedObject.getTeamsArr();
 		const int NUM_TEAMS = teamsParticiaptedObject.getNumTeams();
