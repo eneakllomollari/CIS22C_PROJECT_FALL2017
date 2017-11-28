@@ -97,6 +97,8 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 	FinalMatch tempFinalMatch;
 	TeamsParticipated tempTeamsParticipated;
 
+	int yearHeldInsertCounter, gpgTInsertCounter, aveAttTInsertCounter, totalAttInsertCounter,
+		numGamesTreeInsertCounter;
 	int year, numGames, aveAttendance, totAttendance,
 		numberOfTeams;
 	double goalsPerGame;
@@ -236,16 +238,24 @@ void add(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gpgT, Tree<int, Wo
 
 
 
-	yearHeld.insert(tempWorldCup.getYearHeld(), tempWorldCup);
-	gpgT.insert(tempWorldCup.getGoalsPerGame(), tempWorldCup);
-	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup);
-	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup);
-	numGamesTree.insert(tempWorldCup.getNumGames(), tempWorldCup);
+	yearHeld.insert(tempWorldCup.getYearHeld(), tempWorldCup, yearHeldInsertCounter);//////////////////////////////////////////////////////////////////////////////////////////////////////
+	gpgT.insert(tempWorldCup.getGoalsPerGame(), tempWorldCup, gpgTInsertCounter);
+	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup, aveAttTInsertCounter);
+	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup, totalAttInsertCounter);
+	numGamesTree.insert(tempWorldCup.getNumGames(), tempWorldCup, numGamesTreeInsertCounter);
 	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup);
 	finalMatchData.put(tempFinalMatch.getYear(), tempFinalMatch);
 	teamsByYear.put(tempTeamsParticipated.getYearHeld(), tempTeamsParticipated);
 
 	std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Operation Successful" << std::endl << std::endl;
+
+	std::cout << yearHeldInsertCounter;
+	std::cout << gpgTInsertCounter;
+	std::cout << gpgTInsertCounter;
+	std::cout << gpgTInsertCounter;
+	std::cout << gpgTInsertCounter;
+
+
 
 	std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "";
 	system("pause");
@@ -336,6 +346,9 @@ void pretty_print()
 void remove_year(Tree<int, WorldCup>& yearHeldTree, Tree<double, WorldCup>&goalsPerGameTree, Tree<int, WorldCup>& aveAtteTree, Tree<int, WorldCup>& totAttTree, Tree<int, WorldCup>& numGamesTree, 
 	             Tree<int, TeamsParticipated>& numTeamsTree, HashTable<int, WorldCup>& worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>& teamsByYear)
 {
+	int yearHeldTreeRemoveCounter, goalsPerGameTreeRemoveCounter, aveAtteTreeRemoveCounter,
+		totAttTreeRemoveCounter, numGamesTreeRemoveCounter, numTeamsTreeRemoveCounter;
+
 	int choiceYear;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "If you want to go back enter \" 0 \"" << std::endl;
 
@@ -374,12 +387,20 @@ void remove_year(Tree<int, WorldCup>& yearHeldTree, Tree<double, WorldCup>&goals
 	worldCupData.remove(choiceYear);
 	finalMatchData.remove(choiceYear);
 	teamsByYear.remove(choiceYear);
-	yearHeldTree.remove(choiceYear);
-	goalsPerGameTree.remove(worldCupObject.getGoalsPerGame());
-	aveAtteTree.remove(worldCupObject.getAveAtt());
-	totAttTree.remove(worldCupObject.getTotAtt());
-	numGamesTree.remove(worldCupObject.getNumGames());
-	numTeamsTree.remove(teamsParticipatedObject.getNumTeams());
+	yearHeldTree.remove(choiceYear, yearHeldTreeRemoveCounter);
+	goalsPerGameTree.remove(worldCupObject.getGoalsPerGame(), goalsPerGameTreeRemoveCounter);
+	aveAtteTree.remove(worldCupObject.getAveAtt(), aveAtteTreeRemoveCounter);
+	totAttTree.remove(worldCupObject.getTotAtt(), totAttTreeRemoveCounter);
+	numGamesTree.remove(worldCupObject.getNumGames(), numGamesTreeRemoveCounter);
+	numTeamsTree.remove(teamsParticipatedObject.getNumTeams(), numTeamsTreeRemoveCounter);
+
+	std::cout << yearHeldTreeRemoveCounter<<std::endl;
+	std::cout << goalsPerGameTreeRemoveCounter << std::endl;
+	std::cout << aveAtteTreeRemoveCounter << std::endl;
+	std::cout << totAttTreeRemoveCounter << std::endl;
+	std::cout << numGamesTreeRemoveCounter << std::endl;
+	std::cout << numTeamsTreeRemoveCounter << std::endl;
+
 }
 
 void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, WorldCup>& goalsPerGameTree, const  Tree<int, WorldCup>& aveAttTree, const  Tree<int, WorldCup>& totAttTree,

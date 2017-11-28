@@ -21,9 +21,9 @@ public:
 	HashTable();
 	~HashTable();
 
-	T get(const K&)const;
-	bool put(const K&, const T&);
-	bool remove(const K&);
+	T get(const K&)const;///////////////////////////////////////
+	bool put(const K&, const T&);///////////////////////////////////////////
+	bool remove(const K&);/////////////////////////////////////////////
 
 	bool isEmpty()const;
 	int size()const;

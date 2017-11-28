@@ -1,4 +1,5 @@
 #include "initializerFunctions.h"
+#include <iostream>
 
 
 /*
@@ -101,6 +102,7 @@ void readFileTeamsByYearData(std::string& line, HashTable<int, TeamsParticipated
 {
 	//Declare local variables/objects
 	int  size = 0, numTeamsParticipated, index = 0;
+	int insertCounter;
 	std::string *tempArray_Teams, temp;
 
 	//Convert the string input YearHeld to an integer value
@@ -136,7 +138,7 @@ void readFileTeamsByYearData(std::string& line, HashTable<int, TeamsParticipated
 	//"Put" tempTeams_Object with all the teams participated for 
 	//a specific year into teamsParticTable HashTable
 	teamsParticTable.put(yearHeld, tempTeams_Object);
-	numTeamsTree.insert(numTeamsParticipated, tempTeams_Object);
+	numTeamsTree.insert(numTeamsParticipated, tempTeams_Object, insertCounter);
 	//Delete Pointer to Dynamically Allocated array of strings
 	//delete[] tempArray_Teams;
 }
@@ -228,6 +230,7 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	// holds the element position of string find function
 	size_t pos, end_pos;
 
+	int insertCounter;
 	std::string temp;
 	std::string buffer = line;
 
@@ -279,10 +282,10 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 
 	//This is where you assign the values to the trees and the hash table
 	//Initializing the trees
-	yearHeld.insert(tempWorldCup.getYearHeld(), tempWorldCup);
-	gpgT.insert(tempWorldCup.getGoalsPerGame(), tempWorldCup);
-	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup);
-	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup);
-	numGames.insert(tempWorldCup.getNumGames(), tempWorldCup);
+	yearHeld.insert(tempWorldCup.getYearHeld(), tempWorldCup, insertCounter);
+	gpgT.insert(tempWorldCup.getGoalsPerGame(), tempWorldCup, insertCounter);
+	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup, insertCounter);
+	totalAtt.insert(tempWorldCup.getAveAtt(), tempWorldCup, insertCounter);
+	numGames.insert(tempWorldCup.getNumGames(), tempWorldCup, insertCounter);
 	worldCupData.put(tempWorldCup.getYearHeld(), tempWorldCup);
 }
