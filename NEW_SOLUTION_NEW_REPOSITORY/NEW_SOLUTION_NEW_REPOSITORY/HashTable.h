@@ -13,6 +13,7 @@ private:
 	HashEntry<K, T> **table;
 
 	int itemCount;
+	int numCollisions;
 protected:
 	
 	int hash(const K&)const;
@@ -27,6 +28,7 @@ public:
 
 	bool isEmpty()const;
 	int size()const;
+	int getNumCollisions()const;
 	void display()const;
 	double loadFactor()const;
 
@@ -43,6 +45,7 @@ HashTable<K, T>::HashTable()
 	for (int i = 0; i < TABLE_SIZE; i++)
 		table[i] = nullptr;
 	itemCount = 0;
+	numCollisions = 0;
 }
 
 template<class K, class T>
@@ -102,6 +105,7 @@ bool HashTable<K, T>::put(const K& searchKey, const T& newItem)
 		table[itemHashIndex] = entryToAddPtr;
 	else
 	{
+		numCollisions++;
 		//Insert it at the beggining of the chain
 		entryToAddPtr->setNext(table[itemHashIndex]);
 		table[itemHashIndex] = entryToAddPtr;
@@ -156,7 +160,7 @@ bool HashTable<K, T>::remove(const K& searchKey)
 }
 
 template<class K, class T>
-inline bool HashTable<K, T>::isEmpty() const
+bool HashTable<K, T>::isEmpty() const
 {
 	return itemCount == 0;
 }
@@ -165,6 +169,12 @@ template<class K, class T>
 int HashTable<K, T>::size() const
 {
 	return itemCount;
+}
+
+template<class K, class T>
+int HashTable<K, T>::getNumCollisions() const
+{
+	return numCollisions;
 }
 
 template<class K, class T>

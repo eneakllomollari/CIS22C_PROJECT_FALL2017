@@ -1,6 +1,8 @@
 #include "functions.h"
 #include "initializerFunctions.h"
 
+
+//Need to remove the inline functions from the stack and put them separately
 int main()
 {
 	std::cout << std::fixed << std::setprecision(2);
@@ -17,6 +19,10 @@ int main()
 	HashTable<int, WorldCup> worldCupData;				//WORKS FINE
 	HashTable<int, FinalMatch> finalMatchData;			//WORKS FINE
 	HashTable<int, TeamsParticipated> teamsByYear;		//WORKS FINE
+
+	Stack<WorldCup> worldCupRecycleBin;
+	Stack<FinalMatch> finalMatchRecycleBin;
+	Stack<TeamsParticipated> teamsParticipatedRecycleBin;
 
 	int choice;
 
@@ -41,8 +47,9 @@ int main()
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) List data in hash table sequence" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List sorted data" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) Print indented tree" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Efficency " << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Load Factor " << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Undo Delete "<< std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Save Changes/Clear the Recovery Stack" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "9) Efficency " << std::endl;
 
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0) EXIT\n";
 
@@ -53,31 +60,67 @@ int main()
 			switch (choice)
 			{
 				case 1: 
+					system("CLS");
 					add(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 2: 
-					remove_year(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear);
+					system("CLS");
+					remove_year(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear, worldCupRecycleBin, finalMatchRecycleBin, teamsParticipatedRecycleBin);
 					break;
 				case 3: 
+					system("CLS");
 					display_year_data(worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 4: 
+					system("CLS");
 					hashtable_list(worldCupData, finalMatchData, teamsByYear);
 					break;
 				case 5: 
+					system("CLS");
 					sortDataByChoice(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree);
 					break;
 				case 6: 
-					pretty_print(); 
+					system("CLS");
+					pretty_print();
 					break;
 				case 7:
-					//EFFICENY HERE
+					system("CLS");
+					restoreDlte(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear, worldCupRecycleBin, finalMatchRecycleBin, teamsParticipatedRecycleBin);
 					break;
 				case 8:
-					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Hash Table load factor: " << worldCupData.loadFactor() << "%" << std::endl;
+					system("CLS");
+					//Saving to Files
+					worldCupData.writeWorldCupGeneralDataToTxt();
+					finalMatchData.writeFinalMatchDataToTxt();
+					teamsByYear.writeTeamsParticipatedToTxt();
+
+					//Clearing the Recycle Bins
+					worldCupRecycleBin.clearStack();
+					teamsParticipatedRecycleBin.clearStack();
+					teamsParticipatedRecycleBin.clearStack();
+
+					system("CLS");
+					std::cout << std::endl << std::endl << std::endl;
+					std::cout << std::endl << std::endl;
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "OPERATION SUCCESFUL!" << std::endl;
+					std::cout << std::endl << std::endl << std::endl;
+					std::cout << std::setw(WIDTH_BTW_LINES) << "";
+					system("pause");
+					system("CLS");
+					break;
+				case 9:
+					system("CLS");
+					//Since we are using tree hash tables, but with the same key the data of one tree is sufficent
+					std::cout << std::endl << std::endl << std::endl;
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Hash Table load factor:   " << worldCupData.loadFactor() << "%" << std::endl;
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of collisions:             #" << worldCupData.getNumCollisions() << std::endl;
+					std::cout << std::endl << std::endl << std::endl;
+					std::cout << std::setw(WIDTH_BTW_LINES) << "";
+					system("pause");
 					break;
 				case 0:
-					system("CLS"); break;
+					system("CLS"); 
+					break;
 				default:
 					system("CLS");
 					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl; 

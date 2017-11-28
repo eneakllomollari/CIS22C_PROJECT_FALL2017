@@ -11,6 +11,7 @@
 #include "TeamsParticipated.h"
 #include "Tree.h"
 #include "HashTable.h"
+#include "Stack.h"
 
 const int WIDTH_BTW_LINES = 50;
 
@@ -23,7 +24,11 @@ void sortDataByChoice(const Tree<int, WorldCup>&, const Tree<double, WorldCup>&,
 //void descending_sort();				
 //int count_efficiency();				
 void pretty_print();				
-void remove_year(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, TeamsParticipated>&, HashTable<int, WorldCup>&, HashTable<int, FinalMatch>&, HashTable<int, TeamsParticipated>&);
+void remove_year(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, TeamsParticipated>&, HashTable<int, WorldCup>&, HashTable<int, FinalMatch>&, HashTable<int, TeamsParticipated>&, Stack<WorldCup>&, Stack<FinalMatch>&, Stack<TeamsParticipated>&);
+void restoreDlte(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, TeamsParticipated>&, HashTable<int, WorldCup>&, HashTable<int, FinalMatch>&, HashTable<int, TeamsParticipated>&, Stack<WorldCup>&, Stack<FinalMatch>&, Stack<TeamsParticipated>&);
+
+
+
 void printGeneralWorldCupDataHeader();
 void printFinalMatchDataHeader();
 #endif // !FUNCTION_H

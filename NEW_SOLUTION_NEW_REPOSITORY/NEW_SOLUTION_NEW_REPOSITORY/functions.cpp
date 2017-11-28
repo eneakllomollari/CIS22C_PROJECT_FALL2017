@@ -81,6 +81,31 @@
 //}
 
 
+
+void restoreDlte(Tree<int, WorldCup>&yearHeld, Tree<double, WorldCup>&gdgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>&totalAttT, Tree<int, WorldCup>&numGamesT, Tree<int, TeamsParticipated>&numTeamsTree, HashTable<int, WorldCup>&worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>&teamsByYear, Stack<WorldCup>&wC_Stack, Stack<FinalMatch>&fM_Stack, Stack<TeamsParticipated>&tP_Stack)
+
+{
+	WorldCup tempWC = wC_Stack.peek();
+	TeamsParticipated tempTP = tP_Stack.peek();
+	FinalMatch tempFM = fM_Stack.peek();
+
+	wC_Stack.pop();
+	tP_Stack.pop();
+	fM_Stack.pop();
+
+	yearHeld.insert(tempWC.getYearHeld(), tempWC);
+	gdgT.insert(tempWC.getGoalsPerGame(), tempWC);
+	aveAttT.insert(tempWC.getAveAtt(), tempWC);
+	totalAttT.insert(tempWC.getAveAtt(), tempWC);
+	numGamesT.insert(tempWC.getNumGames(), tempWC);
+	numTeamsTree.insert(tempTP.getYearHeld(), tempTP);
+	worldCupData.put(tempWC.getYearHeld(), tempWC);
+	finalMatchData.put(tempFM.getYear(), tempFM);
+	teamsByYear.put(tempTP.getYearHeld(), tempTP);
+}
+
+
+
 /*
 	Pre: N/A
 
@@ -333,8 +358,8 @@ void pretty_print()
 	//call bst.print();
 }
 
-void remove_year(Tree<int, WorldCup>& yearHeldTree, Tree<double, WorldCup>&goalsPerGameTree, Tree<int, WorldCup>& aveAtteTree, Tree<int, WorldCup>& totAttTree, Tree<int, WorldCup>& numGamesTree, 
-	             Tree<int, TeamsParticipated>& numTeamsTree, HashTable<int, WorldCup>& worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>& teamsByYear)
+void remove_year(Tree<int, WorldCup>& yearHeldTree, Tree<double, WorldCup>&goalsPerGameTree, Tree<int, WorldCup>& aveAtteTree, Tree<int, WorldCup>& totAttTree, Tree<int, WorldCup>& numGamesTree,
+	Tree<int, TeamsParticipated>& numTeamsTree, HashTable<int, WorldCup>& worldCupData, HashTable<int, FinalMatch>&finalMatchData, HashTable<int, TeamsParticipated>& teamsByYear, Stack<WorldCup>& wC_Stack, Stack<FinalMatch>& fM_Stack, Stack<TeamsParticipated>& tP_Stack)
 {
 	int choiceYear;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "If you want to go back enter \" 0 \"" << std::endl;
@@ -380,6 +405,11 @@ void remove_year(Tree<int, WorldCup>& yearHeldTree, Tree<double, WorldCup>&goals
 	totAttTree.remove(worldCupObject.getTotAtt());
 	numGamesTree.remove(worldCupObject.getNumGames());
 	numTeamsTree.remove(teamsParticipatedObject.getNumTeams());
+
+	//Pushing the deleted files to the "recycle bins"
+	wC_Stack.push(worldCupObject);
+	fM_Stack.push(finalMatchObject);
+	tP_Stack.push(teamsParticipatedObject);
 }
 
 void sortDataByChoice(const Tree<int, WorldCup>& yearTree, const  Tree<double, WorldCup>& goalsPerGameTree, const  Tree<int, WorldCup>& aveAttTree, const  Tree<int, WorldCup>& totAttTree,
