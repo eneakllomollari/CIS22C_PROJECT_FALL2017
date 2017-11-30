@@ -615,9 +615,11 @@ void HeadNode::saveToInputFileManager()
 	worldCupData->writeWorldCupGeneralDataToTxt();
 	finalMatchData->writeFinalMatchDataToTxt();
 	teamsByYear->writeTeamsParticipatedToTxt();
+}
 
+void HeadNode::clearRecycleStacksManager()
+{
 	//Clearing the Recycle Bins
-
 	worldCupRecycleBin->clearStack();
 	teamsParticipatedRecycleBin->clearStack();
 	finalMatchRecycleBin->clearStack();

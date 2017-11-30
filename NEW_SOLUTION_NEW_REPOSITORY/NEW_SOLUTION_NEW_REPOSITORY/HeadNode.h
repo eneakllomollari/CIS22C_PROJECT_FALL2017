@@ -13,6 +13,7 @@
 #include "Tree.h"
 
 const int WIDTH_BTW_LINES = 50;
+
 class HeadNode
 {
 private:
@@ -56,5 +57,6 @@ public:
 	void undoDeleteManager();
 	void saveToInputFileManager();
 	void efficencyManager();
+	void clearRecycleStacksManager();
 };
 #endif // !HEAD_NODE

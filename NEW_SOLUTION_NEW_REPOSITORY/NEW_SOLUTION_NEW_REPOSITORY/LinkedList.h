@@ -165,11 +165,15 @@ void LinkedList<T>::clear()
 	{
 		LinkedNode <T> *LinkedNodeToDel = head;
 		head = head->getNext();
-		//Return LinkedNode to the system
+		
+		T dataToDel = LinkedNodeToDel->getItem();
+	
 		LinkedNodeToDel->setNext(nullptr);
+		
 		delete LinkedNodeToDel;
+		delete dataToDel;
+
 	}
-	//LinkedNodeToDel = nullptr;
 	counter = 0;
 }
 

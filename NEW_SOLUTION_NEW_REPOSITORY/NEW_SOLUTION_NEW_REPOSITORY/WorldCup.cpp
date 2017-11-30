@@ -249,14 +249,14 @@ void WorldCup::outputFileTeamsParticipated()
 std::ostream & operator<<(std::ostream & os, const WorldCup &wC)
 {
 	//Written by Kamaljot Saini
-	os << std::fixed << std::setprecision(2);
 	os << std::left << std::setw(6) << wC.getYearHeld();
-	os << std::left << std::setw(15) << wC.getWinningTeam();
-	os << std::left << std::setw(20) << wC.getGoldenBootWinner();
-	os << std::left << std::setw(5) << wC.getNumGames();
-	os << std::left << std::setw(6) << wC.getGoalsPerGame();
-	os << std::left << std::setw(8) << wC.getAveAtt();
-	os << std::left << std::setw(10) << wC.getTotAtt();
+	os << std::left << std::setw(18) << wC.getWinningTeam();
+	os << std::left << std::setw(25) << wC.getGoldenBootWinner();
+	os << std::left << std::setw(13) << wC.getNumGames();
+	os << std::left << std::setw(23) << wC.getGoalsPerGame();
+	os << std::left << std::setw(23) << wC.getAveAtt();
+	os << std::left << std::setw(17) << wC.getTotAtt();
+	os << std::left << std::setw(0) << wC.getHostCountry();
 
 	return os;
 }

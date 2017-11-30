@@ -7,7 +7,7 @@ int main()
 {
 	std::cout << std::fixed << std::setprecision(2);
 
-	HeadNode *mainHeadNode = new HeadNode;
+	HeadNode mainHeadNode;
 
 	int choice;
 
@@ -40,41 +40,42 @@ int main()
 			{
 			case 1:
 				system("CLS");
-				mainHeadNode->addManager();
+				mainHeadNode.addManager();
 				system("CLS");
 				break;
 			case 2:
 				system("CLS");
-				mainHeadNode->removeManager();
+				mainHeadNode.removeManager();
 				system("CLS");
 				break;
 			case 3:
 				system("CLS");
-				mainHeadNode->displayKeyManager();
+				mainHeadNode.displayKeyManager();
 				system("CLS");
 				break;
 			case 4:
 				system("CLS");
-				mainHeadNode->displayTableManager();
+				mainHeadNode.displayTableManager();
 				system("CLS");
 				break;
 			case 5:
 				system("CLS");
-				mainHeadNode->sortManager();
+				mainHeadNode.sortManager();
 				system("CLS");
 				break;
 			case 6:
 				system("CLS");
-				mainHeadNode->printIndentedTree();
+				mainHeadNode.printIndentedTree();
 				system("CLS");
 				break;
 			case 7:
 				system("CLS");
-				mainHeadNode->undoDeleteManager();
+				mainHeadNode.undoDeleteManager();
 				system("CLS");
 				break;
 			case 8:
-				mainHeadNode->saveToInputFileManager();
+				mainHeadNode.saveToInputFileManager();
+				mainHeadNode.clearRecycleStacksManager();
 				system("CLS");
 				std::cout << std::endl << std::endl << std::endl;
 				std::cout << std::endl << std::endl;
@@ -87,7 +88,7 @@ int main()
 			case 9:
 				system("CLS");
 				//Since we are using tree hash tables, but with the same key the data of one tree is sufficent
-				mainHeadNode->efficencyManager();
+				mainHeadNode.efficencyManager();
 				std::cout << std::setw(WIDTH_BTW_LINES) << "";
 				system("pause");
 				break;
@@ -118,7 +119,6 @@ int main()
 	std::cout << std::endl << std::setw(WIDTH_BTW_LINES + 10) << "" << "\"GOODBYE\"" << std::endl << std::endl << std::endl << std::endl << std::endl;
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n";
 
-	delete mainHeadNode;
 	system("pause");
 	return 0;
 }
