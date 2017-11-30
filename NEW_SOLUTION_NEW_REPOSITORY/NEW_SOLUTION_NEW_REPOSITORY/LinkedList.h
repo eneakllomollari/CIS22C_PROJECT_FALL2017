@@ -7,9 +7,8 @@ template <class T>
 class LinkedList
 {
 protected:
-	LinkedNode <T> *head;											// Pointer to the first LinkedNode
+	LinkedNode <T> *head;													// Pointer to the first LinkedNode
 	int counter;													// Count of items
-	int eff_counter;												//efficiency counter
 	LinkedNode <T> *getPointerTo(const T& target) const
 	{
 		bool found = false;
@@ -24,7 +23,6 @@ protected:
 	}			// Helper function			// Helper function
 
 public:
-	int eff_counter = 0;
 
 	LinkedList();
 	LinkedList(const LinkedList <T>&);
@@ -54,7 +52,6 @@ LinkedList<T>::LinkedList()
 {
 	head = nullptr;
 	counter = 0;
-	eff_counter+=2;
 }
 
 
@@ -67,14 +64,10 @@ template< class T>
 LinkedList<T>::LinkedList(const LinkedList<T>& aList)
 
 {
-	counter = aList.counter;
-	LinkedNode <T> *originalChain = aList.head;
+	counter = aList->counter;
+	LinkedNode <T> *originalChain = aList->head;
 
-	if (originalChain == nullptr)
-	{
-		head = nullptr;
-		eff_counter += 2;
-	}
+	if (originalChain == nullptr) head = nullptr;
 	else
 	{
 		//Copy first LinkedNode
@@ -83,7 +76,6 @@ LinkedList<T>::LinkedList(const LinkedList<T>& aList)
 
 		//Copy remaining LinkedNodes
 		LinkedNode <T> *newChain = head;
-		eff_counter += 3;
 		while (originalChain != nullptr)
 		{
 			originalChain = originalChain->getNext();
@@ -99,11 +91,8 @@ LinkedList<T>::LinkedList(const LinkedList<T>& aList)
 
 			//Advance pointer to new last LinkedNode
 			newChain = newChain->getNext();
-
-			eff_counter += 5;
 		} // end of while
 		newChain->setNext(nullptr);
-		eff_counter++;
 	}//end if
 }//end of copy constructor
 
@@ -117,7 +106,6 @@ template <class T>
 LinkedList<T>::~LinkedList()
 {
 	clear();
-	eff_counter++;
 }
 
 
@@ -130,7 +118,6 @@ template <class T>
 bool LinkedList<T>::isEmpty() const
 {
 	return counter == 0;
-	eff_counter++;
 }
 
 
@@ -143,12 +130,10 @@ template<class T>
 void LinkedList<T>::displayList() const
 {
 	LinkedNode <T> *LinkedNodePtr = head;
-	eff_counter++;
 	while (LinkedNodePtr != nullptr)
 	{
 		std::cout << LinkedNodePtr->getItem() << std::endl;
 		LinkedNodePtr = LinkedNodePtr->getNext();
-		eff_counter += 2;
 	}
 }
 
@@ -159,16 +144,13 @@ int LinkedList<T>::getFrequencyOf(const T & anEntry) const
 	int frequency = 0,
 		number = 0;
 	LinkedNode <T> *curLinkedNode = head;
-	eff_counter += 3;
 	while (curLinkedNode != nullptr && number < counter)
 	{
 		if (anEntry == curLinkedNode->getItem()) frequency++;
 		number++;
 		curLinkedNode = curLinkedNode->getNext();
-		eff_counter += 5;
 	}
 	return frequency;
-	eff_counter++;
 }
 
 /**
@@ -186,7 +168,6 @@ void LinkedList<T>::clear()
 		//Return LinkedNode to the system
 		LinkedNodeToDel->setNext(nullptr);
 		delete LinkedNodeToDel;
-		eff_counter += 5;
 	}
 	//LinkedNodeToDel = nullptr;
 	counter = 0;
@@ -202,8 +183,8 @@ template<class T>
 int LinkedList<T>::getSize() const
 {
 	return counter;
-	eff_counter++;
 }
+
 
 /**
 Description: Checks to see if a LinkedNode is contained in the list
@@ -214,8 +195,8 @@ template<class T>
 bool LinkedList<T>::contains(const T & anEntry) const
 {
 	return getPointerTo(anEntry) != nullptr;
-	eff_counter++;
 }
+
 
 /**
 Description: Delete a LinkedNode from the list
@@ -227,7 +208,6 @@ bool LinkedList<T>::deleteLinkedNode(const T LinkedNodeToDelete)
 {
 	LinkedNode <T> *entryLinkedNode = getPointerTo(LinkedNodeToDelete);
 	bool canRemoveItem = !isEmpty() && entryLinkedNode != nullptr;
-	eff_counter += 2;
 
 	if (canRemoveItem)
 	{
@@ -244,12 +224,10 @@ bool LinkedList<T>::deleteLinkedNode(const T LinkedNodeToDelete)
 		LinkedNodeToDel = nullptr;
 
 		counter--;
-
-		eff_counter += 8;
 	}
 	return canRemoveItem;
-	eff_counter++;
 }
+
 
 /**
 Description: Delete the first LinkedNode in the list
@@ -260,13 +238,9 @@ template<class T>
 bool LinkedList<T>::deleteFirst()
 {
 	LinkedNode <T> *temp;
-	eff_counter++;
 
-	if (isEmpty())
-	{
-		eff_counter++;
-		return false;
-	}
+	if (isEmpty()) return false;
+
 	temp = head;
 	head = head->getNext();
 
@@ -274,8 +248,6 @@ bool LinkedList<T>::deleteFirst()
 	counter--;
 
 	return true;
-
-	eff_counter += 5;
 }
 
 
@@ -291,13 +263,10 @@ void LinkedList<T>::insertLinkedNode(const T LinkedNodeToInsert)
 	LinkedNode <T> *LinkedNodePtr;
 	LinkedNode <T> *previosLinkedNode = nullptr;
 
-	eff_counter += 3;
-
 	if (!head)
 	{
 		head = newLinkedNode;
 		newLinkedNode->setNext(nullptr);
-		eff_counter += 3;
 	}
 	else
 	{
@@ -305,32 +274,24 @@ void LinkedList<T>::insertLinkedNode(const T LinkedNodeToInsert)
 
 		previosLinkedNode = nullptr;
 
-		eff_counter += 3;
-
 		while (LinkedNodePtr != nullptr && LinkedNodePtr->getItem() < LinkedNodeToInsert)
 		{
 			previosLinkedNode = LinkedNodePtr;
 			LinkedNodePtr = LinkedNodePtr->getNext();
-			eff_counter += 4;
 		}
 
 		if (previosLinkedNode == nullptr)
 		{
 			head = newLinkedNode;
 			newLinkedNode->setNext(LinkedNodePtr);
-
-			eff_counter += 3;
 		}
 		else
 		{
 			previosLinkedNode->setNext(newLinkedNode);
 			newLinkedNode->setNext(LinkedNodePtr);
-
-			eff_counter += 3;
 		}
 	}
 	counter++;
-	eff_counter++;
 }
 
 
@@ -350,7 +311,6 @@ void LinkedList<T>::insertFirst(T LinkedNodeToInsert)
 	newLinkedNode->setNext(LinkedNodePtr);
 	head = newLinkedNode;
 	counter++;
-	eff_counter += 6;
 }
 
-#endif 
+#endif

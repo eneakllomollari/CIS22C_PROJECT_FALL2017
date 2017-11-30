@@ -112,15 +112,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FinalMatch.cpp" />
-    <ClCompile Include="functions.cpp" />
+    <ClCompile Include="HeadNode.cpp" />
+    <ClCompile Include="initializers.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TeamsParticipated.cpp" />
     <ClCompile Include="WorldCup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FinalMatch.h" />
-    <ClInclude Include="functions.h" />
+    <ClInclude Include="HashEntry.h" />
+    <ClInclude Include="HashTable.h" />
+    <ClInclude Include="HeadNode.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedNode.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="TeamsParticipated.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TreeNode.h" />
     <ClInclude Include="WorldCup.h" />

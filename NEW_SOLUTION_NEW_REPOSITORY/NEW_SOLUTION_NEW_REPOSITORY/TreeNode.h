@@ -1,57 +1,58 @@
 #ifndef TREENODE_H
 #define TREENODE_H
 
-template<class T>
+template<class K, class T>
 class TreeNode
 {
 private:
-	T data;
-	int eff_counter = 0
+	K key;
+	T pData;
 
-
-	TreeNode<T> *left;
-	TreeNode<T> *right;
+	TreeNode<K, T> *left;
+	TreeNode<K, T> *right;
 
 public:
 	TreeNode();
 	TreeNode(T);
-	TreeNode(T, TreeNode<T>*, TreeNode<T>*);
+	TreeNode(K, T);
 
-	void setLeft(TreeNode<T> *);
-	void setRight(TreeNode<T> *);
-	void setData(T);
-	
+	void setLeft(TreeNode<K, T> *);
+	void setRight(TreeNode<K, T> *);
+	void setpData(T);
+	void setKey(K);
+
 	bool isLeaf() const;
 	bool hasLeftChild() const;
 	bool hasRightChild() const;
 
-	TreeNode<T>* getRight();
-	TreeNode<T>* getLeft();
-	T getData();
+	TreeNode<K, T>* getRight();
+	TreeNode<K, T>* getLeft();
+	T getpData();
+	K getKey();
 };
 
 
-template<class T>
-TreeNode<T>::TreeNode()
+template<class K, class T>
+TreeNode<K, T>::TreeNode()
 {
 	left = right = nullptr;
-	eff_counter++;
 }
 
-template<class T>
-TreeNode<T>::TreeNode(T d)
+template<class K, class T>
+TreeNode<K, T>::TreeNode(T d)
 {
-	data = d;
+	pData = d;
 	left = nullptr;
 	right = nullptr;
 }
 
-template<class T>
-TreeNode<T>::TreeNode(T d, TreeNode<T> *l, TreeNode<T> *r)
+template<class K, class T>
+TreeNode<K, T>::TreeNode(K k, T d)
 {
-	data = d;
-	left = l;
-	right = r;
+	key = k;
+	pData = d;
+	left = nullptr;
+	right = nullptr;
 }
 
 /**
@@ -59,8 +60,8 @@ Description: Mutator
 Pre: TreeNode pointer
 Post: Sets the left pointer
 */
-template<class T>
-void TreeNode<T>::setLeft(TreeNode<T> *l)
+template<class K, class T>
+void TreeNode<K, T>::setLeft(TreeNode<K, T> *l)
 {
 	left = l;
 }
@@ -70,39 +71,40 @@ Description: Mutator
 Pre: TreeNode pointer
 Post: Sets the right pointer
 */
-template<class T>
-void TreeNode<T>::setRight(TreeNode<T> *r)
+template<class K, class T>
+void TreeNode<K, T>::setRight(TreeNode<K, T> *r)
 {
 	right = r;
-	eff_counter++;
 }
 
-template<class T>
-void TreeNode<T>::setData(T d)
+template<class K, class T>
+void TreeNode<K, T>::setpData(T d)
 {
-	data = d;
-	eff_counter++;
+	pData = d;
 }
 
-template<class T>
-bool TreeNode<T>::isLeaf() const
+template<class K, class T>
+void TreeNode<K, T>::setKey(K k)
+{
+	key = k;
+}
+
+template<class K, class T>
+bool TreeNode<K, T>::isLeaf() const
 {
 	return left == nullptr && right == nullptr;
-	eff_counter++;
 }
 
-template<class T>
-bool TreeNode<T>::hasLeftChild() const
+template<class K, class T>
+bool TreeNode<K, T>::hasLeftChild() const
 {
 	return left != nullptr;
-	eff_counter++;
 }
 
-template<class T>
-bool TreeNode<T>::hasRightChild() const
+template<class K, class T>
+bool TreeNode<K, T>::hasRightChild() const
 {
 	return right != nullptr;
-	eff_counter++;
 }
 
 /**
@@ -110,25 +112,28 @@ Description: Accessor
 Pre: None
 Post: Returns the right pointer
 */
-template<class T>
-TreeNode<T>* TreeNode<T>::getRight()
+template<class K, class T>
+TreeNode<K, T>* TreeNode<K, T>::getRight()
 {
 	return right;
-	eff_counter++;
 }
 
-template<class T>
-TreeNode<T>* TreeNode<T>::getLeft()
+template<class K, class T>
+TreeNode<K, T>* TreeNode<K, T>::getLeft()
 {
 	return left;
-	eff_counter++;
 }
 
-template<class T>
-T TreeNode<T>::getData()
+template<class K, class T>
+T TreeNode<K, T>::getpData()
 {
-	return data;
-	eff_counter++;
+	return pData;
+}
+
+template<class K, class T>
+K TreeNode<K, T>::getKey()
+{
+	return key;
 }
 
 #endif // !TREENODE_H
