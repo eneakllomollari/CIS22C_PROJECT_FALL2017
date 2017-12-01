@@ -25,6 +25,18 @@ HeadNode::~HeadNode()
 {
 	saveToInputFileManager();
 
+	//**********************************************
+	//On this block I delete the data structures but 
+	// I lose the addresses of the objects that are stored, 
+	// therefore we have a memory leak
+	//We need to push the addresses in the stack,
+	// because the stack deletes the address properly
+
+	//I believe this should avoid the memory leak
+	worldCupData->insertDataAddressToStack(worldCupRecycleBin);
+	finalMatchData->insertDataAddressToStack(finalMatchRecycleBin);
+	teamsByYear->insertDataAddressToStack(teamsParticipatedRecycleBin);
+
 	delete yearHeldTree;
 	delete goalsPgameTree;
 	delete aveAtteTree;
@@ -35,7 +47,9 @@ HeadNode::~HeadNode()
 	delete worldCupData;
 	delete finalMatchData;
 	delete teamsByYear;
-
+	
+	//************************************************
+	//************************************************
 	delete worldCupRecycleBin;
 	delete finalMatchRecycleBin;
 	delete teamsParticipatedRecycleBin;
@@ -192,6 +206,39 @@ void HeadNode::addManager()
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter final match host city:	                0";
 		getline(std::cin, cityHost);
 		tempFinalMatch->setCity(cityHost);
+
+
+
+		yearHeldTree->insert(tempWorldCup->getYearHeld(), tempWorldCup, yearHeldInsertCounter);
+		goalsPgameTree->insert(tempWorldCup->getGoalsPerGame(), tempWorldCup, gpgTInsertCounter);
+		aveAtteTree->insert(tempWorldCup->getAveAtt(), tempWorldCup, aveAttTInsertCounter);
+		totAtteTree->insert(tempWorldCup->getAveAtt(), tempWorldCup, totalAttInsertCounter);
+		numGamesTree->insert(tempWorldCup->getNumGames(), tempWorldCup, numGamesTreeInsertCounter);
+		numTeamsTree->insert(tempTeamsParticipated->getNumTeams(), tempTeamsParticipated, numTeamsTreeInsertCounter);
+
+		worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounterYearHeld);
+		finalMatchData->put(tempFinalMatch->getYear(), tempFinalMatch, putCounterGetYear);
+		teamsByYear->put(tempTeamsParticipated->getYearHeld(), tempTeamsParticipated, putCounterTeamsParticYearHeld);
+
+		system("CLS");
+		std::cout << "\n\n\n\n";
+
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Operation Successful" << std::endl << std::endl;
+
+		system("CLS");
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  World Cup      hash table:               #" << putCounterYearHeld << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Final Match    hash table:               #" << putCounterGetYear << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Teams By Year  hash table:               #" << putCounterTeamsParticYearHeld << " operations." << std::endl;
+		std::cout << std::endl;
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from year tree:                                #" << yearHeldInsertCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from goals per game tree:                      #" << gpgTInsertCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from average attendance tree:                  #" << aveAttTInsertCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from total attendance tree:                    #" << totalAttInsertCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of games tree:                     #" << numGamesTreeInsertCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of teams tree:                     #" << numTeamsTreeInsertCounter << " operations." << std::endl;
+		std::cout << "\n\n";
+
 	}
 	catch (char *msg)
 	{
@@ -203,36 +250,7 @@ void HeadNode::addManager()
 	}
 
 
-	yearHeldTree->insert(tempWorldCup->getYearHeld(), tempWorldCup, yearHeldInsertCounter);
-	goalsPgameTree->insert(tempWorldCup->getGoalsPerGame(), tempWorldCup, gpgTInsertCounter);
-	aveAtteTree->insert(tempWorldCup->getAveAtt(), tempWorldCup, aveAttTInsertCounter);
-	totAtteTree->insert(tempWorldCup->getAveAtt(), tempWorldCup, totalAttInsertCounter);
-	numGamesTree->insert(tempWorldCup->getNumGames(), tempWorldCup, numGamesTreeInsertCounter);
-	numTeamsTree->insert(tempTeamsParticipated->getNumTeams(), tempTeamsParticipated, numTeamsTreeInsertCounter);
-
-	worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounterYearHeld);
-	finalMatchData->put(tempFinalMatch->getYear(), tempFinalMatch, putCounterGetYear);
-	teamsByYear->put(tempTeamsParticipated->getYearHeld(), tempTeamsParticipated, putCounterTeamsParticYearHeld);
-
-	system("CLS");
-	std::cout << "\n\n\n\n";
-
-	std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Operation Successful" << std::endl << std::endl;
-
-	system("CLS");
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  World Cup      hash table:               #" << putCounterYearHeld << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Final Match    hash table:               #" << putCounterGetYear << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Teams By Year  hash table:               #" << putCounterTeamsParticYearHeld << " operations." << std::endl;
-	std::cout << std::endl;
-
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from year tree:                                #" << yearHeldInsertCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from goals per game tree:                      #" << gpgTInsertCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from average attendance tree:                  #" << aveAttTInsertCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from total attendance tree:                    #" << totalAttInsertCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of games tree:                     #" << numGamesTreeInsertCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of teams tree:                     #" << numTeamsTreeInsertCounter << " operations." << std::endl;
-	std::cout << "\n\n";
-
+	std::cin.ignore(INT_MAX, '\n');
 	std::cout << std::setw(WIDTH_BTW_LINES) << "";
 	system("PAUSE");
 	system("CLS");
@@ -249,68 +267,80 @@ void HeadNode::removeManager()
 
 	int choiceYear;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "If you want to go back enter \" 0 \"" << std::endl;
-
-	while (true)
-	{
-		try {
+	try {
+		while (true)
+		{
+			try {
+				std::cin.clear();
+				std::cout << std::endl << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year here: ";
+				std::cin >> choiceYear; std::cin.ignore(INT_MAX, '\n');
+				if (std::cin.fail()) throw 0;
+				break;
+			}
+			catch (int i)
+			{
+				std::cout << std::endl << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID ENTRY! PLEASE ENTER A VALID FOUR DIGIT YEAR!";
+			}
+			catch (...)
+			{
+				std::cout << "UNHANDLED EXCEPTION" << std::endl;
+			}
 			std::cin.clear();
-			std::cout << std::endl << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year here: ";
-			std::cin >> choiceYear; std::cin.ignore(INT_MAX, '\n');
-			if (std::cin.fail()) throw 0;
-			break;
-		}
-		catch (int i)
+			std::cin.ignore(INT_MAX, '\n');
+		}	   //Input Validation
+		if (choiceYear == 0)
 		{
-			std::cout << std::endl << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID ENTRY! PLEASE ENTER A VALID FOUR DIGIT YEAR!";
+			system("CLS");
+			return;
 		}
-		catch (...)
-		{
-			std::cout << "UNHANDLED EXCEPTION" << std::endl;
-		}
-		std::cin.clear();
-		std::cin.ignore(INT_MAX, '\n');
-	}	   //Input Validation
-	if (choiceYear == 0)
-	{
+
+		WorldCup* worldCupObject = worldCupData->get(choiceYear, getCounterWorldCup);
+		TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, getCounterTeamsPaticipated);
+		FinalMatch* finalMatchObject = finalMatchData->get(choiceYear, getCounterFinalMatch);
+
+		worldCupData->remove(choiceYear, hashRemoveCounterWC);
+		finalMatchData->remove(choiceYear, hashRemoveCounterFM);
+		teamsByYear->remove(choiceYear, hashRemoveCounterTY);
+
+		yearHeldTree->remove(choiceYear, yearHeldTreeRemoveCounter);
+		goalsPgameTree->remove(worldCupObject->getGoalsPerGame(), goalsPerGameTreeRemoveCounter);
+		aveAtteTree->remove(worldCupObject->getAveAtt(), aveAtteTreeRemoveCounter);
+		totAtteTree->remove(worldCupObject->getTotAtt(), totAttTreeRemoveCounter);
+		numGamesTree->remove(worldCupObject->getNumGames(), numGamesTreeRemoveCounter);
+		numTeamsTree->remove(teamsParticipatedObject->getNumTeams(), numTeamsTreeRemoveCounter);
+
+		//Pushing the deleted files to the "recycle stacks"
+		worldCupRecycleBin->push(worldCupObject);
+		finalMatchRecycleBin->push(finalMatchObject);
+		teamsParticipatedRecycleBin->push(teamsParticipatedObject);
+
 		system("CLS");
-		return;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  World Cup      hash table:               #" << hashRemoveCounterWC << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Final Match    hash table:               #" << hashRemoveCounterFM << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Teams By Year  hash table:               #" << hashRemoveCounterTY << " operations." << std::endl;
+		std::cout << std::endl;
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from year tree:                                #" << yearHeldTreeRemoveCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from goals per game tree:                      #" << goalsPerGameTreeRemoveCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from average attendance tree:                  #" << aveAtteTreeRemoveCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from total attendance tree:                    #" << totAttTreeRemoveCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of games tree:                     #" << numGamesTreeRemoveCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of teams tree:                     #" << numTeamsTreeRemoveCounter << " operations." << std::endl;
+		std::cout << "\n\n";
 	}
-
-	WorldCup* worldCupObject = worldCupData->get(choiceYear, getCounterWorldCup);
-	TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, getCounterTeamsPaticipated);
-	FinalMatch* finalMatchObject = finalMatchData->get(choiceYear, getCounterFinalMatch);
-
-	worldCupData->remove(choiceYear, hashRemoveCounterWC);
-	finalMatchData->remove(choiceYear, hashRemoveCounterFM);
-	teamsByYear->remove(choiceYear, hashRemoveCounterTY);
-
-	yearHeldTree->remove(choiceYear, yearHeldTreeRemoveCounter);
-	goalsPgameTree->remove(worldCupObject->getGoalsPerGame(), goalsPerGameTreeRemoveCounter);
-	aveAtteTree->remove(worldCupObject->getAveAtt(), aveAtteTreeRemoveCounter);
-	totAtteTree->remove(worldCupObject->getTotAtt(), totAttTreeRemoveCounter);
-	numGamesTree->remove(worldCupObject->getNumGames(), numGamesTreeRemoveCounter);
-	numTeamsTree->remove(teamsParticipatedObject->getNumTeams(), numTeamsTreeRemoveCounter);
-
-	//Pushing the deleted files to the "recycle stacks"
-	worldCupRecycleBin->push(worldCupObject);
-	finalMatchRecycleBin->push(finalMatchObject);
-	teamsParticipatedRecycleBin->push(teamsParticipatedObject);
-
+	catch (char *msg)
+	{
+		std::cout << std::endl << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << std::endl;
+	}
+	catch (...)
+	{
+		std::cout << "EXPECTION THROWN";
+	}
+	system("PAUSE");
 	system("CLS");
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  World Cup      hash table:               #" << hashRemoveCounterWC << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Final Match    hash table:               #" << hashRemoveCounterFM << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Teams By Year  hash table:               #" << hashRemoveCounterTY << " operations." << std::endl;
-	std::cout << std::endl;
-
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from year tree:                                #" << yearHeldTreeRemoveCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from goals per game tree:                      #" << goalsPerGameTreeRemoveCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from average attendance tree:                  #" << aveAtteTreeRemoveCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from total attendance tree:                    #" << totAttTreeRemoveCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of games tree:                     #" << numGamesTreeRemoveCounter << " operations." << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of teams tree:                     #" << numTeamsTreeRemoveCounter << " operations." << std::endl;
-	std::cout << "\n\n";
 }
 
 void HeadNode::sortManager()

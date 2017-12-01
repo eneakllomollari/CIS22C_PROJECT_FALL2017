@@ -7,20 +7,9 @@ template <class T>
 class LinkedList
 {
 protected:
-	LinkedNode <T> *head;													// Pointer to the first LinkedNode
-	int counter;													// Count of items
-	LinkedNode <T> *getPointerTo(const T& target) const
-	{
-		bool found = false;
-		LinkedNode <T> *curr = head;
-
-		while (!found && curr != nullptr)
-		{
-			if (target == curr->getItem())	found = true;
-			else curr = curr->getNext();
-		}
-		return curr;
-	}			// Helper function			// Helper function
+	LinkedNode <T> *head;									// Pointer to the first LinkedNode
+	int counter;											// Count of items
+	LinkedNode <T> *getPointerTo(const T&) const;
 
 public:
 
@@ -30,17 +19,31 @@ public:
 
 	bool isEmpty() const;
 	void displayList() const;
-	int getFrequencyOf(const T& anEntry) const;
+	int getFrequencyOf(const T&) const;
 	void clear();
 	int getSize() const;
-	bool contains(const T& anEntry) const;
+	bool contains(const T&) const;
 
-	bool deleteLinkedNode(const T LinkedNodeToDelete);
+	bool deleteLinkedNode(const T);
 	bool deleteFirst();
 
-	void insertLinkedNode(const T LinkedNodeToInsert);
-	void insertFirst(T LinkedNodeToInsert);
+	void insertLinkedNode(const T);
+	void insertFirst(T);
 };
+
+template<class T>
+LinkedNode<T>* LinkedList<T>::getPointerTo(const T & target) const
+{
+	bool found = false;
+	LinkedNode <T> *curr = head;
+
+	while (!found && curr != nullptr)
+	{
+		if (target == curr->getItem())	found = true;
+		else curr = curr->getNext();
+	}
+	return curr;
+}	
 
 /**
 Description: LinkedList Constructor
@@ -166,11 +169,17 @@ void LinkedList<T>::clear()
 		LinkedNode <T> *LinkedNodeToDel = head;
 		head = head->getNext();
 		
+		//Here we get the address of the data that we have allocated
 		T dataToDel = LinkedNodeToDel->getItem();
 	
+		//Remove the link
 		LinkedNodeToDel->setNext(nullptr);
 		
+		//Delete the LinkedNode
 		delete LinkedNodeToDel;
+
+		//delete the allocated object
+		//This will avoid the memory leak
 		delete dataToDel;
 
 	}

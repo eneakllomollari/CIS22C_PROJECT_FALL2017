@@ -14,6 +14,14 @@ TeamsParticipated::TeamsParticipated(int y, int s, std::string* arr)
 	teamsArr = arr;
 }
 
+TeamsParticipated::~TeamsParticipated()
+{
+	//Deleting the allocated array of strings
+	//If this array is not allocated in the constructor, 
+	//it will eventually point to dynamically allocated data during initialization time
+	delete[] teamsArr;
+}
+
 void TeamsParticipated::setYearHeld(int y)
 {
 	yearHeld = y;

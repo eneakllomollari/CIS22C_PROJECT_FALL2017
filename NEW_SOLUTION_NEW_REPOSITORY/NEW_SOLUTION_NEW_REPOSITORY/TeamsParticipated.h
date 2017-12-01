@@ -14,6 +14,7 @@ private:
 public:
 	TeamsParticipated();
 	TeamsParticipated(int, int, std::string *);
+	~TeamsParticipated();
 
 	void setYearHeld(int);
 	void setNumTeams(int);

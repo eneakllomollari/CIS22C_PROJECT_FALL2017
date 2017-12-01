@@ -34,6 +34,8 @@ public:
 	void writeTeamsParticipatedToTxt();
 	void writeWorldCupGeneralDataToTxt();
 	void writeFinalMatchDataToTxt();
+	
+	void insertDataAddressToStack(Stack<T>*);
 };
 
 template<class K, class T>
@@ -326,6 +328,21 @@ void HashTable<K, T>::writeFinalMatchDataToTxt()
 	}
 	//Close fileObject
 	file.close();
+}
+
+template<class K, class T>
+void HashTable<K, T>::insertDataAddressToStack(Stack<T>*myStack)
+{
+	HashEntry<K, T>*entry;
+	for (int i = 0; i < TABLE_SIZE; i++)
+	{
+		entry = table[i];
+		while (entry != nullptr)
+		{
+			myStack->push(entry->getpData());
+			entry = entry->getNext();
+		}
+	}
 }
 
 #endif // !HASHTABLE_H

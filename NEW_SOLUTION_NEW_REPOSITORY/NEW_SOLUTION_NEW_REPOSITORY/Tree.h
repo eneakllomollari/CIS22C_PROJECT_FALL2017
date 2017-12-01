@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include "TreeNode.h"
+#include <vector>
 
 template <class K, class T>
 class Tree
@@ -29,6 +30,8 @@ protected:
 	TreeNode<K, T>* getParentOf(TreeNode<K, T>*)const;
 	void printIndentedTree(TreeNode<K, T>*, int indent = 0);
 
+	void printRow(TreeNode<K, T>*, int, int);
+	void getLine(TreeNode<K, T>*, int, std::vector<K>&);
 
 public:
 	Tree();
@@ -43,6 +46,9 @@ public:
 	K getAverage() const;
 	K getSmallest() const;
 	K getLargest() const;
+
+	void insertDataToStackHelper(TreeNode<K, T>*, Stack<T>*);
+	void insertDataToStack(Stack<T>*);
 
 	int getCountNodes()const;
 	int getHeight();
@@ -249,6 +255,12 @@ void Tree<K, T>::printTree()
 }
 
 template<class K, class T>
+void Tree<K, T>::insertDataToStack(Stack<T>* myStack)
+{
+	insertDataToStackHelper(root, myStack);
+}
+
+template<class K, class T>
 int Tree<K, T>::getCountNodes() const
 {
 	return itemCount;
@@ -278,6 +290,17 @@ template<class K, class T>
 K Tree<K, T>::getLargest() const
 {
 	return getBiggestNode(root)->getKey();
+}
+
+template<class K, class T>
+void Tree<K, T>::insertDataToStackHelper(TreeNode<K, T>* nodePtr, Stack<T>* recoveryStack)
+{
+	if (nodePtr)
+	{
+		displayInOrder(nodePtr->getLeft());
+		recoveryStack->push(nodePtr->getpData());
+		displayInOrder(nodePtr->getRight());
+	}
 }
 
 template<class K, class T>
@@ -428,18 +451,63 @@ int Tree<K, T>::max(int x, int y)
 }
 
 template <class K, class T>
-void Tree<K, T>::printIndentedTree(TreeNode<K, T>* p, int indent = 0)
+void Tree<K, T>::printIndentedTree(TreeNode<K, T> *p, int indent = 0)
 {
-	if (p != nullptr)
+	int height = getHeight() * 4;
+
+
+	for (int i = 0; i < height; i++)
+		printRow(p, height, i);
+}
+
+template <class K, class T>
+void Tree<K, T>::printRow(TreeNode<K, T>* p, int height, int depth)
+{
+	int placeholder = 0;
+
+	std::vector<K> vec;
+	getLine(p, depth, vec);
+	std::cout << std::setw((height - depth) * 2);
+	bool toggle = true;
+	if (vec.size() > 1)
 	{
-		if (p->getRight()) printIndentedTree(p->getRight(), indent + 10);
-		if (indent)
+		for (int v : vec)
 		{
-			std::cout << std::setw(indent) << ' ';
+			if (v != placeholder)
+			{
+				if (toggle)
+					std::cout << "/" << "   ";
+				else
+					std::cout << "\\" << "   ";
+			}
+			toggle = !toggle;
 		}
-		std::cout << p->getKey() << "\n\n";
-		if (p->getLeft()) printIndentedTree(p->getLeft(), indent + 10);
+		std::cout << std::endl;
+		std::cout << std::setw((height - depth) * 2);
 	}
+	for (int v : vec)
+		if (v != placeholder)
+			std::cout << v << "   ";
+	std::cout << std::endl;
+}
+
+template<class K, class T>
+void Tree<K, T>::getLine(TreeNode<K, T>*root, int depth, std::vector<K>&vals)
+{
+	int placeholder = 0;
+	if (depth <= 0 && root != nullptr)
+	{
+		vals.push_back(root->getKey());
+		return;
+	}
+	if (root->getLeft() != nullptr)
+		getLine(root->getLeft(), depth - 1, vals);
+	else if (depth - 1 <= 0)
+		vals.push_back(placeholder);
+	if (root->getRight() != nullptr)
+		getLine(root->getRight(), depth - 1, vals);
+	else if (depth - 1 <= 0)
+		vals.push_back(placeholder);
 }
 
 #endif // !TREE_H
