@@ -7,12 +7,13 @@ template <class K, class T>
 class HashTable
 {
 private:
-	int TABLE_SIZE = 31;
+	int TABLE_SIZE = 41;
 
 	HashEntry<K, T> **table;
 
 	int itemCount;
 	int numCollisions;
+	int longestCollisionPath;
 protected:
 
 	int hash(const K&)const;
@@ -21,19 +22,22 @@ public:
 	HashTable();
 	~HashTable();
 
-	T get(K, int&)const;
+	T get(K, int&);
 	bool put(K, T, int&);
 	bool remove(K, int&);
 
 	bool isEmpty()const;
+	bool contains(K)const;
 	int size()const;
 	int getNumCollisions()const;
-	void display()const;
 	double loadFactor()const;
+	int getLongestCollisionPath();
+	void display()const;
 
 	void writeTeamsParticipatedToTxt();
 	void writeWorldCupGeneralDataToTxt();
 	void writeFinalMatchDataToTxt();
+	void calculateLongestCollisionPath();
 	
 	void insertDataAddressToStack(Stack<T>*);
 };
@@ -47,6 +51,7 @@ HashTable<K, T>::HashTable()
 		table[i] = nullptr;
 	itemCount = 0;
 	numCollisions = 0;
+	longestCollisionPath = 0;
 }
 
 template<class K, class T>
@@ -78,18 +83,19 @@ int HashTable<K, T>::hash(const K& k)const
 }
 
 template<class K, class T>
-T HashTable<K, T>::get(K searchKey, int& getCounter)const
-{
-	getCounter = 0;
+T HashTable<K, T>::get(K searchKey, int& getCounter)
+{														getCounter = 0;
 	int i = hash(searchKey);                            getCounter++;
 	HashEntry<K, T> *entry = table[i];                  getCounter++;
 	getCounter++;
 	while (entry != nullptr)
 	{
-		if (entry->getKey() == searchKey) {
+		if (entry->getKey() == searchKey) 
+		{
 			return entry->getpData();					getCounter += 2;
 		}
-		else {
+		else 
+		{
 			entry = entry->getNext();					getCounter++;
 		}
 	}
@@ -100,7 +106,7 @@ template < class K, class T>
 bool HashTable<K, T>::put(K searchKey, T newItem, int &putCounter)
 {
 	putCounter = 0;
-	// Create entry to add to dictionary
+	// Create entry to add to hash table
 	HashEntry<K, T>* entryToAddPtr = new HashEntry<K, T>(searchKey, newItem); putCounter++;
 
 	// Compute the hashed index into the array
@@ -178,6 +184,21 @@ bool HashTable<K, T>::isEmpty() const
 }
 
 template<class K, class T>
+bool HashTable<K, T>::contains(K searchKey) const
+{
+	int i = hash(searchKey);                           
+	HashEntry<K, T> *entry = table[i];                 
+	while (entry != nullptr)
+	{
+		if (entry->getKey() == searchKey)
+			return true;
+		else
+			entry = entry->getNext();				
+	}
+	return false;
+}
+
+template<class K, class T>
 int HashTable<K, T>::size() const
 {
 	return itemCount;
@@ -208,6 +229,13 @@ template<class K, class T>
 double HashTable<K, T>::loadFactor() const
 {
 	return (double(size()) / double(TABLE_SIZE))*100.00;
+}
+
+template<class K, class T>
+int HashTable<K, T>::getLongestCollisionPath()
+{
+	calculateLongestCollisionPath();
+	return longestCollisionPath;
 }
 
 template<class K, class T>
@@ -328,6 +356,25 @@ void HashTable<K, T>::writeFinalMatchDataToTxt()
 	}
 	//Close fileObject
 	file.close();
+}
+
+template<class K, class T>
+void HashTable<K, T>::calculateLongestCollisionPath()
+{
+	int count = 0, preCount = 0;
+	HashEntry<K, T>*entry;
+	for (int i = 0; i < TABLE_SIZE; i++)
+	{
+		count = 0;
+		entry = table[i];
+		while (entry != nullptr)
+		{
+			count++;
+			entry = entry->getNext();
+		}
+		if (count > preCount) preCount = count;
+	}
+	longestCollisionPath = preCount;
 }
 
 template<class K, class T>

@@ -9,7 +9,7 @@ class Stack : protected LinkedList <T>
 public:
 	Stack();
 	~Stack();
-	void push(T valueToPush);
+	void push(T);
 	bool pop();
 	T peek();
 

@@ -89,8 +89,9 @@ int main()
 				system("CLS");
 				//Since we are using tree hash tables, but with the same key the data of one tree is sufficent
 				mainHeadNode.efficencyManager();
-				std::cout << std::setw(WIDTH_BTW_LINES) << "";
+				std::cout << std::endl;
 				system("pause");
+				system("CLS");
 				break;
 			case 0:
 				system("pause");
