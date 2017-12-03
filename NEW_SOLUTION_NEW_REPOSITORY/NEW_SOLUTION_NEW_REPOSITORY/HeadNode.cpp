@@ -25,14 +25,6 @@ HeadNode::~HeadNode()
 {
 	saveToInputFileManager();
 
-	//**********************************************
-	//On this block I delete the data structures but 
-	// I lose the addresses of the objects that are stored, 
-	// therefore we have a memory leak
-	//We need to push the addresses in the stack,
-	// because the stack deletes the address properly
-
-	//I believe this should avoid the memory leak
 	worldCupData->insertDataAddressToStack(worldCupRecycleBin);
 	finalMatchData->insertDataAddressToStack(finalMatchRecycleBin);
 	teamsByYear->insertDataAddressToStack(teamsParticipatedRecycleBin);
@@ -48,8 +40,6 @@ HeadNode::~HeadNode()
 	delete finalMatchData;
 	delete teamsByYear;
 	
-	//************************************************
-	//************************************************
 	delete worldCupRecycleBin;
 	delete finalMatchRecycleBin;
 	delete teamsParticipatedRecycleBin;
@@ -104,7 +94,14 @@ void HeadNode::addManager()
 			std::cin >> year;
 			getline(std::cin, dummy);
 		}
-
+		if (worldCupData->contains(year) && finalMatchData->contains(year) && teamsByYear->contains(year))
+		{
+			std::cout << std::endl << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "THIS YEAR ALREADY EXISTS IN OUR RECORDS!" << std::endl << std::endl;
+			system("pause");
+			system("CLS");
+			return;
+		}
 		//Exit if the user chooses to 
 		if (year == -1) return;
 
@@ -527,7 +524,7 @@ void HeadNode::displayKeyManager()
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINALIST 2:            " << finalMatchObject->getTeam2() << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINAL RESULT:          " << finalMatchObject->getResult() << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "CITY IT WAS HELD IN:   " << finalMatchObject->getCity() << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "STADIUM IT WAS:        " << finalMatchObject->getStadium() << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "STADIUM PLAYED IN:     " << finalMatchObject->getStadium() << std::endl;
 		std::cout << std::endl << std::endl << std::endl;
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "TEAMS PARTICIPATED" << std::endl << std::endl;
@@ -582,8 +579,8 @@ void HeadNode::printIndentedTree()
 	//To be completed
 	system("CLS");
 	system("pause");
-
 	yearHeldTree->printTree();
+	
 	system("pause");
 	system("CLS");
 
@@ -660,11 +657,28 @@ void HeadNode::efficencyManager()
 	system("CLS");
 	//Since we are using tree hash tables, but with the same key the data of one tree is sufficent
 	std::cout << std::endl << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Hash Table load factor:   " << worldCupData->loadFactor() << "%" << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of collisions so far:             #" << worldCupData->getNumCollisions() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current World Cup Hash Table load factor:                 " << worldCupData->loadFactor() << "%" << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Final Match Hash Table load factor:               " << finalMatchData->loadFactor() << "%" << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Teams Participated Hash Table load factor:        " << teamsByYear->loadFactor() << "%" << std::endl;
+	std::cout << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "World Cup HashTable number of collisions:                 #" << worldCupData->getNumCollisions() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "World Cup HashTable longest chain:                        #" << worldCupData->getLongestCollisionPath() << std::endl;
+	std::cout << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Teams Participated HashTable number of collisions:        #" << teamsByYear->getNumCollisions() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Teams Participated HashTable longest chain:               #" << teamsByYear->getLongestCollisionPath() << std::endl;
+	std::cout << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Final Match HashTable number of collisions:               #" << finalMatchData->getNumCollisions() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Final Match HashTable longest chain:                      #" << finalMatchData->getLongestCollisionPath() << std::endl;
+	std::cout << std::endl << std::endl << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of TreeNodes:              " << yearHeldTree->getCountNodes() << std::endl << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Year Held          Tree height:               " << yearHeldTree->getHeight() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Goals Per Game     Tree height:               " << goalsPgameTree->getHeight() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average Attendance Tree height:               " << aveAtteTree->getHeight() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Total Attendance   Tree height:               " << totAtteTree->getHeight() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of Games    Tree height:               " << numGamesTree->getHeight() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of Teams    Tree height:               " << numTeamsTree->getHeight() << std::endl;
 	std::cout << std::endl << std::endl << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "";
-	system("pause");
 }
 
 void HeadNode::printGeneralWorldCupDataHeader()
