@@ -8,21 +8,17 @@ private:
 	std::string winningTeam;
 	std::string goldenBootWinner;
 	std::string hostCountry;
-	std::string *teamsParticipated;
 	double goalsPerGame;
 
 	long int totAtt;
 	int aveAtt;
 	int numberOfGamesPlayed;
 	int yearHeld;
-	int numOfTeamsParticipated;
 public:
 	WorldCup();
 	~WorldCup();
+	WorldCup(int,std::string,std::string,int,double,int,int,std::string);
 
-	void displayTeamsParticipated();
-
-	void setNumOfTeamsParticipated(int);
 	void setWinningTeam(std::string);
 	void setGoldenBWinner(std::string);
 	void setHostCountry(std::string);
@@ -30,18 +26,11 @@ public:
 	void setTotAtt(int);
 	void setYearHeld(int);
 	void setNumGames(int);
-	void setTeamsParticipatedArray(int size);
 	void setGoalsPGame(double);
-
-	void readFileWorldcupData(std::string &line);
-	void readFileTeamsByYearData(std::string &line);
-	void outputFileWorldcupData();
-	void outputFileTeamsParticipated();
 
 	std::string getWinningTeam() const;
 	std::string getGoldenBootWinner() const;
 	std::string getHostCountry() const;
-	int getNumOfTeamsParticipated() const;
 	int getAveAtt() const;
 	int getTotAtt() const;
 	int getYearHeld() const;

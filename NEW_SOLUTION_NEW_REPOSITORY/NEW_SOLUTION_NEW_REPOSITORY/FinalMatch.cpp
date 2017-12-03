@@ -2,6 +2,16 @@
 #include <fstream>
 #include <iomanip>
 
+FinalMatch::FinalMatch(int y, std::string* teamsP, std::string res, std::string st, std::string ci)
+{
+	this->year = y;
+	this->teams[0] = teamsP[0];
+	this->teams[1] = teamsP[1];
+	this->result = res;
+	this->stadium = st;
+	this->city = ci;
+}
+
 void FinalMatch::setYear(int y)
 {
 	year = y;
@@ -92,7 +102,6 @@ int FinalMatch::getYear() const
 {
 	return year;
 }
-
 
 std::string FinalMatch::getTeam1() const
 {

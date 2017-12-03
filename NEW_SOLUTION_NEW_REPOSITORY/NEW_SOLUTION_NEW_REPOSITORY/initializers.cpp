@@ -13,7 +13,7 @@ void HeadNode::initializeWorldCupDataManager()
 	//If the file is unable to open, then throw an error
 	if (!finWorldCup) throw "worldCupGeneralData.txt FILE COULD NOT BE OPENED IN initializeWorldCupData()"; /*2 operations*/
 
-																											//Read the file line by line and initialize data
+	//Read the file line by line and initialize data
 	while (getline(finWorldCup, buffer))
 		readFileWorldcupData(buffer);
 
@@ -134,16 +134,17 @@ void HeadNode::readFileFinalMatchData(std::string &line)
 	size_t pos, end_pos;
 
 	int putCounter;
-
-	//Temporary Final Match object
-	FinalMatch* temp_FinalMatch_object = new FinalMatch;
-
-	std::string temp1, temp2;
+	int year;
 	std::string buffer = line;
 
+	std::string temp1, temp2;
+	std::string teams[2];
+	std::string result;
+	std::string stadium;
+	std::string city;
 	//set year
 	pos = buffer.find('|');
-	temp_FinalMatch_object->setYear(stoi(buffer.substr(0, pos - 1)));
+	year = stoi(buffer.substr(0, pos - 1));
 
 	// sets team 1 and team 2
 	buffer = buffer.substr(7);
@@ -152,7 +153,8 @@ void HeadNode::readFileFinalMatchData(std::string &line)
 	buffer = buffer.substr(pos + 2);
 	end_pos = buffer.find('.');
 	temp2 = buffer.substr(0, end_pos);
-	temp_FinalMatch_object->setTeams(temp1, temp2);
+	teams[0] = temp1;
+	teams[1] = temp2;
 
 	// set results
 	pos = buffer.find('|');
@@ -163,19 +165,21 @@ void HeadNode::readFileFinalMatchData(std::string &line)
 	if (buffer[6] == '(') {
 		temp1 += buffer.substr(5, end_pos - 4);
 	}
-	temp_FinalMatch_object->setResult(temp1);
+	result = temp1;
 
 	// set stadium
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	end_pos = buffer.find('.');
-	temp_FinalMatch_object->setStadium(buffer.substr(0, end_pos));
+	stadium = (buffer.substr(0, end_pos));
 
 	// set city
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	end_pos = buffer.find('.');
-	temp_FinalMatch_object->setCity(buffer.substr(0, end_pos));
+	city = buffer.substr(0, end_pos);
+
+	FinalMatch* temp_FinalMatch_object = new FinalMatch(year, teams, result, stadium, city);
 
 	//Store data in HashTable
 	//Key = yearHeld

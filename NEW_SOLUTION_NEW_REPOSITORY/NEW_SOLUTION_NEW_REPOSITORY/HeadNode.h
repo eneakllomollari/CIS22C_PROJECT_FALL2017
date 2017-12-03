@@ -30,6 +30,7 @@ private:
 	HashTable<int, FinalMatch*> *finalMatchData;
 	HashTable<int, TeamsParticipated*> *teamsByYear;
 
+	//Declaring the recovery Stacks
 	Stack<WorldCup*> *worldCupRecycleBin;
 	Stack<FinalMatch*> *finalMatchRecycleBin;
 	Stack<TeamsParticipated*> *teamsParticipatedRecycleBin;

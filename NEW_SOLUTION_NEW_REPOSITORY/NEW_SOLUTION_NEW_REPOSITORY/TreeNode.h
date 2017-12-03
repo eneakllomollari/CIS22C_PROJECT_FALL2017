@@ -55,22 +55,12 @@ TreeNode<K, T>::TreeNode(K k, T d)
 	right = nullptr;
 }
 
-/**
-Description: Mutator
-Pre: TreeNode pointer
-Post: Sets the left pointer
-*/
 template<class K, class T>
 void TreeNode<K, T>::setLeft(TreeNode<K, T> *l)
 {
 	left = l;
 }
 
-/**
-Description: Mutator
-Pre: TreeNode pointer
-Post: Sets the right pointer
-*/
 template<class K, class T>
 void TreeNode<K, T>::setRight(TreeNode<K, T> *r)
 {
@@ -107,11 +97,6 @@ bool TreeNode<K, T>::hasRightChild() const
 	return right != nullptr;
 }
 
-/**
-Description: Accessor
-Pre: None
-Post: Returns the right pointer
-*/
 template<class K, class T>
 TreeNode<K, T>* TreeNode<K, T>::getRight()
 {

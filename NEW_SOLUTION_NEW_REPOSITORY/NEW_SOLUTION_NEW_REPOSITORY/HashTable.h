@@ -4,6 +4,7 @@
 #include "HashEntry.h"
 
 template <class K, class T>
+
 class HashTable
 {
 private:
@@ -14,8 +15,8 @@ private:
 	int itemCount;
 	int numCollisions;
 	int longestCollisionPath;
-protected:
 
+protected:
 	int hash(const K&)const;
 
 public:

@@ -1,8 +1,6 @@
 #include <iostream>
 #include "HeadNode.h"
 
-
-//Need to remove the inline functions from the stack and put them separately
 int main()
 {
 	std::cout << std::fixed << std::setprecision(2);
