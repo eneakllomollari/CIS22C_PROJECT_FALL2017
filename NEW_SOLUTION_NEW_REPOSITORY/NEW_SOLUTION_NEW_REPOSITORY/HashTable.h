@@ -16,6 +16,8 @@ private:
 protected:
 
 	int hash(const K&)const;
+	bool is_primeNumber(int num_input);
+	void re_hash();
 
 public:
 	HashTable();
@@ -78,6 +80,94 @@ int HashTable<K, T>::hash(const K& k)const
 }
 
 template<class K, class T>
+bool HashTable<K, T>::is_primeNumber(int num_input)
+{
+	/*
+		Author: Kamaljot Saini
+
+		Pre: Function recieves some integer value
+
+		Post: Returns TRUE if integer value is PRIME, and returns FALSE if not prime
+	*/
+
+	//Declare local variables
+	bool is_prime = true;
+
+	//Run through numbers from 2
+	//and once division by number returns false to being 
+	//prime then break out of loop
+	for (int index = 2; index <= num_input / 2; index++)
+	{
+		if (num_input % index == 0)
+		{
+			is_prime = false;
+			break;
+		}
+
+	} //end for loop
+
+	return is_prime;
+}
+
+template<class K, class T>
+void HashTable<K, T>::re_hash()
+{
+	/*
+		Author: Kamaljot Saini
+
+		Pre: N/A
+
+		Post: Upon successful completion of this function,
+		our hashTable should be re-Hashed with the size set to 
+		next 2 available prime numbers
+	*/
+
+	//Declare local variables and objects
+	int old_TABLE_SIZE;
+
+	//Double the old hashTable size and add 1
+	old_TABLE_SIZE = TABLE_SIZE;
+	TABLE_SIZE = (TABLE_SIZE * 2) + 1;
+
+	//Check and see that new_TABLE_SIZE is prime
+	//if not, then convert it to the next available prime number
+	while (!is_primeNumber(TABLE_SIZE))
+		//Increment new_TABLE_SIZE one by one
+		TABLE_SIZE++;
+
+	//Dynamically allocate new_HashTable with new_TABLE_SIZE(which should be a prime #)
+	HashEntry<K, T>** new_HashTable = new HashEntry<K, T>*[TABLE_SIZE];
+
+	//Dynamically allocate an array of HashEntries
+	//into the newHashTable
+	for (int i = 0; i < TABLE_SIZE; i++)
+		new_HashTable[i] = nullptr;
+	int countOperations = 0;
+	//Store all the pointers from old hashTable into new_HashTable;
+	for (int index = 0; index < old_TABLE_SIZE; index++)
+	{
+		//While loop will ensure that all 
+		//pointers, including chained pointers, are
+		//pushed into the stack
+		//Create temporary traversalPtr
+		HashEntry<K, T>* traversePtr = table[index];
+		while (traversePtr != nullptr)
+		{
+			HashEntry<K, T>* temp = traversePtr;
+			traversePtr = traversePtr->getNext();
+
+			//Find the proper collision pointer
+			HashEntry<K, T>*& entry1 = new_HashTable[hash(temp->getKey())];
+			temp->setNext(entry1);
+			entry1 = temp;
+		} //end while loop
+	} //end for loop
+
+	delete[]table;
+	table = new_HashTable;
+}
+
+template<class K, class T>
 T HashTable<K, T>::get(K searchKey, int& getCounter)const
 {
 	getCounter = 0;
@@ -99,6 +189,11 @@ T HashTable<K, T>::get(K searchKey, int& getCounter)const
 template < class K, class T>
 bool HashTable<K, T>::put(K searchKey, T newItem, int &putCounter)
 {
+	//Check and see if re_hash is needed
+	//We will re_hash at > 85% load factor
+	if (loadFactor() >= 90.00)
+		re_hash();
+
 	putCounter = 0;
 	// Create entry to add to dictionary
 	HashEntry<K, T>* entryToAddPtr = new HashEntry<K, T>(searchKey, newItem); putCounter++;
