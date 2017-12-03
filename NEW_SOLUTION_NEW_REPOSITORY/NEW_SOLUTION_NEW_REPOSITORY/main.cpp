@@ -1,39 +1,16 @@
-#include "functions.h"
-#include "initializerFunctions.h"
+#include <iostream>
+#include "HeadNode.h"
 
-
-//Need to remove the inline functions from the stack and put them separately
 int main()
 {
 	std::cout << std::fixed << std::setprecision(2);
 
-	//Declaring the trees
-	Tree<int, WorldCup> yearHeldTree;					//WORKS FINE
-	Tree<double, WorldCup> goalsPgameTree;				//WORKS FINE
-	Tree<int, WorldCup> aveAtteTree;					//WORKS FINE
-	Tree<int, WorldCup> totAtteTree;					//WORKS FINE
-	Tree<int, WorldCup> numGamesTree;					//WORKS FINE
-	Tree<int, TeamsParticipated> numTeamsTree;
-
-	//Declaring the hash tables
-	HashTable<int, WorldCup> worldCupData;				//WORKS FINE
-	HashTable<int, FinalMatch> finalMatchData;			//WORKS FINE
-	HashTable<int, TeamsParticipated> teamsByYear;		//WORKS FINE
-
-	Stack<WorldCup> worldCupRecycleBin;
-	Stack<FinalMatch> finalMatchRecycleBin;
-	Stack<TeamsParticipated> teamsParticipatedRecycleBin;
+	HeadNode mainHeadNode;
 
 	int choice;
 
 	try
 	{
-		//Initializes the trees correctly
-		initializeWorldCupData(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, worldCupData, teamsByYear, numTeamsTree);
-
-		//Initialize data into HashTable from "FinalMatch.txt" file
-		initializeFinalMatchData(finalMatchData);
-
 		//MENU STARTS HERE 
 		// MAKE THIS A FUNCTION
 		//MAIN MENU OF THE PROGRAM
@@ -47,7 +24,7 @@ int main()
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) List data in hash table sequence" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List sorted data" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) Print indented tree" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Undo Delete "<< std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Undo Delete " << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Save Changes/Clear the Recovery Stack" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "9) Efficency " << std::endl;
 
@@ -59,71 +36,68 @@ int main()
 			std::cout << "\n\n";
 			switch (choice)
 			{
-				case 1: 
-					add(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear);
-					break;
-				case 2: 
-					system("CLS");
-					remove_year(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear, worldCupRecycleBin, finalMatchRecycleBin, teamsParticipatedRecycleBin);
-					break;
-				case 3: 
-					system("CLS");
-					display_year_data(worldCupData, finalMatchData, teamsByYear);
-					break;
-				case 4: 
-					system("CLS");
-					hashtable_list(worldCupData, finalMatchData, teamsByYear);
-					break;
-				case 5: 
-					system("CLS");
-					sortDataByChoice(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree);
-					break;
-				case 6: 
-					system("CLS");
-					pretty_print();
-					break;
-				case 7:
-					system("CLS");
-					restoreDlte(yearHeldTree, goalsPgameTree, aveAtteTree, totAtteTree, numGamesTree, numTeamsTree, worldCupData, finalMatchData, teamsByYear, worldCupRecycleBin, finalMatchRecycleBin, teamsParticipatedRecycleBin);
-					break;
-				case 8:
-					system("CLS");
-					//Saving to Files
-					worldCupData.writeWorldCupGeneralDataToTxt();
-					finalMatchData.writeFinalMatchDataToTxt();
-					teamsByYear.writeTeamsParticipatedToTxt();
-
-					//Clearing the Recycle Bins
-					worldCupRecycleBin.clearStack();
-					teamsParticipatedRecycleBin.clearStack();
-					teamsParticipatedRecycleBin.clearStack();
-
-					system("CLS");
-					std::cout << std::endl << std::endl << std::endl;
-					std::cout << std::endl << std::endl;
-					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "OPERATION SUCCESFUL!" << std::endl;
-					std::cout << std::endl << std::endl << std::endl;
-					std::cout << std::setw(WIDTH_BTW_LINES) << "";
-					system("pause");
-					system("CLS");
-					break;
-				case 9:
-					system("CLS");
-					//Since we are using tree hash tables, but with the same key the data of one tree is sufficent
-					std::cout << std::endl << std::endl << std::endl;
-					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Hash Table load factor:   " << worldCupData.loadFactor() << "%" << std::endl;
-					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of collisions:             #" << worldCupData.getNumCollisions() << std::endl;
-					std::cout << std::endl << std::endl << std::endl;
-					std::cout << std::setw(WIDTH_BTW_LINES) << "";
-					system("pause");
-					break;
-				case 0:
-					system("pause");
-					system("CLS"); break;
-				default:
-					system("CLS");
-					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl; 
-					break;
+			case 1:
+				system("CLS");
+				mainHeadNode.addManager();
+				system("CLS");
+				break;
+			case 2:
+				system("CLS");
+				mainHeadNode.removeManager();
+				system("CLS");
+				break;
+			case 3:
+				system("CLS");
+				mainHeadNode.displayKeyManager();
+				system("CLS");
+				break;
+			case 4:
+				system("CLS");
+				mainHeadNode.displayTableManager();
+				system("CLS");
+				break;
+			case 5:
+				system("CLS");
+				mainHeadNode.sortManager();
+				system("CLS");
+				break;
+			case 6:
+				system("CLS");
+				mainHeadNode.printIndentedTree();
+				system("CLS");
+				break;
+			case 7:
+				system("CLS");
+				mainHeadNode.undoDeleteManager();
+				system("CLS");
+				break;
+			case 8:
+				mainHeadNode.saveToInputFileManager();
+				mainHeadNode.clearRecycleStacksManager();
+				system("CLS");
+				std::cout << std::endl << std::endl << std::endl;
+				std::cout << std::endl << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "OPERATION SUCCESFUL!" << std::endl;
+				std::cout << std::endl << std::endl << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "";
+				system("pause");
+				system("CLS");
+				break;
+			case 9:
+				system("CLS");
+				//Since we are using tree hash tables, but with the same key the data of one tree is sufficent
+				mainHeadNode.efficencyManager();
+				std::cout << std::endl;
+				system("pause");
+				system("CLS");
+				break;
+			case 0:
+				system("pause");
+				system("CLS"); break;
+			default:
+				system("CLS");
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl;
+				break;
 			}
 			std::cin.clear();             //it takes care of the strings entered
 			std::cin.ignore(INT_MAX, '\n');
@@ -143,14 +117,6 @@ int main()
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	std::cout << std::endl << std::setw(WIDTH_BTW_LINES + 10) << "" << "\"GOODBYE\"" << std::endl << std::endl << std::endl << std::endl << std::endl;
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n";
-
-
-	//****************************************************************************************************************
-	// WRITE BACK TO THE FILES
-	finalMatchData.writeFinalMatchDataToTxt();
-	teamsByYear.writeTeamsParticipatedToTxt();
-	worldCupData.writeWorldCupGeneralDataToTxt();
-	//****************************************************************************************************************
 
 	system("pause");
 	return 0;

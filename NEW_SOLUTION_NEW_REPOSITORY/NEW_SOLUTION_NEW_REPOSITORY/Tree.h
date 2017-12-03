@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include "TreeNode.h"
+#include <vector>
 
 template <class K, class T>
 class Tree
@@ -9,6 +10,7 @@ class Tree
 private:
 	TreeNode<K, T> *root;		//Root of the tree
 	int itemCount;
+
 protected:
 	void insertNode(K, T);
 	int countNodes(TreeNode<K, T> *)const;
@@ -21,19 +23,23 @@ protected:
 
 	void calculateSum(TreeNode<K, T>*, K&)const;
 	void destroySubTree(TreeNode<K, T>*);
-	TreeNode<K, T>* deleteNode(TreeNode<K, T>*, K,int&);///////////////////////////////
+	TreeNode<K, T>* deleteNode(TreeNode<K, T>*, K, int&);///////////////////////////////
 
 	TreeNode<K, T>* getSmallestNode(TreeNode<K, T>*)const;
 	TreeNode<K, T>* getBiggestNode(TreeNode<K, T>*)const;
 	TreeNode<K, T>* getParentOf(TreeNode<K, T>*)const;
+	void printIndentedTree(TreeNode<K, T>*, int indent = 0);
+
+	void printRow(TreeNode<K, T>*, int, int);
+	void getLine(TreeNode<K, T>*, int, std::vector<K>&);
 
 public:
 	Tree();
 	virtual ~Tree();
 
 	void clear();
-	void insert(K, T,int&);////////////////////////
-	bool remove(K,int&);//////////////////////////
+	void insert(K, T, int&);////////////////////////
+	bool remove(K, int&);//////////////////////////
 	TreeNode<K, T>* searchNode(K);
 	bool isEmpty()const;
 
@@ -41,16 +47,23 @@ public:
 	K getSmallest() const;
 	K getLargest() const;
 
+	void insertDataToStackHelper(TreeNode<K, T>*, Stack<T>*);
+	void insertDataToStack(Stack<T>*);
+
 	int getCountNodes()const;
 	int getHeight();
-	T getRootData() const;
+	T getpRootData() const;
 	TreeNode<K, T>* getRootNode() const;
+
+	void setRootData(K, T);
 
 	void setRootData(K, T);
 
 	void displayInOrder()const;
 	void displayPreOrder()const;
 	void displayPostOrder()const;
+
+	void printTree();
 };
 
 template<class K, class T>
@@ -92,14 +105,16 @@ void Tree<K, T>::destroySubTree(TreeNode<K, T>* nodePtr)
 {
 	if (nodePtr != nullptr)
 	{
-		destroySubTree(nodePtr->getLeft());				
-		destroySubTree(nodePtr->getRight());			
-		delete nodePtr;									
+		destroySubTree(nodePtr->getLeft());
+		destroySubTree(nodePtr->getRight());
+
+		delete nodePtr;
+		nodePtr = nullptr;
 	}
 }
 
 template<class K, class T>
-bool Tree<K, T>::remove(K key,int & removeCounter)
+bool Tree<K, T>::remove(K key, int & removeCounter)
 {
 	int deleteCounter = 0;
 	removeCounter = 0;
@@ -159,9 +174,9 @@ TreeNode<K, T>* Tree<K, T>::getBiggestNode(TreeNode<K, T>* rootPtr)const
 }
 
 template<class K, class T>
-void Tree<K, T>::insert(K key, T data,int &insertCounter)
+void Tree<K, T>::insert(K key, T data, int &insertCounter)
 {
-	insertCounter=0;
+	insertCounter = 0;
 	insertNode(key, data);				insertCounter++;
 	itemCount++;						insertCounter++;
 }
@@ -172,7 +187,7 @@ void Tree<K, T>::insertNode(K k, T d)
 	TreeNode<K, T>* t = new TreeNode<K, T>;	//Allocate a new TreeNode
 	TreeNode<K, T>* parent = nullptr;
 
-	t->setData(d);
+	t->setpData(d);
 	t->setKey(k);
 	t->setLeft(nullptr);	//Because is will be a leaf node
 	t->setRight(nullptr);
@@ -236,6 +251,18 @@ void Tree<K, T>::displayPostOrder() const
 }
 
 template<class K, class T>
+void Tree<K, T>::printTree()
+{
+	printIndentedTree(root);
+}
+
+template<class K, class T>
+void Tree<K, T>::insertDataToStack(Stack<T>* myStack)
+{
+	insertDataToStackHelper(root, myStack);
+}
+
+template<class K, class T>
 int Tree<K, T>::getCountNodes() const
 {
 	return itemCount;
@@ -268,15 +295,26 @@ K Tree<K, T>::getLargest() const
 }
 
 template<class K, class T>
+void Tree<K, T>::insertDataToStackHelper(TreeNode<K, T>* nodePtr, Stack<T>* recoveryStack)
+{
+	if (nodePtr)
+	{
+		displayInOrder(nodePtr->getLeft());
+		recoveryStack->push(nodePtr->getpData());
+		displayInOrder(nodePtr->getRight());
+	}
+}
+
+template<class K, class T>
 int Tree<K, T>::getHeight()
 {
 	return getHeightHelper(root);
 }
 
 template<class K, class T>
-T Tree<K, T>::getRootData() const
+T Tree<K, T>::getpRootData() const
 {
-	return root->data;
+	return root->getpData();
 }
 
 template<class K, class T>
@@ -290,7 +328,7 @@ void Tree<K, T>::setRootData(K key_input, T newData)
 {
 	if (root != nullptr)
 	{
-		root->setData(newData);
+		root->setpData(newData);
 		root->setKey(key_input);
 	}
 
@@ -330,7 +368,7 @@ void Tree<K, T>::displayInOrder(TreeNode<K, T> *nodePtr) const
 	if (nodePtr)
 	{
 		displayInOrder(nodePtr->getLeft());
-		std::cout << nodePtr->getData() << "\n";
+		std::cout << *nodePtr->getpData() << "\n";
 		displayInOrder(nodePtr->getRight());
 	}
 }
@@ -340,7 +378,7 @@ void Tree<K, T>::displayPreOrder(TreeNode<K, T>* nodePtr) const
 {
 	if (nodePtr)
 	{
-		std::cout << nodePtr->getData() << "\n";
+		std::cout << *nodePtr->getpData() << "\n";
 		displayPreOrder(nodePtr->getLeft());
 		displayPreOrder(nodePtr->getRight());
 	}
@@ -353,21 +391,20 @@ void Tree<K, T>::displayPostOrder(TreeNode<K, T>* nodePtr) const
 	{
 		displayPostOrder(nodePtr->getLeft());
 		displayPostOrder(nodePtr->getRight());
-		std::cout << nodePtr->getData() << "\n";
+		std::cout << *nodePtr->getpData() << "\n";
 	}
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input,int &deleteCounter)
+TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input, int &deleteCounter)
 {
-	deleteCounter = 0;
 	if (root == nullptr)
 	{
 		return root;												deleteCounter++;
 	}
 	else if (key_input < root->getKey())
 	{
-		root->setLeft(deleteNode(root->getLeft(), key_input,deleteCounter));		deleteCounter++;
+		root->setLeft(deleteNode(root->getLeft(), key_input, deleteCounter));		deleteCounter++;
 	}
 	else if (key_input > root->getKey())
 	{
@@ -383,7 +420,7 @@ TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input,int &del
 		else if (root->hasLeftChild() && !root->hasRightChild())
 		{
 			TreeNode<K, T> *temp = root->getLeft();					deleteCounter++;
-			
+
 			//deleteNode(root, key_input);
 			delete root;											deleteCounter++;
 			root = nullptr;											//deleteCounter++;
@@ -392,7 +429,8 @@ TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input,int &del
 		else if (root->hasRightChild() && !root->hasLeftChild())
 		{
 			TreeNode<K, T>*temp = root->getRight();					deleteCounter++;
-			//deleteNode(root, key_input);
+			//deleteNode(root, key_input, deleteCounter);
+
 			delete root;											deleteCounter++;
 			root = nullptr;											//deleteCounter++;
 			return temp;											//deleteCounter++;
@@ -412,6 +450,66 @@ template <class K, class T>
 int Tree<K, T>::max(int x, int y)
 {
 	return x > y ? x : y;
+}
+
+template <class K, class T>
+void Tree<K, T>::printIndentedTree(TreeNode<K, T> *p, int indent = 0)
+{
+	int height = getHeight() * 4;
+
+
+	for (int i = 0; i < height; i++)
+		printRow(p, height, i);
+}
+
+template <class K, class T>
+void Tree<K, T>::printRow(TreeNode<K, T>* p, int height, int depth)
+{
+	int placeholder = 0;
+
+	std::vector<K> vec;
+	getLine(p, depth, vec);
+	std::cout << std::setw((height - depth) * 2);
+	bool toggle = true;
+	if (vec.size() > 1)
+	{
+		for (int v : vec)
+		{
+			if (v != placeholder)
+			{
+				if (toggle)
+					std::cout << "/" << "   ";
+				else
+					std::cout << "\\" << "   ";
+			}
+			toggle = !toggle;
+		}
+		std::cout << std::endl;
+		std::cout << std::setw((height - depth) * 2);
+	}
+	for (int v : vec)
+		if (v != placeholder)
+			std::cout << v << "   ";
+	std::cout << std::endl;
+}
+
+template<class K, class T>
+void Tree<K, T>::getLine(TreeNode<K, T>*root, int depth, std::vector<K>&vals)
+{
+	int placeholder = 0;
+	if (depth <= 0 && root != nullptr)
+	{
+		vals.push_back(root->getKey());
+		return;
+	}
+	if (root->getLeft() != nullptr)
+		getLine(root->getLeft(), depth - 1, vals);
+	else if (depth - 1 <= 0)
+		vals.push_back(placeholder);
+	if (root->getRight() != nullptr)
+		getLine(root->getRight(), depth - 1, vals);
+	else if (depth - 1 <= 0)
+		vals.push_back(placeholder);
 }
 
 #endif // !TREE_H

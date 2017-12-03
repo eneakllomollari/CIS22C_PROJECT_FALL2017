@@ -6,7 +6,7 @@ class TreeNode
 {
 private:
 	K key;
-	T data;
+	T pData;
 
 	TreeNode<K, T> *left;
 	TreeNode<K, T> *right;
@@ -14,11 +14,11 @@ private:
 public:
 	TreeNode();
 	TreeNode(T);
-	TreeNode(K, T, TreeNode<K, T>*, TreeNode<K, T>*);
+	TreeNode(K, T);
 
 	void setLeft(TreeNode<K, T> *);
 	void setRight(TreeNode<K, T> *);
-	void setData(T);
+	void setpData(T);
 	void setKey(K);
 
 	bool isLeaf() const;
@@ -27,7 +27,7 @@ public:
 
 	TreeNode<K, T>* getRight();
 	TreeNode<K, T>* getLeft();
-	T getData();
+	T getpData();
 	K getKey();
 };
 
@@ -41,36 +41,26 @@ TreeNode<K, T>::TreeNode()
 template<class K, class T>
 TreeNode<K, T>::TreeNode(T d)
 {
-	data = d;
+	pData = d;
 	left = nullptr;
 	right = nullptr;
 }
 
 template<class K, class T>
-TreeNode<K, T>::TreeNode(K k, T d, TreeNode<K, T> *l, TreeNode<K, T> *r)
+TreeNode<K, T>::TreeNode(K k, T d)
 {
 	key = k;
-	data = d;
-	left = l;
-	right = r;
+	pData = d;
+	left = nullptr;
+	right = nullptr;
 }
 
-/**
-Description: Mutator
-Pre: TreeNode pointer
-Post: Sets the left pointer
-*/
 template<class K, class T>
 void TreeNode<K, T>::setLeft(TreeNode<K, T> *l)
 {
 	left = l;
 }
 
-/**
-Description: Mutator
-Pre: TreeNode pointer
-Post: Sets the right pointer
-*/
 template<class K, class T>
 void TreeNode<K, T>::setRight(TreeNode<K, T> *r)
 {
@@ -78,9 +68,9 @@ void TreeNode<K, T>::setRight(TreeNode<K, T> *r)
 }
 
 template<class K, class T>
-void TreeNode<K, T>::setData(T d)
+void TreeNode<K, T>::setpData(T d)
 {
-	data = d;
+	pData = d;
 }
 
 template<class K, class T>
@@ -107,11 +97,6 @@ bool TreeNode<K, T>::hasRightChild() const
 	return right != nullptr;
 }
 
-/**
-Description: Accessor
-Pre: None
-Post: Returns the right pointer
-*/
 template<class K, class T>
 TreeNode<K, T>* TreeNode<K, T>::getRight()
 {
@@ -125,9 +110,9 @@ TreeNode<K, T>* TreeNode<K, T>::getLeft()
 }
 
 template<class K, class T>
-T TreeNode<K, T>::getData()
+T TreeNode<K, T>::getpData()
 {
-	return data;
+	return pData;
 }
 
 template<class K, class T>

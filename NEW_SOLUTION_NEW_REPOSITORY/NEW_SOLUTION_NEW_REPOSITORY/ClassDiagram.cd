@@ -1,69 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="FinalMatch">
-    <Position X="0.5" Y="5.25" Width="2.25" />
+    <Position X="8.5" Y="12.75" Width="3" />
     <TypeIdentifier>
-      <HashCode>CAAEAAAAAAiAAIAABECACAAAAAAEQAAgAgAAAAQAQAA=</HashCode>
+      <HashCode>CAAEAAAAAAiAAIAABECAKAAAAAAEQAAgAgAAAAQIQAA=</HashCode>
       <FileName>FinalMatch.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HashEntry&lt;K, T&gt;">
-    <Position X="3.75" Y="0.5" Width="2.5" />
+  <Class Name="TeamsParticipated">
+    <Position X="8.5" Y="9" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAAAAAQEAAAAAAAAAAEAICBSAAIAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAIIABAAAAAAAAAAFAAgAAAEAAEAAABAAA=</HashCode>
+      <FileName>TeamsParticipated.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorldCup">
+    <Position X="8.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>CQECEAAAAAEAEhFAQgDAEAICAGRUEMAEEQAEAAAQUAA=</HashCode>
+      <FileName>WorldCup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HashEntry&lt;K, T&gt;">
+    <Position X="5" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAABAAEAAAAAIAACAEAIAACAAIAQAA=</HashCode>
       <FileName>HashEntry.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HashTable&lt;K, T&gt;">
-    <Position X="0.5" Y="0.5" Width="3" />
+    <Position X="5" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAACAAgAAAAAABGAIAAQAAQAAEAAgIAAkAAAAAAAAA=</HashCode>
+      <HashCode>ABAACAAgAAAhAAhGIJAAQAAACAEAAgIAAkAAEAgQQAA=</HashCode>
       <FileName>HashTable.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="LinkedList&lt;T&gt;">
-    <Position X="6.5" Y="0.5" Width="3.75" />
-    <Members>
-      <Field Name="eff_counter" Hidden="true" />
-    </Members>
+  <Class Name="Stack&lt;T&gt;">
+    <Position X="4.75" Y="10.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>hFAAAAAAgJAAIAAAAAAADAAAAAAAAAEIgAAAAAAAQUA=</HashCode>
-      <FileName>LinkedList.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="LinkedNode&lt;T&gt;">
-    <Position X="10.5" Y="0.5" Width="4.5" />
-    <TypeIdentifier>
-      <HashCode>gAAAAAAEQAAAAAAAAAAAAAAAAAAAAAAIIAASAAIAAAA=</HashCode>
-      <FileName>LinkedNode.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WorldCup">
-    <Position X="3.75" Y="5.25" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AQECAAAAAAEAABFAQgDAEAIAAGREEMAEEQAEAAAQEAA=</HashCode>
-      <FileName>WorldCup.h</FileName>
+      <HashCode>AAAAAAQAAIAAAAAACAAAAIAAgAAAAAAAQAAIAIAAQAA=</HashCode>
+      <FileName>Stack.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TreeNode&lt;K, T&gt;">
-    <Position X="7" Y="5.25" Width="3.75" />
+    <Position X="0.5" Y="9.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAEQQAAAgAAIAAAABAAEAJAACBAIAAAAAAAQAAAIwAA=</HashCode>
+      <HashCode>AAAAwAAAgAAIAAAABAAEAJAACJAICAAAAAAAAAAIwAA=</HashCode>
       <FileName>TreeNode.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Tree&lt;K, T&gt;">
-    <Position X="11.25" Y="5.25" Width="3.75" />
+    <Position X="0.5" Y="0.5" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AEQAEACEBQDADAAEAAAgCAAEQAggSAAAAAAQQAAAQEA=</HashCode>
+      <HashCode>AEQAEACERQDBjgAGAAAgCAAEQAioSAAQQAEQSAABQAA=</HashCode>
       <FileName>Tree.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TeamsParticipated">
-    <Position X="0.5" Y="10" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAIIAAAAAAAAAAAABAAAAAAEAAAAAAAAAA=</HashCode>
-      <FileName>TeamsParticipated.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

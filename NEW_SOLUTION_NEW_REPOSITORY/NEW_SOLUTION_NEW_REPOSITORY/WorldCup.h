@@ -17,6 +17,7 @@ private:
 public:
 	WorldCup();
 	~WorldCup();
+	WorldCup(int,std::string,std::string,int,double,int,int,std::string);
 
 	void setWinningTeam(std::string);
 	void setGoldenBWinner(std::string);

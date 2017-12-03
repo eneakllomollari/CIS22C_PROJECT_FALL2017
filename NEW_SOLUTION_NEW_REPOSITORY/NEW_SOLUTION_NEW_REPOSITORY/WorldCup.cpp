@@ -3,7 +3,6 @@
 #include <iostream>
 #include <fstream>
 
-
 void WorldCup::setWinningTeam(std::string s)
 {
 	winningTeam = s;
@@ -60,6 +59,18 @@ WorldCup::~WorldCup()
 {
 }
 
+WorldCup::WorldCup(int year, std::string winner, std::string bestPlayer, int numGames, double goals, int aveAtt, int totAtt, std::string host)
+{
+	this->yearHeld = year;
+	this->winningTeam = winner;
+	this->goldenBootWinner = bestPlayer;
+	this->numberOfGamesPlayed = numGames;
+	this->goalsPerGame = goals;
+	this->aveAtt = aveAtt;
+	this->totAtt = totAtt;
+	this->hostCountry = host;
+}
+
 std::string WorldCup::getWinningTeam() const
 {
 	return winningTeam;
@@ -100,22 +111,9 @@ double WorldCup::getGoalsPerGame() const
 	return goalsPerGame;
 }
 
-void WorldCup::operator=(const WorldCup &wC)
-{
-	this->winningTeam = wC.getWinningTeam();
-	this->goldenBootWinner = wC.getGoldenBootWinner();
-	this->hostCountry = wC.getHostCountry();
-	this->goalsPerGame = wC.getGoalsPerGame();
-	this->yearHeld = wC.getYearHeld();
-	this->aveAtt = wC.getAveAtt();
-	this->totAtt = wC.getTotAtt();
-	this->numberOfGamesPlayed = wC.getNumGames();
-}
-
 std::ostream & operator<<(std::ostream & os, const WorldCup &wC)
 {
 	//Written by Kamaljot Saini
-	os << std::fixed << std::setprecision(2);
 	os << std::left << std::setw(6) << wC.getYearHeld();
 	os << std::left << std::setw(18) << wC.getWinningTeam();
 	os << std::left << std::setw(25) << wC.getGoldenBootWinner();
