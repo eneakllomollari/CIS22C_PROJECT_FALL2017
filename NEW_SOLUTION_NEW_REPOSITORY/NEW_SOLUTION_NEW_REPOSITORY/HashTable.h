@@ -168,13 +168,12 @@ void HashTable<K, T>::re_hash()
 			entry1 = temp;
 		} //end while loop
 	} //end for loop
-
 	delete[]table;
 	table = new_HashTable;
 }
 
 template<class K, class T>
-T HashTable<K, T>::get(K searchKey, int& getCounter)const
+T HashTable<K, T>::get(K searchKey, int& getCounter)
 {
 	getCounter = 0;
 	int i = hash(searchKey);                            getCounter++;

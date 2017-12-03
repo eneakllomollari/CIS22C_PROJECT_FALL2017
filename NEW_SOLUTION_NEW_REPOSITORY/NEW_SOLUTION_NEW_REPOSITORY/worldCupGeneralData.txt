@@ -5,16 +5,16 @@
 1990 | Germany   | Tomas Skuhravy     | 52 | 2.21 | 48389 | 2516215 | Italy
 1970 | Brazil    | Gerd Mueller       | 32 | 2.97 | 50127 | 1604065 | Mexico
 1950 | Uruguay   | Ademir             | 23 | 4.04 | 47511 | 1045246 | Brazil
-1930 | Uruguay   | Guillermo Staibile | 18 | 3.89 | 32808 | 590549  | Uruguay
 2012 | Spain     | Mario Balotelli    | 31 | 2.45 | 46481 | 1440896 | Poland and Ukraine
+1930 | Uruguay   | Guillermo Staibile | 18 | 3.89 | 32808 | 590549  | Uruguay
 1992 | Denmark   | Dennis Bergkamp    | 15 | 2.13 | 28674 | 430111  | Sweden 
 1972 | Germany   | Gerd Muller        | 4 | 2.50 | 30470 | 121880  | Belgium
 2014 | Germany   | Rodriguez          | 64 | 2.67 | 53592 | 3429873 | Brazil
 1994 | Brazil    | Hristo Stoichkov   | 52 | 2.69 | 68991 | 3587538 | USA
 1974 | Germany   | Grzegorz Lato      | 38 | 2.55 | 49099 | 1865762 | West Germany
 1954 | Germany   | Sandor Kocsis      | 26 | 5.38 | 29562 | 768607  | Switzerland
-1934 | Italy     | Oldrich Nejedly    | 17 | 4.12 | 21353 | 363000  | Italy
 2016 | Portugal  | Antoine Griezmann  | 51 | 2.12 | 47594 | 2427303 | France
+1934 | Italy     | Oldrich Nejedly    | 17 | 4.12 | 21353 | 363000  | Italy
 1996 | England   | Alan Shearer       | 31 | 2.06 | 41157 | 1275857 | England
 1976 | Czechoslovakia | Dieter Muller      | 4 | 4.75 | 26522 | 106087  | Yugoslavia
 1998 | France    | Davor Suker        | 64 | 2.67 | 43517 | 2785100 | France

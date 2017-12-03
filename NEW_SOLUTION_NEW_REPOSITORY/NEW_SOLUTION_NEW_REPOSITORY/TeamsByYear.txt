@@ -5,16 +5,16 @@
 1990 | South Korea, United Arab Emirated, Egypt, Cameroon, Costa Rica, USA, Argentina, Brazil, Colombia, Uruguay, Austria, Belgium, Czechoslovakia, England, Italy, Netherlands, Republic of Ireland, Romania, Scotland, Soviet Union, Spain, Sweden, West Germany, Yugoslavia 
 1970 | El Salvador, Mexico, Belgium, Bulgaria, Czechoslovakia, England, Germany FR, Israel, Italy, Romania, Soviet Union, Sweden, Morocco
 1950 | Bolivia, Brazil, Chile, Paraguay, Uruguay, Mexico, USA, England, Italy, Spain, Sweden, Switzerland, Yugoslavia
-1930 | Argentina, Bolivia, Brazil, Chile, Paraguay, Peru, Uruguay, Mexico, USA, Belgium, France, Romania, Yugoslavia
 2012 | Poland, Ukraine, Germany, Italy, Netherlands, Spain, England, Russia, France, Greece, Denmark, Sweden, Croatia, Czech Republic, Portugal, Republic of Irland
+1930 | Argentina, Bolivia, Brazil, Chile, Paraguay, Peru, Uruguay, Mexico, USA, Belgium, France, Romania, Yugoslavia
 1992 | Austria, Belgium, Soviet Union, Denmark, France, Germany, Hungary, Italy, Netherlands, Portugal, Spain, Sweden, Switzerland
 1972 | Belgium, Soviet Union, Germany, Hungary
 2014 | Algeria, Cameroon Cote d'lvoire, Ghana, Nigeria, Australia, Iran, Japan, Korea Republic, Belgium, Bosnia and Herzegovina, Croatia, England, FRance, Germany, Greece, Italy, Netherlands, Portugal, Russia, Spain, Switzerland, Costa Rica Honduras, Mexico, USA, Argentina, Brazil, Chile, Colombia, Ecuador, Uruguay
 1994 | Saudi Arabia, South Korea, Cameroon, Morocco, Nigeria, Nigeria, Mexico, USA, Argentina, Brazil, Bolivia, Colombia, Belgium, Bulgaria, Germany, Greece, Italy, Netherlands, Norway, Republic of Ireland, Romania, Russia, Spain, Sweden, Switzerland
 1974 | Zaire, Australia, Haiti, Argentina, Brazil, Chile, Uruguay, Bulgaria, Easy Germany, Italy, Netherlands, Poland, Scotland, Sweden, West Germany, Yugoslavia
 1954 | Brazil, Uruguay, Mexico, Austria, Belgium, Czechoslovakia, England, France, Germany FR, Hungary, Italy, Scotland, Switzerland, Turkey, Yugoslavia, Korea Republic
-1934 | Argentina, Brazil, USA, Austria, Belgium, Czechoslovakia, France, Germany, Hungary, Italy, Netherlands, Romania, Spain, Sweden, Switzerland, Egypt
 2016 | France, England, Czech Republic, Iceland, Austria, Northern Ireland, Portugal, Spain, Switzerland, Italy, Belgium, Wales, Romania, Albania, Germany, Poland, Russia, Slovakia, Croatia, Turkey, Hungary, Republic of Ireland, Sweden, Ukraine
+1934 | Argentina, Brazil, USA, Austria, Belgium, Czechoslovakia, France, Germany, Hungary, Italy, Netherlands, Romania, Spain, Sweden, Switzerland, Egypt
 1996 | England, Switzerland, Romania, France, Spain, Denmark, Turkey, Croatia, Italy, Czech Republic, Portugal, Germany, Bulgaria, Russia, Scotland, Netherland
 1976 | Czechoslovakia, Netherlands, Germany, Yugoslavia
 1998 | Iran, Japan, Saudi Arabia, South Korea, Cameroon, Morocco, Nigeria, South Africa, Tunisia, Jamaica, Mexico, USA, Argentina, Brazil, Chile, Colombia, Paraguay, Austria, Belgium, Bulgaria, Croatia, Denmark, England, France, Germany, Italy, Netherlands, Norway, Romania, Scotland, Spain, Yugosalvia
