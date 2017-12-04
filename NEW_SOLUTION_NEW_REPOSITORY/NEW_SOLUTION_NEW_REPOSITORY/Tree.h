@@ -3,6 +3,7 @@
 
 #include "TreeNode.h"
 #include <vector>
+#include "Stack.h"
 
 template <class K, class T>
 class Tree
@@ -32,6 +33,7 @@ protected:
 
 	void printRow(TreeNode<K, T>*, int, int);
 	void getLine(TreeNode<K, T>*, int, std::vector<K>&);
+	void searchByKeyHelper(TreeNode<K,T>*,K, Stack<T>*);
 public:
 	Tree();
 	virtual ~Tree();
@@ -43,6 +45,7 @@ public:
 	bool isEmpty()const;
 	
 	T searchByKey(K);
+	void searchByKey(K key, Stack<T>*);
 
 	K getAverage() const;
 	K getSmallest() const;

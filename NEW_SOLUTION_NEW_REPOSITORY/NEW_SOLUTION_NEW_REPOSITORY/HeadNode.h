@@ -18,6 +18,7 @@ class HeadNode
 {
 private:
 	//Declaring the trees
+	Tree<std::string, WorldCup*> *winnerTree;
 	Tree<int, WorldCup*> *yearHeldTree;
 	Tree<double, WorldCup*> *goalsPgameTree;
 	Tree<int, WorldCup*> *aveAtteTree;

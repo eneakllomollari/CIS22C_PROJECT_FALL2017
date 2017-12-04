@@ -7,10 +7,8 @@ Pre :	LinkedNode to be inserted
 Post :	None
 */
 template<class T>
-void LinkedList<T>::insertLinkedNode(const T)
+void LinkedList<T>::insertLinkedNode(const T LinkedNodeToInsert)
 {
-
-
 	LinkedNode <T> *newLinkedNode = new LinkedNode <T>(LinkedNodeToInsert);
 	LinkedNode <T> *LinkedNodePtr;
 	LinkedNode <T> *previosLinkedNode = nullptr;
@@ -168,7 +166,7 @@ void LinkedList<T>::displayList() const
 	LinkedNode <T> *LinkedNodePtr = head;
 	while (LinkedNodePtr != nullptr)
 	{
-		std::cout << LinkedNodePtr->getItem() << std::endl;
+		std::cout << *LinkedNodePtr->getItem() << std::endl;
 		LinkedNodePtr = LinkedNodePtr->getNext();
 	}
 }
@@ -203,7 +201,7 @@ void LinkedList<T>::clear()
 		head = head->getNext();
 
 		//Here we get the address of the data that we have allocated
-		T dataToDel = LinkedNodeToDel->getItem();
+		//T dataToDel = LinkedNodeToDel->getItem();
 
 		//Remove the link
 		LinkedNodeToDel->setNext(nullptr);
@@ -213,7 +211,7 @@ void LinkedList<T>::clear()
 
 		//delete the allocated object
 		//This will avoid the memory leak
-		delete dataToDel;
+		//delete dataToDel;
 
 	}
 	counter = 0;

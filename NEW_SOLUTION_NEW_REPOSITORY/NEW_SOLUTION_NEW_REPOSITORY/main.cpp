@@ -20,7 +20,7 @@ int main()
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "The list of possible operations\n" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1) Add a new year stats" << std::endl; //this is <add new data>
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2) Remove a year" << std::endl; //this is <delete data>
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Search data" << std::endl; //this is <delete data>
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Search data in BST" << std::endl; //this is <delete data>
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) Find and display one data record of a year" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List data in hash table sequence" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) List sorted data" << std::endl;

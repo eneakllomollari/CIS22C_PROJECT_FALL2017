@@ -119,12 +119,12 @@ void HeadNode::readFileWorldcupData(std::string &line)
 
 	//This is where you assign the values to the trees and the hash table
 	//Initializing the trees
+	winnerTree->insert(tempWorldCup->getWinningTeam(), tempWorldCup, insertCounter);
 	yearHeldTree->insert(tempWorldCup->getYearHeld(), tempWorldCup, insertCounter);
 	goalsPgameTree->insert(tempWorldCup->getGoalsPerGame(), tempWorldCup, insertCounter);
 	aveAtteTree->insert(tempWorldCup->getAveAtt(), tempWorldCup, insertCounter);
 	totAtteTree->insert(tempWorldCup->getTotAtt(), tempWorldCup, insertCounter);
 	numGamesTree->insert(tempWorldCup->getNumGames(), tempWorldCup, insertCounter);
-
 
 	worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounter);
 }
@@ -227,6 +227,5 @@ void HeadNode::readFileTeamsByYearData(std::string &line)
 
 	//"Put" tempTeams_Object with all the teams participated for a specific year into teamsParticTable HashTable
 	teamsByYear->put(yearHeld, tempTeams_Object, putCounter);
-	numTeamsTreeByNumber->insert(numTeamsParticipated, tempTeams_Object, insertCounter);
-	numTeamsTreeByYear->insert(yearHeld, tempTeams_Object, insertCounter);
+	numTeamsTree->insert(numTeamsParticipated, tempTeams_Object, insertCounter);
 }

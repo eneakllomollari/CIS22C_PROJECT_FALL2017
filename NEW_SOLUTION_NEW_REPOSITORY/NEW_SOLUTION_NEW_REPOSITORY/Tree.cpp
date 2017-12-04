@@ -1,4 +1,5 @@
 #include "Tree.h"
+
 template<class K, class T>
 Tree<K, T>::Tree()
 {
@@ -148,6 +149,18 @@ void Tree<K, T>::insertNode(K k, T d)
 }
 
 template<class K, class T>
+void Tree<K, T>::searchByKeyHelper(TreeNode<K,T>* nodePtr,K key, Stack<T>* myList)
+{
+	//Traverse the tree
+	if (nodePtr)
+	{
+		searchByKeyHelper(nodePtr->getLeft(),key,myList);
+		if (key == nodePtr->getKey()) myList->push(nodePtr->getpData());
+		searchByKeyHelper(nodePtr->getRight(), key, myList);
+	}
+}
+
+template<class K, class T>
 T Tree<K, T>::searchByKey(K key)
 {
 	TreeNode <K, T>* nodePtr = root;
@@ -156,7 +169,7 @@ T Tree<K, T>::searchByKey(K key)
 	while (nodePtr != nullptr)
 	{
 		if (nodePtr->getKey() == key)
-			return nodePtr->getpData();			
+			return nodePtr->getpData();
 		else if (key < nodePtr->getKey())
 			nodePtr = nodePtr->getLeft();	//Else if the data is less, move to the left of the tree
 		else
@@ -164,6 +177,13 @@ T Tree<K, T>::searchByKey(K key)
 	}
 	throw "OBJECT COULD NOT BE FOUND IN OUR DATABASE";
 }
+
+template<class K, class T>
+void Tree<K, T>::searchByKey(K key, Stack<T>*myList)
+{
+	searchByKeyHelper(root, key, myList);
+}
+
 
 template<class K, class T>
 void Tree<K, T>::displayInOrder() const
@@ -427,4 +447,3 @@ void Tree<K, T>::getLine(TreeNode<K, T>*root, int depth, std::vector<K>&vals)
 	else if (depth - 1 <= 0)
 		vals.push_back(placeholder);
 }
-

@@ -2,7 +2,7 @@
 #define HASHTABLE_H
 
 #include "HashEntry.h"
-
+#include "Stack.h"
 template <class K, class T>
 
 class HashTable

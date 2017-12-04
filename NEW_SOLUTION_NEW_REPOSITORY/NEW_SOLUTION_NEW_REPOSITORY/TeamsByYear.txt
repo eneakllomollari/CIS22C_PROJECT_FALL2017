@@ -1,6 +1,7 @@
 2008 | Austria, Switzerland, Germany, Greece, Czech Republic, Romania, Poland, Italy, France, Croatia, Spain, Netherlands, Portugal, Turkey, Russia, Sweden
 1988 | Germany, Denmark, Soviet Union, England, Republic of Irland, Italy, Spain, Netherlands
 1968 | Italy, Yugoslavia, England, Soviet Union
+2010 | Algeria, Cameroon, Ghana, Ivory Coast, Nigeria, South Africa, Austalia, Japan, Korea DPR, Korea Republic, Denmark, England, France, Germany, Greece, Italy, Netherlands, Portugal, Serbia, Slovakia, Slovenia, Spain, Switzerland, Honduras, Mexico, USA, New Zealand, Argentina, Brazil, Chile, Paraguay, Uruguay
 1990 | South Korea, United Arab Emirated, Egypt, Cameroon, Costa Rica, USA, Argentina, Brazil, Colombia, Uruguay, Austria, Belgium, Czechoslovakia, England, Italy, Netherlands, Republic of Ireland, Romania, Scotland, Soviet Union, Spain, Sweden, West Germany, Yugoslavia 
 1970 | El Salvador, Mexico, Belgium, Bulgaria, Czechoslovakia, England, Germany FR, Israel, Italy, Romania, Soviet Union, Sweden, Morocco
 1950 | Bolivia, Brazil, Chile, Paraguay, Uruguay, Mexico, USA, England, Italy, Spain, Sweden, Switzerland, Yugoslavia

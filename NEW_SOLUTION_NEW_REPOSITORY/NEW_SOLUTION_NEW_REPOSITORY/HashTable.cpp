@@ -24,8 +24,13 @@ HashTable<K, T>::~HashTable()
 			HashEntry<K, T> *prev = entry;
 			entry = entry->getNext();
 
+			T dataToDel = prev->getpData();
+
 			delete prev;
 			prev = nullptr;
+
+			delete dataToDel;
+			dataToDel = nullptr;
 		}
 		table[i] = nullptr;
 	}
