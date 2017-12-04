@@ -122,8 +122,9 @@ void HeadNode::readFileWorldcupData(std::string &line)
 	yearHeldTree->insert(tempWorldCup->getYearHeld(), tempWorldCup, insertCounter);
 	goalsPgameTree->insert(tempWorldCup->getGoalsPerGame(), tempWorldCup, insertCounter);
 	aveAtteTree->insert(tempWorldCup->getAveAtt(), tempWorldCup, insertCounter);
-	totAtteTree->insert(tempWorldCup->getAveAtt(), tempWorldCup, insertCounter);
+	totAtteTree->insert(tempWorldCup->getTotAtt(), tempWorldCup, insertCounter);
 	numGamesTree->insert(tempWorldCup->getNumGames(), tempWorldCup, insertCounter);
+
 
 	worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounter);
 }
@@ -185,6 +186,7 @@ void HeadNode::readFileFinalMatchData(std::string &line)
 	//Key = yearHeld
 	//Data = FinalMatch
 	finalMatchData->put(temp_FinalMatch_object->getYear(), temp_FinalMatch_object, putCounter);
+	finalMatchTree->insert(temp_FinalMatch_object->getYear(), temp_FinalMatch_object,putCounter);
 }
 
 void HeadNode::readFileTeamsByYearData(std::string &line)
@@ -194,8 +196,6 @@ void HeadNode::readFileTeamsByYearData(std::string &line)
 	int insertCounter, putCounter;
 
 	std::string *tempArray_Teams, temp;
-
-	TeamsParticipated* tempTeams_Object = new TeamsParticipated;
 
 	//Convert the string input YearHeld to an integer value
 	int yearHeld = std::stoi(line.substr(0, 4));
@@ -223,16 +223,10 @@ void HeadNode::readFileTeamsByYearData(std::string &line)
 		tempArray_Teams[index] = temp;
 		index++;
 	}
+	TeamsParticipated* tempTeams_Object = new TeamsParticipated(yearHeld, numTeamsParticipated, tempArray_Teams);
 
-	//Create temporary TeamsParticipated object
-	tempTeams_Object->setYearHeld(yearHeld);
-	tempTeams_Object->setNumTeams(numTeamsParticipated);
-	tempTeams_Object->setTeamsArr(tempArray_Teams);
-
-	//"Put" tempTeams_Object with all the teams participated for 
-	//a specific year into teamsParticTable HashTable
+	//"Put" tempTeams_Object with all the teams participated for a specific year into teamsParticTable HashTable
 	teamsByYear->put(yearHeld, tempTeams_Object, putCounter);
-	numTeamsTree->insert(numTeamsParticipated, tempTeams_Object, insertCounter);
-	//Delete Pointer to Dynamically Allocated array of strings
-	//delete[] tempArray_Teams;
+	numTeamsTreeByNumber->insert(numTeamsParticipated, tempTeams_Object, insertCounter);
+	numTeamsTreeByYear->insert(yearHeld, tempTeams_Object, insertCounter);
 }

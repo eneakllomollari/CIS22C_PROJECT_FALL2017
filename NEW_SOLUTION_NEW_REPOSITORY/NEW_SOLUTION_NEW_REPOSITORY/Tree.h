@@ -32,7 +32,6 @@ protected:
 
 	void printRow(TreeNode<K, T>*, int, int);
 	void getLine(TreeNode<K, T>*, int, std::vector<K>&);
-
 public:
 	Tree();
 	virtual ~Tree();
@@ -40,15 +39,14 @@ public:
 	void clear();
 	void insert(K, T, int&);
 	bool remove(K, int&);
-	TreeNode<K, T>* searchNode(K);
+
 	bool isEmpty()const;
+	
+	T searchByKey(K);
 
 	K getAverage() const;
 	K getSmallest() const;
 	K getLargest() const;
-
-	void insertDataToStackHelper(TreeNode<K, T>*, Stack<T>*);
-	void insertDataToStack(Stack<T>*);
 
 	int getCountNodes()const;
 	int getHeight();

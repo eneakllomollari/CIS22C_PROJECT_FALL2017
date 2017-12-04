@@ -26,6 +26,7 @@ public:
 	~HashTable();
 
 	T get(K, int&);
+
 	bool put(K, T, int&);
 	bool remove(K, int&);
 

@@ -148,7 +148,7 @@ void Tree<K, T>::insertNode(K k, T d)
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::searchNode(K key)
+T Tree<K, T>::searchByKey(K key)
 {
 	TreeNode <K, T>* nodePtr = root;
 
@@ -156,13 +156,13 @@ TreeNode<K, T>* Tree<K, T>::searchNode(K key)
 	while (nodePtr != nullptr)
 	{
 		if (nodePtr->getKey() == key)
-			return nodePtr;				//If the data is found, return true
+			return nodePtr->getpData();			
 		else if (key < nodePtr->getKey())
 			nodePtr = nodePtr->getLeft();	//Else if the data is less, move to the left of the tree
 		else
 			nodePtr = nodePtr->getRight(); //Else, Move to the right
 	}
-	return nullptr;
+	throw "OBJECT COULD NOT BE FOUND IN OUR DATABASE";
 }
 
 template<class K, class T>
@@ -187,12 +187,6 @@ template<class K, class T>
 void Tree<K, T>::printTree()
 {
 	printIndentedTree(root);
-}
-
-template<class K, class T>
-void Tree<K, T>::insertDataToStack(Stack<T>* myStack)
-{
-	insertDataToStackHelper(root, myStack);
 }
 
 template<class K, class T>
@@ -225,17 +219,6 @@ template<class K, class T>
 K Tree<K, T>::getLargest() const
 {
 	return getBiggestNode(root)->getKey();
-}
-
-template<class K, class T>
-void Tree<K, T>::insertDataToStackHelper(TreeNode<K, T>* nodePtr, Stack<T>* recoveryStack)
-{
-	if (nodePtr)
-	{
-		displayInOrder(nodePtr->getLeft());
-		recoveryStack->push(nodePtr->getpData());
-		displayInOrder(nodePtr->getRight());
-	}
 }
 
 template<class K, class T>

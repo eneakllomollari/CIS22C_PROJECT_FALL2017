@@ -24,6 +24,7 @@ private:
 	Tree<int, WorldCup*> *totAtteTree;
 	Tree<int, WorldCup*> *numGamesTree;
 	Tree<int, TeamsParticipated*> *numTeamsTree;
+	Tree<int, FinalMatch*> *finalMatchTree;
 
 	//Declaring the hash tables
 	HashTable<int, WorldCup*> *worldCupData;
@@ -42,6 +43,11 @@ protected:
 	void readFileWorldcupData(std::string&);
 	void readFileFinalMatchData(std::string&);
 	void readFileTeamsByYearData(std::string&);
+
+	void displayData(WorldCup*, FinalMatch*, TeamsParticipated*);
+	void displayData(WorldCup*);
+	void displayData(WorldCup*, FinalMatch*);
+	void displayData(TeamsParticipated*);
 public:
 	HeadNode();
 	~HeadNode();
@@ -51,6 +57,7 @@ public:
 
 	void addManager();
 	void removeManager();
+	void searchManager();
 	void sortManager();
 	void displayKeyManager();
 	void displayTableManager();
