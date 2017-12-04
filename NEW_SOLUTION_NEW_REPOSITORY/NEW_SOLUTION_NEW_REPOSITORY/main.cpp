@@ -5,14 +5,13 @@ int main()
 {
 	std::cout << std::fixed << std::setprecision(2);
 
-	HeadNode mainHeadNode;
+	HeadNode mainHeadNode;				//THE MAIN NODE OF THE PROGRAM
 
 	int choice;
 
 	try
 	{
 		//MENU STARTS HERE 
-		// MAKE THIS A FUNCTION
 		//MAIN MENU OF THE PROGRAM
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Welcome to World Cup Soccer Stats " << std::endl << std::endl;
 

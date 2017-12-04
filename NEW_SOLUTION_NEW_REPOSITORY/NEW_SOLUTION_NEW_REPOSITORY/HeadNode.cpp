@@ -345,18 +345,21 @@ void HeadNode::searchManager()
 	FinalMatch* finalMatchObject;
 	TeamsParticipated* teamsParticipatedObject;
 	
-	try {
+	try 
+	{
+		std::cout << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "\tSearch by:" << std::endl << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1. Year" << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2. Winner" << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice here: ";
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice here:    ";
 		std::cin >> choice;
 		std::cin.ignore(INT_MAX, '\n');
 
 		switch (choice)
 		{
 		case 1:
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year: ";
+			std::cout << std::endl << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year:        ";
 			std::cin >> yearChoice;
 
 			worldCupObject = yearHeldTree->searchByKey(yearChoice);
@@ -367,20 +370,24 @@ void HeadNode::searchManager()
 			break;
 		
 		case 2:
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the winner: ";
+			std::cout << std::endl << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the winner:      ";
 			getline(std::cin, winnerChoice, '\n');
-			
 			Stack<WorldCup*>* myList = new Stack<WorldCup*>;
 			winnerTree->searchByKey(winnerChoice, myList);
 
 			
 			if (!myList->isEmpty())
 			{
+				system("CLS");
 				printGeneralWorldCupDataHeader();
 				myList->displayStack();
 			}
-			else throw "THIS TEAM HAS NOT WON A COMPETITION";
-			
+			else 
+			{
+				std::string s = winnerChoice + " has not won a major competition so far";
+				throw s;
+			}
 			std::cout << std::endl << std::endl;
 			system("pause");
 			system("CLS");
@@ -396,6 +403,7 @@ void HeadNode::searchManager()
 			std::cout << std::endl << std::endl;
 					
 			delete myList;
+			system("CLS");
 			break;
 		}
 		std::cout << std::endl;
@@ -404,6 +412,14 @@ void HeadNode::searchManager()
 	{
 		std::cout << std::endl << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << std::endl;
+		system("pause");
+	}
+	catch (std::string s)
+	{
+		std::cout << std::endl << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << s << std::endl;
+		std::cout << std::endl << std::endl;
+		std::cout << std::endl << std::endl;
 		system("pause");
 	}
 }
