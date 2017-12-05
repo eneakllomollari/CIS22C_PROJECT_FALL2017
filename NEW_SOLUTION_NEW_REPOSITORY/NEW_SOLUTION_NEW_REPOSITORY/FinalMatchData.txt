@@ -2,19 +2,19 @@
 1988 | Netherland, Soviet Union. | 2 - 0         | Olympiastadion.              | Munich.         |
 1968 | Italy, Yugoslavia.       | 1 - 1 (2 - 0) | Stadio Olimpico.             | Rome.           |
 2010 | Netherlands, Spain.      | 0 - 1         | Soccer City.                 | Johannesburg.   |
-1990 | West Germany, Agentina.  | 1 - 0         | Stadio Olimpico.             | Rome.           |
+1990 | Germany, Agentina.       | 1 - 0         | Stadio Olimpico.             | Rome.           |
 1970 | Brazil, Italy.           | 4 - 1         | Estadio Azteca.              | Mexico City.    |
 1950 | Uruguay, Brazil.         | 2 - 1         | Estadio do Maracana.         | Rio de Janeiro. |
-2012 | Spain, Italy.            | 4 - 0         | Olympic Stadium.             | Kiev.           |
 1930 | Uruguay, Argentina.      | 4 - 2         | Estadio Centenario.          | Montevideo.     |
+2012 | Spain, Italy.            | 4 - 0         | Olympic Stadium.             | Kiev.           |
 1992 | Denmark, Germany.        | 2 - 0         | Ullevi.                      | Gothenburg.     |
 1972 | Germany, Soviet Union.   | 3 - 0         | Heysel Stadium.              | Brussels.       |
 2014 | Germany, Argentina.      | 1 - 0         | Estadio do Maracana.         | Rio de Janeiro. |
 1994 | Brazil, Italy.           | 0 - 0 (3 - 2) | Rose Bowl.                   | Pasadena.       |
 1974 | Netherlands, Germany.    | 1 - 2         | Olympiastadion.              | Munich.         |
 1954 | Germany FR, Hungary.     | 3 - 2         | Wankford Stadium.            | Bern.           |
-2016 | Portugal, France.        | 1 - 0         | Parc des Princes.            | Paris.          |
 1934 | Italy, Czechoslovakia.   | 2 - 1         | Stadio Nazionale PNF.        | Rome.           |
+2016 | Portugal, France.        | 1 - 0         | Parc des Princes.            | Paris.          |
 1996 | Germany, Czech Republic. | 2 - 1         | Wembley Stadium.             | London.         |
 1976 | Czechoslovakia, Germany. | 2 - 2 (5 - 3) | Red Star Stadium.            | Belgrade.       |
 1998 | Brazil, France.          | 0 - 3         | Stade de France.             | Saint-Deniz.    |
@@ -31,5 +31,5 @@
 1984 | France, Spain.           | 2 - 0         | Parc des Princes.            | Paris.          |
 1964 | Spain, Soviet Union.     | 3 - 1         | Santiago Bernabéu.           | Madrid.         |
 2006 | Italy, France.           | 1 - 1 (5 - 3) | Olympiastadion.              | Berlin.         |
-1986 | Argentina, West Germany. | 3 - 2         | Estadio Azteca.              | Mexico City.    |
+1986 | Argentina, Germany.      | 3 - 2         | Estadio Azteca.              | Mexico City.    |
 1966 | England, Germany.        | 4 - 2         | Wembley Stadium.             | London.         |

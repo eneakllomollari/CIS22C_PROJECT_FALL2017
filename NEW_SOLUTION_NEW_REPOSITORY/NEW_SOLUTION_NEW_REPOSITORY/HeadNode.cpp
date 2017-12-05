@@ -250,7 +250,7 @@ void HeadNode::addManager()
 	}
 	catch (...)
 	{
-		std::cout << "ERROR" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR" << std::endl;
 	}
 
 
@@ -340,7 +340,7 @@ void HeadNode::removeManager()
 	catch (char *msg)
 	{
 		std::cout << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << ""<< msg << std::endl;
 	}
 	catch (...)
 	{
@@ -458,7 +458,7 @@ void HeadNode::sortManager()
 
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice: ";
 			std::cin >> user_choice;
-			if (std::cin.fail() || user_choice < 0 || user_choice >= 7)throw "INVALID CHOICE. PLEASE ENTER A CHOICE 1-20 !";
+			if (std::cin.fail() || user_choice < 0 || user_choice >= 7)throw "INVALID CHOICE. PLEASE ENTER A CHOICE 1-6 !";
 
 			std::cout << "\n\n";
 			switch (user_choice)
