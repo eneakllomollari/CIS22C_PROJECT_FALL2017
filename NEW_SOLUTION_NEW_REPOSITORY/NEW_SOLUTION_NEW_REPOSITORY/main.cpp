@@ -1,4 +1,3 @@
-#include <iostream>
 #include "HeadNode.h"
 
 int main()
