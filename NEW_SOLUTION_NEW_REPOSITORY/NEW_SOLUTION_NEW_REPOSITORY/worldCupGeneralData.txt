@@ -8,7 +8,7 @@
 1930 | Uruguay   | Guillermo Staibile | 18 | 3.89 | 32808 | 590549  | Uruguay
 2012 | Spain     | Mario Balotelli    | 31 | 2.45 | 46481 | 1440896 | Poland and Ukraine
 1992 | Denmark   | Dennis Bergkamp    | 15 | 2.13 | 28674 | 430111  | Sweden 
-1972 | Germany   | Gerd Muller        | 4 | 2.50 | 30470 | 121880  | Belgium
+1972 | Germany   | Gerd Muller        | 4  | 2.50 | 30470 | 121880  | Belgium
 2014 | Germany   | Rodriguez          | 64 | 2.67 | 53592 | 3429873 | Brazil
 1994 | Brazil    | Hristo Stoichkov   | 52 | 2.69 | 68991 | 3587538 | USA
 1974 | Germany   | Grzegorz Lato      | 38 | 2.55 | 49099 | 1865762 | West Germany
