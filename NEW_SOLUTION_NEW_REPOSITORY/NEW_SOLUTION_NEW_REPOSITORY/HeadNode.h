@@ -38,6 +38,8 @@ private:
 	Stack<FinalMatch*> *finalMatchRecycleBin;
 	Stack<TeamsParticipated*> *teamsParticipatedRecycleBin;
 
+	int numTrees;
+	int numHashTables;
 protected:
 	void printGeneralWorldCupDataHeader();
 	void printFinalMatchDataHeader();
@@ -68,5 +70,8 @@ public:
 	void saveToInputFileManager();
 	void efficencyManager();
 	void clearRecycleStacksManager();
+
+	int getNumTrees();
+	int getNumHashTables();
 };
 #endif // !HEAD_NODE

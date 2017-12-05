@@ -69,7 +69,7 @@ Post :	The top of the stack
 template<class T>
 T Stack<T>::peek()
 {
-	if (head == nullptr) throw "Cannot peek";
+	if (head == nullptr) throw "The recovery bin is empty! You Have not deleted anything yet";
 	return this->head->getItem();
 }
 
