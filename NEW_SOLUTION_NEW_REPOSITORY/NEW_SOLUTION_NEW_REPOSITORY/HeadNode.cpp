@@ -75,16 +75,29 @@ void HeadNode::addManager()
 
 		std::cout << std::endl << std::endl;
 		//VALIDATE YEAR DATA
-		while (std::cin.fail() || year < 1930 && year != -1)
+		while ((std::cin.fail() || year < 1930) && year != -1)
 		{
 			if (std::cin.fail())
+			{
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Year:                                            ";
+				std::cin.clear();
+				std::cin.ignore();
+
+			}
 			else
+			{
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! The first world cup was held in 1930 ..." << std::endl;
-			std::cin.clear();
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Year:                                          ";
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Year:                                            ";
+				std::cin.clear();
+
+
+			}
+			
 			std::cin >> year;
 			getline(std::cin, dummy);
+			
+			
 		}
 		if (year == -1) return;
 		if (worldCupData->contains(year) && finalMatchData->contains(year) && teamsByYear->contains(year))
@@ -115,7 +128,7 @@ void HeadNode::addManager()
 				std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Number of Teams cannot be less than 2... " << std::endl;
 			}
 			std::cin.clear();
-			std::cout << std::left << "\t" << "Re-Enter Number Of Teams: ";
+			std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number Of Teams:                                ";
 			std::cin >> numberOfTeams;
 			getline(std::cin, dummy);
 		}
@@ -274,9 +287,10 @@ void HeadNode::removeManager()
 				std::cout << std::endl << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID ENTRY! PLEASE ENTER A VALID FOUR DIGIT YEAR!";
 			}
+
 			catch (...)
 			{
-				std::cout << "UNHANDLED EXCEPTION" << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "UNHANDLED EXCEPTION" << std::endl;
 			}
 			std::cin.clear();
 			std::cin.ignore(INT_MAX, '\n');
@@ -330,7 +344,7 @@ void HeadNode::removeManager()
 	}
 	catch (...)
 	{
-		std::cout << "EXPECTION THROWN";
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "EXPECTION THROWN";
 	}
 	system("PAUSE");
 	system("CLS");
