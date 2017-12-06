@@ -845,6 +845,7 @@ void HeadNode::searchManager()
 void HeadNode::sortManager()
 {
 	int user_choice;
+	std::string dummy;
 
 	system("CLS");
 	do
@@ -862,7 +863,32 @@ void HeadNode::sortManager()
 
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice: ";
 			std::cin >> user_choice;
-			if (std::cin.fail() || user_choice < 0 || user_choice >= 7)throw "INVALID CHOICE. PLEASE ENTER A CHOICE 1-6 !";
+			getline(std::cin, dummy);
+			
+			
+			//VALIDATE TOTAL ATTENDANCE
+			while ((std::cin.fail() || user_choice < 0 || user_choice > 6) && user_choice != 0)
+			{
+				std::cout << std::endl;
+
+				if (std::cin.fail())
+				{
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Choice(0-6): ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+				}
+				else
+				{
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Choice must be between (0-6).... " << std::endl;
+					std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Choice(0-6): ";
+				}
+
+				std::cin >> user_choice;
+				getline(std::cin, dummy);
+
+			}
 
 			std::cout << "\n\n";
 			switch (user_choice)
