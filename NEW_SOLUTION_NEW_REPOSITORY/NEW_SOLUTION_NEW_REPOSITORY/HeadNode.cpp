@@ -587,8 +587,25 @@ Description: function for diplaying all biniry serach trees
 Pre: none
 Post: none
 */
-void HeadNode::printIndentedTree()
+void HeadNode::printIndentedBST()
 {
+	//DONE AT THE LAST MINUTE BY THE TEAM IN ZACH'S ABSENCE
+	std::cout << "WORLD CUP GENERAL DATA BST!" << std::endl << std::endl;
+	yearHeldBST->printBST();
+	system("pause");
+	system("cls");
+
+
+	std::cout << "TEAMS BY YEAR DATA BST!" << std::endl << std::endl;
+	numTeamsbyYearBST->printBST();
+	system("pause");
+	system("cls");
+
+
+	std::cout << "FINAL MATCH DATA BST!" << std::endl << std::endl;
+	finalMatchBST->printBST();
+	system("pause");
+	system("cls");	
 	//To be completed by Zach
 }
 
