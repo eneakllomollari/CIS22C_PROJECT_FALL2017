@@ -11,7 +11,7 @@
 1972 | Germany   | Gerd Muller        | 4 | 2.50 | 30470 | 121880  | Belgium
 2014 | Germany   | James Rodriguez    | 64 | 2.67 | 53592 | 3429873 | Brazil
 1994 | Brazil    | Hristo Stoichkov   | 52 | 2.69 | 68991 | 3587538 | USA
-1974 | Germany   | Grzegorz Lato      | 38 | 2.55 | 49099 | 1865762 | West Germany
+1974 | Germany   | Grzegorz Lato      | 38 | 2.55 | 49099 | 1865762 | Germany
 1954 | Germany   | Sandor Kocsis      | 26 | 5.38 | 29562 | 768607  | Switzerland
 1934 | Italy     | Oldrich Nejedly    | 17 | 4.12 | 21353 | 363000  | Italy
 2016 | Portugal  | Antoine Griezmann  | 51 | 2.12 | 47594 | 2427303 | France
@@ -23,7 +23,7 @@
 1938 | Italy     | Leonidas           | 18 | 4.67 | 20872 | 375000  | France
 2000 | France    | Patrick Kluvert    | 31 | 2.74 | 36220 | 1122833 | Belgium and Netherlands
 1980 | Germany   | Klaus Allofs       | 14 | 1.93 | 24676 | 345463  | Italy
-1960 | Soviet    | Milan Galic        | 4 | 4.25 | 19740 | 78958   | France
+1960 | Russia    | Milan Galic        | 4 | 4.25 | 19740 | 78958   | France
 2002 | Brazil    | Ronaldo            | 64 | 2.52 | 42269 | 2705197 | South Korea and Japan
 1982 | Italy     | Paolo Rossi        | 52 | 2.81 | 40572 | 2109723 | Spain
 1962 | Brazil    | Garrincha          | 32 | 2.78 | 27912 | 893172  | Chile
