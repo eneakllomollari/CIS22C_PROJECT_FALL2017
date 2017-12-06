@@ -1,5 +1,6 @@
 #include "HeadNode.h"
 
+/*HeadNode Constructor*/
 HeadNode::HeadNode()
 {
 	yearHeldBST = new BST <int, WorldCup*>;
@@ -20,6 +21,7 @@ HeadNode::HeadNode()
 	initializeFinalMatchDataManager();
 }
 
+/*HeadNode Destuctor*/
 HeadNode::~HeadNode()
 {
 	worldCupData->insertDataAddressToStack(worldCupRecycleBin);
@@ -43,6 +45,11 @@ HeadNode::~HeadNode()
 	delete teamsParticipatedRecycleBin;
 }
 
+/*
+Decription: Menu for entering user data for creating the objects and inserting the data to trees and Hash Table 
+Pre: none
+Post: none
+*/
 void HeadNode::addManager()
 {
 	system("CLS");
@@ -340,6 +347,11 @@ void HeadNode::addManager()
 	system("CLS");
 }
 
+/*
+Description: Remove Menu for user to delete data by year the user enters
+Pre: none
+Post: none
+*/
 void HeadNode::removeManager()
 {
 	system("CLS");
@@ -431,6 +443,11 @@ void HeadNode::sortKeyManager()
 
 }
 
+/*
+Discription: Menu for diplaying the data by key year 
+Pre: none
+Post: none
+*/
 void HeadNode::displayKeyManager()
 {
 	int choiceYear;
@@ -494,6 +511,11 @@ void HeadNode::displayKeyManager()
 	system("CLS");
 }
 
+/*
+Description: Menu for Display The Hash Tables
+Pre: none
+Post: none
+*/
 void HeadNode::displayTableManager()
 {
 	char userChoice;
@@ -560,11 +582,21 @@ void HeadNode::displayTableManager()
 	} while (userChoice != '0');
 }
 
-void HeadNode::printIndentedBST()
+/*
+Description: function for diplaying all biniry serach trees
+Pre: none
+Post: none
+*/
+void HeadNode::printIndentedTree()
 {
 	//To be completed by Zach
 }
 
+/*
+Description: function for user's deleted data addres to be pushed to a stack so that deleted data can be retrived and inserted back
+Pre: none
+Post: none
+*/
 void HeadNode::undoDeleteManager()
 {
 	int bstOperations = 0, hashTableOperations = 0;
@@ -612,6 +644,11 @@ void HeadNode::undoDeleteManager()
 	}
 }
 
+/*
+description: function to save data to text file
+Pre: none
+Post: none
+*/
 void HeadNode::saveToInputFileManager()
 {
 	//Saving to Files
@@ -620,6 +657,11 @@ void HeadNode::saveToInputFileManager()
 	teamsByYear->writeTeamsParticipatedToTxt();
 }
 
+/*
+description: function to clear the recycle bin stacks
+Pre: none
+Post: none
+*/
 void HeadNode::clearRecycleStacksManager()
 {
 	//Clearing the Recycle Bins
@@ -645,7 +687,11 @@ void HeadNode::clearRecycleStacksManager()
 		FMObject = nullptr;
 	}
 }
-
+/*
+Description: function to display the Laod factor of each hash table and collisions. Display the hieght of each tree
+Pre: none
+Post: none
+*/
 void HeadNode::efficencyManager()
 {
 	int totalBSTHeight;
@@ -674,6 +720,11 @@ void HeadNode::efficencyManager()
 	std::cout << std::setw(WIDTH_BTW_LINES) << "";
 }
 
+/*
+ Description: displays the header for world cup data
+ Pre: none
+ Post: none
+*/
 void HeadNode::printGeneralWorldCupDataHeader()
 {
 	int numDashes = 148;
@@ -692,6 +743,12 @@ void HeadNode::printGeneralWorldCupDataHeader()
 	std::cout << std::endl;
 }
 
+
+/*
+Description: displays the header for Final Match Data
+Pre: none
+Post: none
+*/
 void HeadNode::printFinalMatchDataHeader()
 {
 	int numDashes = 120;
