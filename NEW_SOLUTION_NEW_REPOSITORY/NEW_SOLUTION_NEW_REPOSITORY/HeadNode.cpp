@@ -2,18 +2,15 @@
 
 HeadNode::HeadNode()
 {
-	winnerTree = new Tree <std::string, WorldCup*>;
-	yearHeldTree = new Tree <int, WorldCup*>;
-	goalsPgameTree = new Tree<double, WorldCup*>;
-	aveAtteTree = new Tree <int, WorldCup*>;
-	totAtteTree = new Tree <int, WorldCup*>;
-	numGamesTree = new Tree <int, WorldCup*>;
-	numTeamsTree = new Tree <int, TeamsParticipated*>;
-	finalMatchTree = new Tree<int, FinalMatch*>;
+	yearHeldBST = new BST <int, WorldCup*>;
+	finalMatchBST = new BST<int, FinalMatch*>;
+	numTeamsbyYearBST = new BST<int, TeamsParticipated*>;
+	numBSTs = 3;
 
 	worldCupData = new HashTable<int, WorldCup*>;
 	finalMatchData = new HashTable<int, FinalMatch*>;
 	teamsByYear = new HashTable<int, TeamsParticipated*>;
+	numHashTables = 3;
 
 	worldCupRecycleBin = new Stack <WorldCup*>;
 	finalMatchRecycleBin = new Stack <FinalMatch*>;
@@ -25,21 +22,22 @@ HeadNode::HeadNode()
 
 HeadNode::~HeadNode()
 {
-	saveToInputFileManager();
+	worldCupData->insertDataAddressToStack(worldCupRecycleBin);
+	finalMatchData->insertDataAddressToStack(finalMatchRecycleBin);
+	teamsByYear->insertDataAddressToStack(teamsParticipatedRecycleBin);
 
-	delete winnerTree;
-	delete yearHeldTree;
-	delete goalsPgameTree;
-	delete aveAtteTree;
-	delete totAtteTree;
-	delete numGamesTree;
-	delete numTeamsTree;
-	delete finalMatchTree;
+	saveToInputFileManager();
+	clearRecycleStacksManager();
+
+	delete yearHeldBST;
+	delete numTeamsbyYearBST;
+	numBSTs = 0;
 
 	delete worldCupData;
 	delete finalMatchData;
 	delete teamsByYear;
-	
+	numHashTables = 0;
+
 	delete worldCupRecycleBin;
 	delete finalMatchRecycleBin;
 	delete teamsParticipatedRecycleBin;
@@ -50,9 +48,9 @@ void HeadNode::addManager()
 	system("CLS");
 
 	//Operation counters
-	int yearHeldInsertCounter = 0, gpgTInsertCounter = 0, aveAttTInsertCounter = 0, totalAttInsertCounter = 0, numTeamsTreeInsertCounter = 0, numGamesTreeInsertCounter = 0;
-	int putCounterYearHeld = 0, putCounterGetYear = 0, putCounterTeamsParticYearHeld = 0;
-	int numTeamsTreeInsertCounter1 = 0, winnerTreeInsertCounter = 0;
+	int bstOpCounter = 0, hashTableOpCounter = 0;
+	
+	//Will hold the user input
 	int year, numGames, aveAttendance, totAttendance, numberOfTeams;
 	double goalsPerGame;
 
@@ -70,10 +68,9 @@ void HeadNode::addManager()
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year:               " << "                            ";
 		std::cin >> year;
 		getline(std::cin, dummy);
-		//Exit if the user chooses to 
-		if (year == -1) return;
 
 		std::cout << std::endl << std::endl;
+
 		//VALIDATE YEAR DATA
 		while ((std::cin.fail() || year < 1930) && year != -1)
 		{
@@ -82,29 +79,27 @@ void HeadNode::addManager()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Year:                                            ";
 				std::cin.clear();
-				std::cin.ignore();
-
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			
 			}
 			else
 			{
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! The first world cup was held in 1930 ..." << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Year:                                            ";
-				std::cin.clear();
-
-
 			}
 			
 			std::cin >> year;
 			getline(std::cin, dummy);
 			
-			
 		}
+
 		if (year == -1) return;
+
 		if (worldCupData->contains(year) && finalMatchData->contains(year) && teamsByYear->contains(year))
 		{
 			std::cout << std::endl << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "THIS YEAR ALREADY EXISTS IN OUR RECORDS!" << std::endl << std::endl;
-			system("pause");
+			 std::cout << std::endl << std::endl;system("pause");
 			system("CLS");
 			return;
 		}
@@ -112,26 +107,30 @@ void HeadNode::addManager()
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of teams:    " << "                            ";
 		std::cin >> numberOfTeams;
 		getline(std::cin, dummy);
-		if (numberOfTeams == -1) return;
 
 		//VALIDATE NUMBER OF TEAMS
-		while (std::cin.fail() || numberOfTeams < 2)
+		while ((std::cin.fail() || numberOfTeams < 2) && numberOfTeams != -1)
 		{
 			if (std::cin.fail())
 			{
-				std::cout << std::endl << std::endl;
-				std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Please use only numeric digits 0-9 while entering year..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Teams:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 			}
 			else
 			{
-				std::cout << std::endl << std::endl;
-				std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Number of Teams cannot be less than 2... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Number of Teams must be greater than or equal to 2 " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Teams:                                            ";
 			}
-			std::cin.clear();
-			std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number Of Teams:                                ";
+
 			std::cin >> numberOfTeams;
 			getline(std::cin, dummy);
+
 		}
+
+		if (numberOfTeams == -1) return;
 
 		teamsParticipatedArray = new std::string[numberOfTeams];
 		
@@ -154,21 +153,113 @@ void HeadNode::addManager()
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of games:    " << "                            ";
 		std::cin >> numGames;
 		getline(std::cin, dummy);
+
+		//VALIDATE NUMBER OF GAMES
+		while ((std::cin.fail() || numGames < 0) && numGames != -1)
+		{
+			if (std::cin.fail())
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Games:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			else
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Number of Games cannot be less than 0.... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Teams:                                            ";
+			}
+
+			std::cin >> numGames;
+			getline(std::cin, dummy);
+
+		}
+
 		if (numGames == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the goals per game:     " << "                            ";
 		std::cin >> goalsPerGame;
-		if (goalsPerGame == -1) return;
 		getline(std::cin, dummy);
+
+		//VALIDATE GOALS PER GAME
+		while ((std::cin.fail() || goalsPerGame < 0) && goalsPerGame != -1)
+		{
+			if (std::cin.fail())
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Goals Per Game:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			else
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Goals per game cannot be less than 0.... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Goals Per Game:                                            ";
+			}
+
+			std::cin >> goalsPerGame;
+			getline(std::cin, dummy);
+
+		}
+
+		if (goalsPerGame == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the average attendance: " << "                            ";
 		std::cin >> aveAttendance;
-		if (aveAttendance == -1) return;
 		getline(std::cin, dummy);
+
+		//VALIDATE AVERAGE ATTENDANCE
+		while ((std::cin.fail() || aveAttendance < 0) && aveAttendance != -1)
+		{
+			if (std::cin.fail())
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Average Attendance:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			else
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Average Attendance cannot be less than 0.... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Average Attendance:                                            ";
+			}
+
+			std::cin >> aveAttendance;
+			getline(std::cin, dummy);
+
+		}
+
+		if (aveAttendance == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the total attendance:   " << "                            ";
 		std::cin >> totAttendance;
 		getline(std::cin, dummy);
+
+		//VALIDATE TOTAL ATTENDANCE
+		while ((std::cin.fail() || totAttendance < 0) && totAttendance != -1)
+		{
+			if (std::cin.fail())
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Total Attendance:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			else
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Total Attendance cannot be less than 0.... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Total Attendance:                                            ";
+			}
+
+			std::cin >> totAttendance;
+			getline(std::cin, dummy);
+
+		}
+
 		if (totAttendance == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the host country:       " << "                            ";
@@ -187,9 +278,9 @@ void HeadNode::addManager()
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Goals scored by " << firstTeamFinalMatch << " were: " << std::right << std::setw(80);
 		std::cin >> goalScoredFirstTeam;
-		if (goalScoredFirstTeam == "-1") return;
 		getline(std::cin, dummy);
-		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID INPUT";
+
+		if (goalScoredFirstTeam == "-1") return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Goals scored by " << secondteamFinalMatch << " were: " << std::right << std::setw(180);
 		std::cin >> goalScoredSecondTeam;
@@ -212,35 +303,23 @@ void HeadNode::addManager()
 		FinalMatch* tempFinalMatch = new FinalMatch(year, teamsParticipatedArray, goalScoredFirstTeam + " - " + goalScoredSecondTeam, stadiumName, cityHost);
 		TeamsParticipated* tempTeamsParticipated = new TeamsParticipated(year, numberOfTeams, teamsParticipatedArray);
 
-		winnerTree->insert(tempWorldCup->getWinningTeam(), tempWorldCup, winnerTreeInsertCounter);
-		yearHeldTree->insert(tempWorldCup->getYearHeld(), tempWorldCup, yearHeldInsertCounter);
-		goalsPgameTree->insert(tempWorldCup->getGoalsPerGame(), tempWorldCup, gpgTInsertCounter);
-		aveAtteTree->insert(tempWorldCup->getAveAtt(), tempWorldCup, aveAttTInsertCounter);
-		totAtteTree->insert(tempWorldCup->getTotAtt(), tempWorldCup, totalAttInsertCounter);
-		numGamesTree->insert(tempWorldCup->getNumGames(), tempWorldCup, numGamesTreeInsertCounter);
-		numTeamsTree->insert(tempTeamsParticipated->getNumTeams(), tempTeamsParticipated, numTeamsTreeInsertCounter);
+		yearHeldBST->insert(tempWorldCup->getYearHeld(), tempWorldCup, bstOpCounter);
+		numTeamsbyYearBST->insert(tempTeamsParticipated->getYearHeld(), tempTeamsParticipated, bstOpCounter);
+		finalMatchBST->insert(tempFinalMatch->getYear(), tempFinalMatch, bstOpCounter);
 
-		worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounterYearHeld);
-		finalMatchData->put(tempFinalMatch->getYear(), tempFinalMatch, putCounterGetYear);
-		teamsByYear->put(tempTeamsParticipated->getYearHeld(), tempTeamsParticipated, putCounterTeamsParticYearHeld);
+		worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, hashTableOpCounter);
+		finalMatchData->put(tempFinalMatch->getYear(), tempFinalMatch, hashTableOpCounter);
+		teamsByYear->put(tempTeamsParticipated->getYearHeld(), tempTeamsParticipated, hashTableOpCounter);
 
 		system("CLS");
 		std::cout << "\n\n\n\n";
-
-		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Operation Successful" << std::endl << std::endl;
+		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << year <<  " is now inserted in our database." << std::endl << std::endl;
 
 		system("CLS");
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into World Cup      hash table:               #" << putCounterYearHeld << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into Final Match    hash table:               #" << putCounterGetYear << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into Teams By Year  hash table:               #" << putCounterTeamsParticYearHeld << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed in HashTables:               #" << hashTableOpCounter/3 << " operations." << std::endl;
 		std::cout << std::endl;
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into year tree:                                #" << yearHeldInsertCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into goals per game tree:                      #" << gpgTInsertCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into average attendance tree:                  #" << aveAttTInsertCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into total attendance tree:                    #" << totalAttInsertCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into number of games tree:                     #" << numGamesTreeInsertCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Inserted into number of teams tree:                     #" << numTeamsTreeInsertCounter << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed in BST:                      #" << bstOpCounter/10 << " operations." << std::endl;
 		std::cout << "\n\n";
 
 	}
@@ -256,7 +335,8 @@ void HeadNode::addManager()
 
 	std::cin.ignore(INT_MAX, '\n');
 	std::cout << std::setw(WIDTH_BTW_LINES) << "";
-	system("PAUSE");
+	std::cout << std::endl << std::endl;
+	system("pause");
 	system("CLS");
 }
 
@@ -264,10 +344,7 @@ void HeadNode::removeManager()
 {
 	system("CLS");
 
-	int yearHeldTreeRemoveCounter = 0, goalsPerGameTreeRemoveCounter = 0, aveAtteTreeRemoveCounter = 0,
-		totAttTreeRemoveCounter = 0, numGamesTreeRemoveCounter = 0, numTeamsTreeRemoveCounter = 0, finalMatchCounter = 0;
-	int winnerTreeRemoveCounter = 0;
-	int getCounterWorldCup, getCounterTeamsPaticipated, getCounterFinalMatch, hashRemoveCounterWC, hashRemoveCounterFM, hashRemoveCounterTY;
+	int bstOpCounter = 0, hashTableOpCounter = 0, searchHashTableCounter = 0;
 
 	int choiceYear;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "If you want to go back enter \" 0 \"" << std::endl;
@@ -287,7 +364,6 @@ void HeadNode::removeManager()
 				std::cout << std::endl << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID ENTRY! PLEASE ENTER A VALID FOUR DIGIT YEAR!";
 			}
-
 			catch (...)
 			{
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "UNHANDLED EXCEPTION" << std::endl;
@@ -301,22 +377,17 @@ void HeadNode::removeManager()
 			return;
 		}
 
-		WorldCup* worldCupObject = worldCupData->get(choiceYear, getCounterWorldCup);
-		TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, getCounterTeamsPaticipated);
-		FinalMatch* finalMatchObject = finalMatchData->get(choiceYear, getCounterFinalMatch);
+		WorldCup* worldCupObject = worldCupData->get(choiceYear, searchHashTableCounter);
+		TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, searchHashTableCounter);
+		FinalMatch* finalMatchObject = finalMatchData->get(choiceYear, searchHashTableCounter);
 
-		worldCupData->remove(choiceYear, hashRemoveCounterWC);
-		finalMatchData->remove(choiceYear, hashRemoveCounterFM);
-		teamsByYear->remove(choiceYear, hashRemoveCounterTY);
+		worldCupData->remove(choiceYear, hashTableOpCounter);
+		finalMatchData->remove(choiceYear, hashTableOpCounter);
+		teamsByYear->remove(choiceYear, hashTableOpCounter);
 
-		winnerTree->remove(worldCupObject->getWinningTeam(), winnerTreeRemoveCounter);
-		yearHeldTree->remove(worldCupObject->getYearHeld(), yearHeldTreeRemoveCounter);
-		goalsPgameTree->remove(worldCupObject->getGoalsPerGame(), goalsPerGameTreeRemoveCounter);
-		aveAtteTree->remove(worldCupObject->getAveAtt(), aveAtteTreeRemoveCounter);
-		totAtteTree->remove(worldCupObject->getTotAtt(), totAttTreeRemoveCounter);
-		numGamesTree->remove(worldCupObject->getNumGames(), numGamesTreeRemoveCounter);
-		numTeamsTree->remove(teamsParticipatedObject->getNumTeams(), numTeamsTreeRemoveCounter);
-		finalMatchTree->remove(finalMatchObject->getYear(), finalMatchCounter);
+		yearHeldBST->remove(worldCupObject->getYearHeld(), bstOpCounter);
+		finalMatchBST->remove(finalMatchObject->getYear(), bstOpCounter);
+		numTeamsbyYearBST->remove(teamsParticipatedObject->getYearHeld(), bstOpCounter);
 
 		//Pushing the deleted files to the "recycle stacks"
 		worldCupRecycleBin->push(worldCupObject);
@@ -324,18 +395,17 @@ void HeadNode::removeManager()
 		teamsParticipatedRecycleBin->push(teamsParticipatedObject);
 
 		system("CLS");
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  World Cup      hash table:               #" << hashRemoveCounterWC << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Final Match    hash table:               #" << hashRemoveCounterFM << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from  Teams By Year  hash table:               #" << hashRemoveCounterTY << " operations." << std::endl;
 		std::cout << std::endl;
-
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from year tree:                                #" << yearHeldTreeRemoveCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from goals per game tree:                      #" << goalsPerGameTreeRemoveCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from average attendance tree:                  #" << aveAtteTreeRemoveCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from total attendance tree:                    #" << totAttTreeRemoveCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of games tree:                     #" << numGamesTreeRemoveCounter << " operations." << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Removed from number of teams tree:                     #" << numTeamsTreeRemoveCounter << " operations." << std::endl;
-		std::cout << "\n\n";
+		std::cout << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << choiceYear << " is now removed from the database." << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed to search the HashTables:               #" << searchHashTableCounter / 3 << " operations." << std::endl;
+		std::cout << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed to remove from the HashTables:          #" << hashTableOpCounter / 3 << " operations." << std::endl;
+		std::cout << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed to remove from the BSTs:                #" << bstOpCounter / 10 << " operations." << std::endl;
+		std::cout << std::endl;
 	}
 	catch (char *msg)
 	{
@@ -346,222 +416,26 @@ void HeadNode::removeManager()
 	{
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "EXPECTION THROWN";
 	}
-	system("PAUSE");
+
+	 std::cout << std::endl << std::endl;system("pause");
 	system("CLS");
 }
 
-void HeadNode::searchManager()
+void HeadNode::sortKeyManager()
 {
-	int yearChoice, choice;
-	std::string winnerChoice;
-
-	WorldCup *worldCupObject;
-	FinalMatch* finalMatchObject;
-	TeamsParticipated* teamsParticipatedObject;
-	
-	try 
-	{
-		std::cout << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "\tSearch by:" << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1. Year" << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2. Winner" << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice here:    ";
-		std::cin >> choice;
-		std::cin.ignore(INT_MAX, '\n');
-
-		switch (choice)
-		{
-		case 1:
-			std::cout << std::endl << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year:        ";
-			std::cin >> yearChoice;
-
-			worldCupObject = yearHeldTree->searchByKey(yearChoice);
-			finalMatchObject = finalMatchTree->searchByKey(worldCupObject->getYearHeld());
-
-			displayData(worldCupObject, finalMatchObject);
-			system("pause");
-			break;
-		
-		case 2:
-			std::cout << std::endl << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter the winner:      ";
-			getline(std::cin, winnerChoice, '\n');
-			Stack<WorldCup*>* myList = new Stack<WorldCup*>;
-			winnerTree->searchByKey(winnerChoice, myList);
-
-			
-			if (!myList->isEmpty())
-			{
-				system("CLS");
-				printGeneralWorldCupDataHeader();
-				myList->displayStack();
-			}
-			else 
-			{
-				std::string s = winnerChoice + " has not won a major competition so far";
-				throw s;
-			}
-			std::cout << std::endl << std::endl;
-			system("pause");
-			system("CLS");
-
-			while (!myList->isEmpty())
-			{
-				worldCupObject = myList->peek();
-				myList->pop();
-				finalMatchObject = finalMatchTree->searchByKey(worldCupObject->getYearHeld());
-				displayData(worldCupObject, finalMatchObject);
-				system("pause");
-			}
-			std::cout << std::endl << std::endl;
-					
-			delete myList;
-			system("CLS");
-			break;
-		}
-		std::cout << std::endl;
-	}
-	catch (char *msg)
-	{
-		std::cout << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << std::endl;
-		system("pause");
-	}
-	catch (std::string s)
-	{
-		std::cout << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << s << std::endl;
-		std::cout << std::endl << std::endl;
-		std::cout << std::endl << std::endl;
-		system("pause");
-	}
-}
-
-void HeadNode::sortManager()
-{
-	int user_choice;
-
+	printGeneralWorldCupDataHeader();
+	yearHeldBST->displayInOrder();
+	std::cout << "\n\n";
+	std::cout << std::endl << std::endl; system("pause");
 	system("CLS");
-	do
-	{
 
-		try {
-			std::cout << std::setw(WIDTH_BTW_LINES + 2) << "" << "You can sort data based on these attributes\n\n";
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1) Year Held\n";
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2) Goals per game\n";
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Number of games\n";
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) Average Attendance\n";
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) Total Attendance\n";
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) Number of teams\n";
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0) EXIT\n";
-
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice: ";
-			std::cin >> user_choice;
-			if (std::cin.fail() || user_choice < 0 || user_choice >= 7)throw "INVALID CHOICE. PLEASE ENTER A CHOICE 1-6 !";
-
-			std::cout << "\n\n";
-			switch (user_choice)
-			{
-			case 1:
-				system("CLS");
-				std::cout << "\n\n\n";
-				printGeneralWorldCupDataHeader();
-				yearHeldTree->displayInOrder();
-				std::cout << "\n\n";
-				system("pause");
-				system("CLS");
-				break;
-			case 2:
-				system("CLS");
-				std::cout << "\n\n\n";
-				printGeneralWorldCupDataHeader();
-				goalsPgameTree->displayInOrder();
-				std::cout << "\n\n";
-				std::cout << "Average record is: " << goalsPgameTree->getAverage() << " goals per game." << std::endl;
-				std::cout << "Highest record is: " << goalsPgameTree->getLargest() << " goals per game." << std::endl;
-				std::cout << "Lowest  record is: " << goalsPgameTree->getSmallest() << " goals per game." << std::endl;
-				std::cout << "\n\n";
-				system("pause");
-				system("CLS");
-				break;
-			case 3:
-				system("CLS");
-				std::cout << "\n\n\n";
-				printGeneralWorldCupDataHeader();
-				numGamesTree->displayInOrder();
-				std::cout << "\n\n";
-				std::cout << "Average number of games is: " << numGamesTree->getAverage() << " games" << std::endl;
-				std::cout << "Highest number of games is: " << numGamesTree->getLargest() << " games." << std::endl;
-				std::cout << "Lowest  number of games is: " << numGamesTree->getSmallest() << " games." << std::endl;
-				std::cout << "\n\n";
-				system("pause");
-				system("CLS");
-				break;
-			case 4:
-				system("CLS");
-				std::cout << "\n\n\n";
-				printGeneralWorldCupDataHeader();
-				aveAtteTree->displayInOrder();
-				std::cout << "\n\n";
-				std::cout << "Average attendance is: " << aveAtteTree->getAverage() << " spectators" << std::endl;
-				std::cout << "Highest attendance is: " << aveAtteTree->getLargest() << " spectators." << std::endl;
-				std::cout << "Lowest  attendance is: " << aveAtteTree->getSmallest() << " spectators." << std::endl;
-				std::cout << "\n\n";
-				system("pause");
-				system("CLS");
-				break;
-			case 5:
-				system("CLS");
-				std::cout << "\n\n\n";
-				printGeneralWorldCupDataHeader();
-				totAtteTree->displayInOrder();
-				std::cout << "\n\n";
-				std::cout << "Average number of overall attendance is: " << totAtteTree->getAverage() << " spectators" << std::endl;
-				std::cout << "Highest number of overall attendance is: " << totAtteTree->getLargest() << " spectators." << std::endl;
-				std::cout << "Lowest  number of overall attendance is: " << totAtteTree->getSmallest() << " spectators." << std::endl;
-				std::cout << "\n\n";
-				system("pause");
-				system("CLS");
-				break;
-			case 6:
-				system("CLS");
-				std::cout << "\n\n\n";
-				numTeamsTree->displayInOrder();
-				std::cout << "\n\n";
-				std::cout << "Average number of teams participating is: " << numTeamsTree->getAverage() << " teams" << std::endl;
-				std::cout << "Highest number of teams participating is: " << numTeamsTree->getLargest() << " teams." << std::endl;
-				std::cout << "Lowest  number of teams participating is: " << numTeamsTree->getSmallest() << " teams." << std::endl;
-				std::cout << "\n\n";
-				system("pause");
-				system("CLS");
-				break;
-			case 0:
-				system("pause");
-				break;
-			default:
-				system("CLS");
-				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 6!" << std::endl; break;
-				system("CLS");
-			}
-		}
-		catch (char *msg)
-		{
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << std::endl;
-		}
-		catch (...)
-		{
-			std::cout << "ERROR" << std::endl;
-		}
-	} while (user_choice != 0);
-	system("CLS");
 }
 
 void HeadNode::displayKeyManager()
 {
 	int choiceYear;
 
-	int getCounterWC, getCounterTP, getCounterTM;
+	int opCounter = 0;
 
 	system("CLS");
 	try
@@ -597,9 +471,12 @@ void HeadNode::displayKeyManager()
 			return;
 		}
 
-		WorldCup* worldCupObject = worldCupData->get(choiceYear, getCounterWC);
-		FinalMatch* finalMatchObject = finalMatchData->get(choiceYear, getCounterTM);
-		TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, getCounterTP);
+		WorldCup* worldCupObject = worldCupData->get(choiceYear, opCounter);
+		FinalMatch* finalMatchObject = finalMatchData->get(choiceYear, opCounter);
+		TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, opCounter);
+
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed to search the HashTables:      #" << opCounter / 3 << std::endl;
+		std::cout << "\n\n";
 
 		displayData(worldCupObject, finalMatchObject, teamsParticipatedObject);
 	}
@@ -613,101 +490,126 @@ void HeadNode::displayKeyManager()
 		std::cout << "ERROR! INVALID OPERATION!" << std::endl;
 	}
 	std::cout << "\n\n";
-	std::cout << std::setw(WIDTH_BTW_LINES) << ""; system("pause");
+	std::cout << std::setw(WIDTH_BTW_LINES) << "";  std::cout << std::endl << std::endl;system("pause");
 	system("CLS");
 }
 
 void HeadNode::displayTableManager()
 {
+	char userChoice;
 
-	system("CLS");
-	std::cout << "\n\n\n";
+	do
+	{
+		std::cout << "\n\n\n";
 
-	printGeneralWorldCupDataHeader();
-	worldCupData->display();
-	for (int i = 0; i < 148; i++)std::cout << "-";
-	std::cout << "\n\n\n";
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "HashTables in the database are shown below!" << std::endl << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1. WorldCup_GeneralData" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2. FinalMatch_Data" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3. TeamsParticipated_Data" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0. Return to the Main Menu" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice here: ";
+		std::cin >> userChoice;
+		std::cin.ignore(INT_MAX, '\n');
 
-	system("pause");
-	system("CLS");
+		system("CLS");
+		switch (userChoice)
+		{
+		case '1':
+			printGeneralWorldCupDataHeader();
+			worldCupData->display();
+			for (int i = 0; i < 148; i++)std::cout << "-";
+			std::cout << "\n\n\n";
 
-	printFinalMatchDataHeader();
-	finalMatchData->display();
-	for (int i = 0; i < 120; i++)std::cout << "-";
-	std::cout << "\n\n\n";
+			std::cout << std::endl << std::endl; system("pause");
+			system("CLS");
 
-	system("pause");
-	system("CLS");
+			break;
+		case '2':
+			printFinalMatchDataHeader();
+			finalMatchData->display();
+			for (int i = 0; i < 120; i++)std::cout << "-";
+			std::cout << "\n\n\n";
 
-	teamsByYear->display();
+			std::cout << std::endl << std::endl; system("pause");
+			system("CLS");
 
-	std::cout << "\n\n\n";
+			break;
+		case '3':
+			std::cout << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES-20) << "" << "ATTENTION!       You will need to scroll through the following screen in order to see all the data!" << std::endl;
+			std::cout << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl;
+			system("pause");
+			system("CLS");
 
-	system("pause");
-	system("CLS");
+			teamsByYear->display();
+
+			std::cout << "\n\n\n";
+
+			std::cout << std::endl << std::endl;
+			system("pause");
+			system("CLS");
+
+			break;
+		case '0':break;
+		default:
+			system("CLS");
+			std::cout << "\n\n\n";
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE! Please enter a choice 1 - 3!" << std::endl;
+			break;
+		}
+	} while (userChoice != '0');
 }
 
-void HeadNode::printIndentedTree()
+void HeadNode::printIndentedBST()
 {
-	//To be completed
-	system("CLS");
-	system("pause");
-	yearHeldTree->printTree();
-	
-	system("pause");
-	system("CLS");
-
-	goalsPgameTree->printTree();
-	system("pause");
-	system("CLS");
-
-	aveAtteTree->printTree();
-	system("pause");
-	system("CLS");
-
-	totAtteTree->printTree();
-	system("pause");
-	system("CLS");
-
-	numGamesTree->printTree();
-	system("pause");
-	system("CLS");
-
-	numTeamsTree->printTree();
-	system("CLS");
-	system("pause");
+	//To be completed by Zach
 }
 
 void HeadNode::undoDeleteManager()
 {
-	int yearHeldCounter = 0, gpgTCounter = 0, aveAttTCounter = 0, totAttTCounter = 0, numGamesTCounter = 0, numTeamsTreeCounter = 0,
-		wCCounter = 0, fMCounter = 0, teamsByYearCounter = 0;
-	int winnerTreeCounter = 0;
-	//Get the addresses that are at the top of the stack
-	WorldCup* tempWC = worldCupRecycleBin->peek();
-	TeamsParticipated* tempTP = teamsParticipatedRecycleBin->peek();
-	FinalMatch* tempFM = finalMatchRecycleBin->peek();
+	int bstOperations = 0, hashTableOperations = 0;
 
-	//pop the stacks
-	worldCupRecycleBin->pop();
-	teamsParticipatedRecycleBin->pop();
-	finalMatchRecycleBin->pop();
+	try 
+	{	
+		//Get the addresses that are at the top of the stack
+		WorldCup* tempWC = worldCupRecycleBin->peek();
+		TeamsParticipated* tempTP = teamsParticipatedRecycleBin->peek();
+		FinalMatch* tempFM = finalMatchRecycleBin->peek();
 
-	//Re-insert the addresses in the trees
-	winnerTree->insert(tempWC->getWinningTeam(), tempWC, winnerTreeCounter);
-	yearHeldTree->insert(tempWC->getYearHeld(), tempWC, yearHeldCounter);
-	goalsPgameTree->insert(tempWC->getGoalsPerGame(), tempWC, gpgTCounter);
-	aveAtteTree->insert(tempWC->getAveAtt(), tempWC, aveAttTCounter);
-	totAtteTree->insert(tempWC->getTotAtt(), tempWC, totAttTCounter);
-	numGamesTree->insert(tempWC->getNumGames(), tempWC, numGamesTCounter);
-	numTeamsTree->insert(tempTP->getNumTeams(), tempTP, numTeamsTreeCounter);
+		//pop the stacks
+		worldCupRecycleBin->pop();
+		teamsParticipatedRecycleBin->pop();
+		finalMatchRecycleBin->pop();
 
-	//Re-insert the addresses in the hash tables
-	worldCupData->put(tempWC->getYearHeld(), tempWC, wCCounter);
-	finalMatchData->put(tempFM->getYear(), tempFM, fMCounter);
-	teamsByYear->put(tempTP->getYearHeld(), tempTP, teamsByYearCounter);
+		//Re-insert the addresses in the BSTs
+		yearHeldBST->insert(tempWC->getYearHeld(), tempWC, bstOperations);
+		finalMatchBST->insert(tempFM->getYear(), tempFM, bstOperations);
+		numTeamsbyYearBST->insert(tempTP->getYearHeld(), tempTP, bstOperations);
 
-	//NEED TO DECIDE WHETHER WE SHOULD USE THE COUNTERS HERE OR NOT
+		//Re-insert the addresses in the hash tables
+		worldCupData->put(tempWC->getYearHeld(), tempWC, hashTableOperations);
+		finalMatchData->put(tempFM->getYear(), tempFM, hashTableOperations);
+		teamsByYear->put(tempTP->getYearHeld(), tempTP, hashTableOperations);
+
+		std::cout << std::endl << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Recovery Successful!" << std::endl;
+		std::cout << std::endl << std::endl;
+	
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Averge number of operations performed on BSTs:                 #" << bstOperations / 10 << std::endl;
+		std::cout << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Averge number of operations performed on HashTables:           #" << hashTableOperations / 3 << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl << std::endl; system("pause");
+		system("CLS");
+	}
+	catch (char *msg)
+	{
+		std::cout << std::endl << std::endl << std::endl;
+		std::cout << std::endl << std::endl << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << std::endl;
+		std::cout << std::endl << std::endl; system("pause");
+		system("CLS");
+	}
 }
 
 void HeadNode::saveToInputFileManager()
@@ -721,15 +623,34 @@ void HeadNode::saveToInputFileManager()
 void HeadNode::clearRecycleStacksManager()
 {
 	//Clearing the Recycle Bins
-	worldCupRecycleBin->clearStack();
-	teamsParticipatedRecycleBin->clearStack();
-	finalMatchRecycleBin->clearStack();
+	while (!worldCupRecycleBin->isEmpty())
+	{
+		WorldCup *WCObject = worldCupRecycleBin->peek();
+		worldCupRecycleBin->pop();
+		delete WCObject;
+		WCObject = nullptr;
+	}
+	while (!teamsParticipatedRecycleBin->isEmpty())
+	{
+		TeamsParticipated* TPObject = teamsParticipatedRecycleBin->peek();
+		teamsParticipatedRecycleBin->pop();
+		delete TPObject;
+		TPObject = nullptr;
+	}
+	while (!finalMatchRecycleBin->isEmpty())
+	{
+		FinalMatch* FMObject = finalMatchRecycleBin->peek();
+		finalMatchRecycleBin->pop();
+		delete FMObject;
+		FMObject = nullptr;
+	}
 }
 
 void HeadNode::efficencyManager()
 {
+	int totalBSTHeight;
 	system("CLS");
-	//Since we are using tree hash tables, but with the same key the data of one tree is sufficent
+	//Since we are using BST hash tables, but with the same key the data of one BST is sufficent
 	std::cout << std::endl << std::endl << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current World Cup Hash Table load factor:                 " << worldCupData->loadFactor() << "%" << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Final Match Hash Table load factor:               " << finalMatchData->loadFactor() << "%" << std::endl;
@@ -744,13 +665,11 @@ void HeadNode::efficencyManager()
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Final Match HashTable number of collisions:               #" << finalMatchData->getNumCollisions() << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Final Match HashTable longest chain:                      #" << finalMatchData->getLongestCollisionPath() << std::endl;
 	std::cout << std::endl << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of TreeNodes:              " << yearHeldTree->getCountNodes() << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Year Held          Tree height:               " << yearHeldTree->getHeight() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Goals Per Game     Tree height:               " << goalsPgameTree->getHeight() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average Attendance Tree height:               " << aveAtteTree->getHeight() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Total Attendance   Tree height:               " << totAtteTree->getHeight() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of Games    Tree height:               " << numGamesTree->getHeight() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of Teams    Tree height:               " << numTeamsTree->getHeight() << std::endl;
+
+	totalBSTHeight = yearHeldBST->getHeight() + numTeamsbyYearBST->getHeight() + finalMatchBST->getHeight();
+
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of Nodes in the BST:           " << yearHeldBST->getCountNodes() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average height of BSTs:               "<< totalBSTHeight / numBSTs  << std::endl;
 	std::cout << std::endl << std::endl << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "";
 }
@@ -789,53 +708,6 @@ void HeadNode::printFinalMatchDataHeader()
 	std::cout << std::endl;
 }
 
-void HeadNode::displayData(WorldCup*worldCupObject)
-{
-	system("CLS");
-	std::cout << std::endl << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "GENERAL INFORMATION" << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "YEAR HELD:             " << worldCupObject->getYearHeld() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "WINNING COUNTRY:       " << worldCupObject->getWinningTeam() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "GOLDEN BOOT WINNER:    " << worldCupObject->getGoldenBootWinner() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "GOALS PER GAME:        " << worldCupObject->getGoalsPerGame() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "TOTAL ATTENDANCE:      " << worldCupObject->getTotAtt() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "AVERAGE ATTENDANCE:    " << worldCupObject->getAveAtt() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "NUMBER OF GAMES:       " << worldCupObject->getNumGames() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "HOST COUNTRY:          " << worldCupObject->getHostCountry() << std::endl;
-	std::cout << std::endl << std::endl << std::endl;
-	system("PAUSE");
-}
-
-void HeadNode::displayData(WorldCup*worldCupObject, FinalMatch*finalMatchObject)
-{
-	system("CLS");
-	std::cout << std::endl << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "GENERAL INFORMATION" << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "YEAR HELD:             " << worldCupObject->getYearHeld() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "WINNING COUNTRY:       " << worldCupObject->getWinningTeam() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "GOLDEN BOOT WINNER:    " << worldCupObject->getGoldenBootWinner() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "GOALS PER GAME:        " << worldCupObject->getGoalsPerGame() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "TOTAL ATTENDANCE:      " << worldCupObject->getTotAtt() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "AVERAGE ATTENDANCE:    " << worldCupObject->getAveAtt() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "NUMBER OF GAMES:       " << worldCupObject->getNumGames() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "HOST COUNTRY:          " << worldCupObject->getHostCountry() << std::endl;
-	std::cout << std::endl << std::endl << std::endl;
-
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINAL MATCH DATA" << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINALIST 1:            " << finalMatchObject->getTeam1() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINALIST 2:            " << finalMatchObject->getTeam2() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINAL RESULT:          " << finalMatchObject->getResult() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "CITY IT WAS HELD IN:   " << finalMatchObject->getCity() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "STADIUM PLAYED IN:     " << finalMatchObject->getStadium() << std::endl;
-	std::cout << std::endl << std::endl << std::endl;
-}
-
-void HeadNode::displayData(TeamsParticipated*teamsParticipatedObject)
-{
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "TEAMS PARTICIPATED" << std::endl << std::endl;
-	for (int i = 0; i < teamsParticipatedObject->getNumTeams(); i++)std::cout << std::setw(WIDTH_BTW_LINES) << "" << i + 1 << ". " << teamsParticipatedObject->getTeamsArr()[i] << std::endl;
-}
-
 void HeadNode::displayData(WorldCup*worldCupObject, FinalMatch*finalMatchObject, TeamsParticipated*teamsParticipatedObject)
 {
 	system("CLS");
@@ -864,4 +736,14 @@ void HeadNode::displayData(WorldCup*worldCupObject, FinalMatch*finalMatchObject,
 
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "TEAMS PARTICIPATED" << std::endl << std::endl;
 	for (int i = 0; i < NUM_TEAMS; i++)std::cout << std::setw(WIDTH_BTW_LINES) << "" << i + 1 << ". " << teamsParic[i] << std::endl;
+}
+
+int HeadNode::getNumBSTs()
+{
+	return numBSTs;
+}
+
+int HeadNode::getNumHashTables()
+{
+	return numHashTables;
 }

@@ -42,18 +42,18 @@
       <FileName>Stack.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TreeNode&lt;K, T&gt;">
+  <Class Name="BSTNode&lt;K, T&gt;">
     <Position X="0.5" Y="9.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAwAAAgAAIAAAABAAEAJAACJAICAAAAAAAAAAIwAA=</HashCode>
-      <FileName>TreeNode.h</FileName>
+      <FileName>BSTNode.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tree&lt;K, T&gt;">
+  <Class Name="BST&lt;K, T&gt;">
     <Position X="0.5" Y="0.5" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AEQAEACERQDBjgAGAAAgCAAEQAioSAAQQAEQSAABQAA=</HashCode>
-      <FileName>Tree.h</FileName>
+      <FileName>BST.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

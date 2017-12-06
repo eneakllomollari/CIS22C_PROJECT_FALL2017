@@ -10,22 +10,17 @@
 #include "FinalMatch.h"
 #include "TeamsParticipated.h"
 #include "HashTable.h"
-#include "Tree.h"
+#include "BST.h"
 
 const int WIDTH_BTW_LINES = 50;
 
 class HeadNode
 {
 private:
-	//Declaring the trees
-	Tree<std::string, WorldCup*> *winnerTree;
-	Tree<int, WorldCup*> *yearHeldTree;
-	Tree<double, WorldCup*> *goalsPgameTree;
-	Tree<int, WorldCup*> *aveAtteTree;
-	Tree<int, WorldCup*> *totAtteTree;
-	Tree<int, WorldCup*> *numGamesTree;
-	Tree<int, TeamsParticipated*> *numTeamsTree;
-	Tree<int, FinalMatch*> *finalMatchTree;
+	//Declaring the BSTs
+	BST<int, WorldCup*> *yearHeldBST;
+	BST<int, TeamsParticipated*> *numTeamsbyYearBST;
+	BST<int, FinalMatch*> *finalMatchBST;
 
 	//Declaring the hash tables
 	HashTable<int, WorldCup*> *worldCupData;
@@ -37,6 +32,8 @@ private:
 	Stack<FinalMatch*> *finalMatchRecycleBin;
 	Stack<TeamsParticipated*> *teamsParticipatedRecycleBin;
 
+	int numBSTs;
+	int numHashTables;
 protected:
 	void printGeneralWorldCupDataHeader();
 	void printFinalMatchDataHeader();
@@ -46,9 +43,7 @@ protected:
 	void readFileTeamsByYearData(std::string&);
 
 	void displayData(WorldCup*, FinalMatch*, TeamsParticipated*);
-	void displayData(WorldCup*);
-	void displayData(WorldCup*, FinalMatch*);
-	void displayData(TeamsParticipated*);
+
 public:
 	HeadNode();
 	~HeadNode();
@@ -58,14 +53,16 @@ public:
 
 	void addManager();
 	void removeManager();
-	void searchManager();
-	void sortManager();
+	void sortKeyManager();
 	void displayKeyManager();
 	void displayTableManager();
-	void printIndentedTree();
+	void printIndentedBST();
 	void undoDeleteManager();
 	void saveToInputFileManager();
 	void efficencyManager();
 	void clearRecycleStacksManager();
+
+	int getNumBSTs();
+	int getNumHashTables();
 };
 #endif // !HEAD_NODE

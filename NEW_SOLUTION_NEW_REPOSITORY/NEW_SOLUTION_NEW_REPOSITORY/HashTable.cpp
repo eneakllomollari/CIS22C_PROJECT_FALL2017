@@ -38,13 +38,8 @@ HashTable<K, T>::~HashTable()
 			HashEntry<K, T> *prev = entry;
 			entry = entry->getNext();
 
-			T dataToDel = prev->getpData();
-
 			delete prev;
 			prev = nullptr;
-
-			delete dataToDel;
-			dataToDel = nullptr;
 		}
 		table[i] = nullptr;
 	}
@@ -61,7 +56,7 @@ HashTable<K, T>::~HashTable()
 template<class K, class T>
 int HashTable<K, T>::hash(const K& k)const
 {
-	return (2 * k + 3) % TABLE_SIZE;
+	return (5 * k + 7) % TABLE_SIZE;
 }
 
 
@@ -173,7 +168,7 @@ T HashTable<K, T>::get(K searchKey, int& getCounter)
 			entry = entry->getNext();					getCounter++;
 		}
 	}
-	throw "\nTHIS YEAR DOES NOT EXIST IN OUR RECORDS";
+	throw "THIS YEAR DOES NOT EXIST IN OUR RECORDS";
 }
 
 /*

@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FinalMatch.cpp" />
+    <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="HeadNode.cpp" />
     <ClCompile Include="initializers.cpp" />
     <ClCompile Include="main.cpp" />
@@ -127,8 +128,8 @@
     <ClInclude Include="LinkedNode.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="TeamsParticipated.h" />
-    <ClInclude Include="Tree.h" />
-    <ClInclude Include="TreeNode.h" />
+    <ClInclude Include="BST.h" />
+    <ClInclude Include="BSTNode.h" />
     <ClInclude Include="WorldCup.h" />
   </ItemGroup>
   <ItemGroup>
