@@ -26,6 +26,7 @@ private:
 	BST<int, WorldCup*> *totAtteBST;
 	BST<int, WorldCup*> *numGamesBST;
 	BST<int, TeamsParticipated*> *numTeamsBST;
+	BST<int, TeamsParticipated*> *numTeamsbyYearBST;
 	BST<int, FinalMatch*> *finalMatchBST;
 
 	//Declaring the hash tables
@@ -49,9 +50,7 @@ protected:
 	void readFileTeamsByYearData(std::string&);
 
 	void displayData(WorldCup*, FinalMatch*, TeamsParticipated*);
-	void displayData(WorldCup*);
-	void displayData(WorldCup*, FinalMatch*);
-	void displayData(TeamsParticipated*);
+
 public:
 	HeadNode();
 	~HeadNode();

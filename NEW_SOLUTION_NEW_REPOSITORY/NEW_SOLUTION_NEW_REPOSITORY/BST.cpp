@@ -218,7 +218,6 @@ void BST<K, T>::searchByGreatestKey(K key, Stack<T>*myStack)
 	searchByGreatestKeyHelper(root, key, myStack);
 }
 
-
 template<class K, class T>
 void BST<K, T>::displayInOrder() const
 {

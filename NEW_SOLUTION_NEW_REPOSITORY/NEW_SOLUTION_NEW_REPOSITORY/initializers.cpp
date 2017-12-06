@@ -60,8 +60,9 @@ void HeadNode::initializeFinalMatchDataManager()
 
 void HeadNode::readFileWorldcupData(std::string &line)
 {
-	//Allocating object in the heap
-	WorldCup* tempWorldCup = new WorldCup;
+	int yearHeld, numGames, aveAtt, totAtt;
+	double goalsPerGame;
+	std::string winningTeam, goldenBootWinner,hostCountry;
 
 	// holds the element position of string find function
 	size_t pos, end_pos;
@@ -71,12 +72,12 @@ void HeadNode::readFileWorldcupData(std::string &line)
 	std::string buffer = line;
 
 	// set year held
-	tempWorldCup->setYearHeld(stoi(buffer.substr(0, 5)));
+	yearHeld = stoi(buffer.substr(0, 5));
 
 	// set winning team
 	buffer = buffer.substr(7);
 	pos = buffer.find(' ');
-	tempWorldCup->setWinningTeam(buffer.substr(0, pos));
+	winningTeam = buffer.substr(0, pos);
 
 	// sets golden B winner
 	pos = buffer.find('|');
@@ -89,34 +90,37 @@ void HeadNode::readFileWorldcupData(std::string &line)
 		end_pos = buffer.find(' ', pos + 1);
 		temp += buffer.substr(pos, end_pos - pos);
 	}
-	tempWorldCup->setGoldenBWinner(temp);
+	goldenBootWinner = temp;
 
 
 	// sets number of games
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
-	tempWorldCup->setNumGames(std::stoi(buffer.substr(0, 2)));
+	numGames = std::stoi(buffer.substr(0, 2));;
 
 	// sets goals per game
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
-	tempWorldCup->setGoalsPGame(std::stod(buffer.substr(0, 4)));
+	goalsPerGame = std::stod(buffer.substr(0, 4));
 
 	// sets average attendance
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
-	tempWorldCup->setAveAtt(std::stoi(buffer.substr(0, 5)));
+	aveAtt = std::stoi(buffer.substr(0, 5));
 
 	// sets total attendance
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	end_pos = buffer.find(' ');
-	tempWorldCup->setTotAtt(std::stol(buffer.substr(0, end_pos)));
+	totAtt = std::stoi(buffer.substr(0, end_pos));
 
 	// sets host country
 	pos = buffer.find('|');
-	tempWorldCup->setHostCountry(buffer.substr(pos + 2));
+	hostCountry = buffer.substr(pos + 2);
 
+	//Allocating object in the heap
+	WorldCup* tempWorldCup = new WorldCup(yearHeld, winningTeam, goldenBootWinner, numGames, goalsPerGame, aveAtt, totAtt, hostCountry);
+	
 	//This is where you assign the values to the BSTs and the hash table
 	//Initializing the BSTs
 	hostBST->insert(tempWorldCup->getHostCountry(), tempWorldCup, insertCounter);
@@ -193,7 +197,7 @@ void HeadNode::readFileFinalMatchData(std::string &line)
 void HeadNode::readFileTeamsByYearData(std::string &line)
 {
 	//Declare local variables/objects
-	int  size = 0, numTeamsParticipated, index = 0;
+	int  size = 0, numTeamsParticipated, index = 0, numTeamsByYearBSTCounter = 0;
 	int insertCounter, putCounter;
 
 	std::string *tempArray_Teams, temp;
@@ -229,4 +233,5 @@ void HeadNode::readFileTeamsByYearData(std::string &line)
 	//"Put" tempTeams_Object with all the teams participated for a specific year into teamsParticTable HashTable
 	teamsByYear->put(yearHeld, tempTeams_Object, putCounter);
 	numTeamsBST->insert(numTeamsParticipated, tempTeams_Object, insertCounter);
+	numTeamsbyYearBST->insert(yearHeld, tempTeams_Object, numTeamsByYearBSTCounter);
 }
