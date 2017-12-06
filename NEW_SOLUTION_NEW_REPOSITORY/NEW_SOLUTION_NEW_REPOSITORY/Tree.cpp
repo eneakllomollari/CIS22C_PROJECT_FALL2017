@@ -1,5 +1,11 @@
 #include "Tree.h"
 
+/*
+	Pre: N/A
+
+	Post: Upon creation of Tree object,
+	the appropriate variables will be initialized
+*/
 template<class K, class T>
 Tree<K, T>::Tree()
 {
@@ -7,6 +13,12 @@ Tree<K, T>::Tree()
 	itemCount = 0;
 }
 
+/*
+	Pre: N/A
+
+	Post: Upon destruction of Tree object, the appropriate measures
+	will be taken in order to ensure no memory leaks occur
+*/
 template<class K, class T>
 Tree<K, T>::~Tree()
 {
@@ -17,12 +29,23 @@ Tree<K, T>::~Tree()
 	itemCount = 0;
 }
 
+/*
+	Pre: N/A
+
+	Post: Upon successful completion will destroy the subTree
+	using helper function "destroySubTree"
+*/
 template<class K, class T>
 void Tree<K, T>::clear()
 {
 	destroySubTree(root);
 }
 
+/*
+	Pre: 
+
+	Post:
+*/
 template<class K, class T>
 void Tree<K, T>::calculateSum(TreeNode<K, T>*nodePtr, K &sum) const
 {
