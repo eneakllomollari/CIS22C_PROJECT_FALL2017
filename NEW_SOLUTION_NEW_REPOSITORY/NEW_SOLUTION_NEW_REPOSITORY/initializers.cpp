@@ -119,6 +119,7 @@ void HeadNode::readFileWorldcupData(std::string &line)
 
 	//This is where you assign the values to the trees and the hash table
 	//Initializing the trees
+	hostTree->insert(tempWorldCup->getHostCountry(), tempWorldCup, insertCounter);
 	winnerTree->insert(tempWorldCup->getWinningTeam(), tempWorldCup, insertCounter);
 	yearHeldTree->insert(tempWorldCup->getYearHeld(), tempWorldCup, insertCounter);
 	goalsPgameTree->insert(tempWorldCup->getGoalsPerGame(), tempWorldCup, insertCounter);

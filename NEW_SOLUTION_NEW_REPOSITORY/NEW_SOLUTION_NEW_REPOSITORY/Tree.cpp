@@ -161,6 +161,28 @@ void Tree<K, T>::searchByKeyHelper(TreeNode<K,T>* nodePtr,K key, Stack<T>* myLis
 }
 
 template<class K, class T>
+void Tree<K, T>::searchBySmallestKeyHelper(TreeNode<K, T>*nodePtr, K key, Stack<T>*myStack)
+{
+	if (nodePtr)
+	{
+		if (key < nodePtr->getKey()) myStack->push(nodePtr->getpData());
+		searchBySmallestKeyHelper(nodePtr->getLeft(), key, myStack);
+		searchBySmallestKeyHelper(nodePtr->getRight(), key, myStack);
+	}
+}
+
+template<class K, class T>
+void Tree<K, T>::searchByGreatestKeyHelper(TreeNode<K, T>*nodePtr, K key, Stack<T>*myStack)
+{
+	if (nodePtr)
+	{
+		if (key > nodePtr->getKey()) myStack->push(nodePtr->getpData());
+		searchByGreatestKeyHelper(nodePtr->getLeft(), key, myStack);
+		searchByGreatestKeyHelper(nodePtr->getRight(), key, myStack);
+	}
+}
+
+template<class K, class T>
 T Tree<K, T>::searchByKey(K key)
 {
 	TreeNode <K, T>* nodePtr = root;
@@ -182,6 +204,18 @@ template<class K, class T>
 void Tree<K, T>::searchByKey(K key, Stack<T>*myList)
 {
 	searchByKeyHelper(root, key, myList);
+}
+
+template<class K, class T>
+void Tree<K, T>::searchBySmallestKey(K key, Stack<T>*myStack)
+{
+	searchBySmallestKeyHelper(root, key, myStack);
+}
+
+template<class K, class T>
+void Tree<K, T>::searchByGreatestKey(K key, Stack<T>*myStack)
+{
+	searchByGreatestKeyHelper(root, key, myStack);
 }
 
 

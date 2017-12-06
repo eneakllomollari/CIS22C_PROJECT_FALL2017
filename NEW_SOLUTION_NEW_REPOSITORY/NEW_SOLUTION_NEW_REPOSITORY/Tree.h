@@ -33,7 +33,9 @@ protected:
 
 	void printRow(TreeNode<K, T>*, int, int);
 	void getLine(TreeNode<K, T>*, int, std::vector<K>&);
-	void searchByKeyHelper(TreeNode<K,T>*,K, Stack<T>*);
+	void searchByKeyHelper(TreeNode<K, T>*, K, Stack<T>*);
+	void searchBySmallestKeyHelper(TreeNode<K, T>*, K, Stack<T>*);
+	void searchByGreatestKeyHelper(TreeNode<K, T>*, K, Stack<T>*);
 public:
 	Tree();
 	virtual ~Tree();
@@ -46,6 +48,8 @@ public:
 	
 	T searchByKey(K);
 	void searchByKey(K key, Stack<T>*);
+	void searchBySmallestKey(K, Stack<T>*);
+	void searchByGreatestKey(K, Stack<T>*);
 
 	K getAverage() const;
 	K getSmallest() const;
