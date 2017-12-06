@@ -1,3 +1,11 @@
+/*
+	FINAL PROJECT CIS 22C / Fall 2017 De Anza College
+	Partners: Enea Kllomolari, Kamaljot Saini, Marcello Rusciano, Carlo Empaynado, Zachary Pascual
+
+	Description: This project demonstrates the data structures we learned in CIS 22C usng statistical data
+	from the FIFA World Cup and Euro Soccer Tournaments
+*/
+
 #include "HeadNode.h"
 
 int main()
