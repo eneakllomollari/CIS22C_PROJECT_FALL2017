@@ -68,10 +68,9 @@ void HeadNode::addManager()
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the year:               " << "                            ";
 		std::cin >> year;
 		getline(std::cin, dummy);
-		//Exit if the user chooses to 
-		if (year == -1) return;
 
 		std::cout << std::endl << std::endl;
+
 		//VALIDATE YEAR DATA
 		while ((std::cin.fail() || year < 1930) && year != -1)
 		{
@@ -80,24 +79,22 @@ void HeadNode::addManager()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Year:                                            ";
 				std::cin.clear();
-				std::cin.ignore();
-
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			
 			}
 			else
 			{
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! The first world cup was held in 1930 ..." << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Year:                                            ";
-				std::cin.clear();
-
-
 			}
 			
 			std::cin >> year;
 			getline(std::cin, dummy);
 			
-			
 		}
+
 		if (year == -1) return;
+
 		if (worldCupData->contains(year) && finalMatchData->contains(year) && teamsByYear->contains(year))
 		{
 			std::cout << std::endl << std::endl;
@@ -110,26 +107,30 @@ void HeadNode::addManager()
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of teams:    " << "                            ";
 		std::cin >> numberOfTeams;
 		getline(std::cin, dummy);
-		if (numberOfTeams == -1) return;
 
 		//VALIDATE NUMBER OF TEAMS
-		while (std::cin.fail() || numberOfTeams < 2)
+		while ((std::cin.fail() || numberOfTeams < 2) && numberOfTeams != -1)
 		{
 			if (std::cin.fail())
 			{
-				std::cout << std::endl << std::endl;
-				std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Please use only numeric digits 0-9 while entering year..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Teams:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 			}
 			else
 			{
-				std::cout << std::endl << std::endl;
-				std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Number of Teams cannot be less than 2... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Number of Teams must be greater than or equal to 2 " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Teams:                                            ";
 			}
-			std::cin.clear();
-			std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number Of Teams:                                ";
+
 			std::cin >> numberOfTeams;
 			getline(std::cin, dummy);
+
 		}
+
+		if (numberOfTeams == -1) return;
 
 		teamsParticipatedArray = new std::string[numberOfTeams];
 		
@@ -152,21 +153,113 @@ void HeadNode::addManager()
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the number of games:    " << "                            ";
 		std::cin >> numGames;
 		getline(std::cin, dummy);
+
+		//VALIDATE NUMBER OF GAMES
+		while ((std::cin.fail() || numGames < 0) && numGames != -1)
+		{
+			if (std::cin.fail())
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Games:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			else
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Number of Games cannot be less than 0.... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Teams:                                            ";
+			}
+
+			std::cin >> numGames;
+			getline(std::cin, dummy);
+
+		}
+
 		if (numGames == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the goals per game:     " << "                            ";
 		std::cin >> goalsPerGame;
-		if (goalsPerGame == -1) return;
 		getline(std::cin, dummy);
+
+		//VALIDATE GOALS PER GAME
+		while ((std::cin.fail() || goalsPerGame < 0) && goalsPerGame != -1)
+		{
+			if (std::cin.fail())
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Goals Per Game:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			else
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Goals per game cannot be less than 0.... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Goals Per Game:                                            ";
+			}
+
+			std::cin >> goalsPerGame;
+			getline(std::cin, dummy);
+
+		}
+
+		if (goalsPerGame == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the average attendance: " << "                            ";
 		std::cin >> aveAttendance;
-		if (aveAttendance == -1) return;
 		getline(std::cin, dummy);
+
+		//VALIDATE AVERAGE ATTENDANCE
+		while ((std::cin.fail() || aveAttendance < 0) && aveAttendance != -1)
+		{
+			if (std::cin.fail())
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Average Attendance:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			else
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Average Attendance cannot be less than 0.... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Average Attendance:                                            ";
+			}
+
+			std::cin >> aveAttendance;
+			getline(std::cin, dummy);
+
+		}
+
+		if (aveAttendance == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the total attendance:   " << "                            ";
 		std::cin >> totAttendance;
 		getline(std::cin, dummy);
+
+		//VALIDATE TOTAL ATTENDANCE
+		while ((std::cin.fail() || totAttendance < 0) && totAttendance != -1)
+		{
+			if (std::cin.fail())
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Use numeric digits(0-9) only ..." << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Total Attendance:                                            ";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			else
+			{
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Total Attendance cannot be less than 0.... " << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Total Attendance:                                            ";
+			}
+
+			std::cin >> totAttendance;
+			getline(std::cin, dummy);
+
+		}
+
 		if (totAttendance == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the host country:       " << "                            ";
@@ -185,9 +278,9 @@ void HeadNode::addManager()
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Goals scored by " << firstTeamFinalMatch << " were: " << std::right << std::setw(80);
 		std::cin >> goalScoredFirstTeam;
-		if (goalScoredFirstTeam == "-1") return;
 		getline(std::cin, dummy);
-		if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID INPUT";
+
+		if (goalScoredFirstTeam == "-1") return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Goals scored by " << secondteamFinalMatch << " were: " << std::right << std::setw(180);
 		std::cin >> goalScoredSecondTeam;
@@ -236,7 +329,7 @@ void HeadNode::addManager()
 	}
 	catch (...)
 	{
-		std::cout << "ERROR" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR" << std::endl;
 	}
 
 
@@ -317,7 +410,7 @@ void HeadNode::removeManager()
 	catch (char *msg)
 	{
 		std::cout << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << msg << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << ""<< msg << std::endl;
 	}
 	catch (...)
 	{

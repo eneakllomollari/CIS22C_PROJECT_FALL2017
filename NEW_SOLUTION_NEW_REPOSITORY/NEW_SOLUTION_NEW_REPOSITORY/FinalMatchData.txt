@@ -4,8 +4,8 @@
 2008 | Spain, Germany.          | 1 - 0         | Ernst-Happel-Stadion.        | Vienna.         |
 1954 | Germany FR, Hungary.     | 3 - 2         | Wankford Stadium.            | Bern.           |
 1968 | Italy, Yugoslavia.       | 1 - 1 (2 - 0) | Stadio Olimpico.             | Rome.           |
-1982 | Italy, Germany.          | 3 - 1         | Santiago Bernabeu Stadium.   | Madrid.         |
-1996 | Germany, Czech Republic. | 2 - 1         | Wembley Stadium.             | London.         |
+2010 | Netherlands, Spain.      | 0 - 1         | Soccer City.                 | Johannesburg.   |
+1990 | Germany, Agentina.       | 1 - 0         | Stadio Olimpico.             | Rome.           |
 1970 | Brazil, Italy.           | 4 - 1         | Estadio Azteca.              | Mexico City.    |
 1984 | France, Spain.           | 2 - 0         | Parc des Princes.            | Paris.          |
 1998 | Brazil, France.          | 0 - 3         | Stade de France.             | Saint-Deniz.    |
@@ -31,4 +31,5 @@
 1978 | Argentina, NetherLands.  | 3 - 1         | Estadio Monumental.          | Buenos Aires.   |
 1992 | Denmark, Germany.        | 2 - 0         | Ullevi.                      | Gothenburg.     |
 2006 | Italy, France.           | 1 - 1 (5 - 3) | Olympiastadion.              | Berlin.         |
-1938 | Italy, Hungary.          | 4 - 2         | Stade Olympique de Colombes. | Paris.          |
+1986 | Argentina, Germany.      | 3 - 2         | Estadio Azteca.              | Mexico City.    |
+1966 | England, Germany.        | 4 - 2         | Wembley Stadium.             | London.         |
