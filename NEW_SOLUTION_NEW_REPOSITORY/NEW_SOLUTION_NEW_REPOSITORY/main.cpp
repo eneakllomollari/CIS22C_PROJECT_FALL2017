@@ -2,12 +2,12 @@
 
 int main()
 {
-	std::cout << std::fixed << std::setprecision(2);
-
-	HeadNode mainHeadNode;				//THE MAIN NODE OF THE PROGRAM
+	//THE MAIN NODE OF THE PROGRAM
+	HeadNode mainHeadNode;		
 
 	int choice;
 
+	std::cout << std::fixed << std::setprecision(2);
 	try
 	{
 		//MENU STARTS HERE 
@@ -22,7 +22,7 @@ int main()
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) Find and display one data record of a year" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List data in hash table sequence" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) List sorted data" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Print indented tree" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Print indented BST" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Undo Delete " << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "9) Save Changes/Clear the Recovery Stack" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "10) Efficency " << std::endl;
@@ -67,7 +67,7 @@ int main()
 				break;
 			case 7:
 				system("CLS");
-				mainHeadNode.printIndentedTree();
+				mainHeadNode.printIndentedBST();
 				system("CLS");
 				break;
 			case 8:
@@ -84,19 +84,19 @@ int main()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "OPERATION SUCCESFUL!" << std::endl;
 				std::cout << std::endl << std::endl << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "";
-				system("pause");
+				 std::cout << std::endl << std::endl;system("pause");;
 				system("CLS");
 				break;
 			case 10:
 				system("CLS");
-				//Since we are using tree hash tables, but with the same key the data of one tree is sufficent
+				//Since we are using BST hash tables, but with the same key the data of one BST is sufficent
 				mainHeadNode.efficencyManager();
 				std::cout << std::endl;
-				system("pause");
+				 std::cout << std::endl << std::endl;system("pause");;
 				system("CLS");
 				break;
 			case 0:
-				system("pause");
+				 std::cout << std::endl << std::endl;system("pause");;
 				system("CLS");
 				break;
 			default:
@@ -123,6 +123,6 @@ int main()
 	std::cout << std::endl << std::setw(WIDTH_BTW_LINES + 10) << "" << "\"GOODBYE\"" << std::endl << std::endl << std::endl << std::endl << std::endl;
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n";
 
-	system("pause");
+	 std::cout << std::endl << std::endl;system("pause");;
 	return 0;
 }

@@ -1,30 +1,30 @@
-#include "Tree.h"
+#include "BST.h"
 
 template<class K, class T>
-Tree<K, T>::Tree()
+BST<K, T>::BST()
 {
 	root = nullptr;
 	itemCount = 0;
 }
 
 template<class K, class T>
-Tree<K, T>::~Tree()
+BST<K, T>::~BST()
 {
-	//Deletes the tree by calling the clear function, 
-	//which calls destroySubTree function with root
+	//Deletes the BST by calling the clear function, 
+	//which calls destroySubBST function with root
 	//as a parameter
 	clear();
 	itemCount = 0;
 }
 
 template<class K, class T>
-void Tree<K, T>::clear()
+void BST<K, T>::clear()
 {
-	destroySubTree(root);
+	destroySubBST(root);
 }
 
 template<class K, class T>
-void Tree<K, T>::calculateSum(TreeNode<K, T>*nodePtr, K &sum) const
+void BST<K, T>::calculateSum(BSTNode<K, T>*nodePtr, K &sum) const
 {
 	if (nodePtr)
 	{
@@ -35,12 +35,12 @@ void Tree<K, T>::calculateSum(TreeNode<K, T>*nodePtr, K &sum) const
 }
 
 template<class K, class T>
-void Tree<K, T>::destroySubTree(TreeNode<K, T>* nodePtr)
+void BST<K, T>::destroySubBST(BSTNode<K, T>* nodePtr)
 {
 	if (nodePtr != nullptr)
 	{
-		destroySubTree(nodePtr->getLeft());
-		destroySubTree(nodePtr->getRight());
+		destroySubBST(nodePtr->getLeft());
+		destroySubBST(nodePtr->getRight());
 
 		delete nodePtr;
 		nodePtr = nullptr;
@@ -48,7 +48,7 @@ void Tree<K, T>::destroySubTree(TreeNode<K, T>* nodePtr)
 }
 
 template<class K, class T>
-bool Tree<K, T>::remove(K key, int & removeCounter)
+bool BST<K, T>::remove(K key, int & removeCounter)
 {
 	int deleteCounter = 0;
 	removeCounter = 0;
@@ -58,10 +58,10 @@ bool Tree<K, T>::remove(K key, int & removeCounter)
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::getParentOf(TreeNode<K, T> *nodePtr)const
+BSTNode<K, T>* BST<K, T>::getParentOf(BSTNode<K, T> *nodePtr)const
 {
-	TreeNode<K, T> *tempPtr = root;
-	TreeNode<K, T> *parent = nullptr;
+	BSTNode<K, T> *tempPtr = root;
+	BSTNode<K, T> *parent = nullptr;
 
 	K key = nodePtr->getKey();
 
@@ -86,9 +86,9 @@ TreeNode<K, T>* Tree<K, T>::getParentOf(TreeNode<K, T> *nodePtr)const
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::getSmallestNode(TreeNode<K, T>* rootPtr)const
+BSTNode<K, T>* BST<K, T>::getSmallestNode(BSTNode<K, T>* rootPtr)const
 {
-	TreeNode<K, T> *tempPtr = rootPtr;
+	BSTNode<K, T> *tempPtr = rootPtr;
 	//Traverse all the way to the left most node which is 
 	//at the same time the smallest node
 	while (tempPtr->getLeft() != nullptr)
@@ -97,9 +97,9 @@ TreeNode<K, T>* Tree<K, T>::getSmallestNode(TreeNode<K, T>* rootPtr)const
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::getBiggestNode(TreeNode<K, T>* rootPtr)const
+BSTNode<K, T>* BST<K, T>::getBiggestNode(BSTNode<K, T>* rootPtr)const
 {
-	TreeNode<K, T> *tempPtr = rootPtr;
+	BSTNode<K, T> *tempPtr = rootPtr;
 	while (tempPtr->getRight() != nullptr)
 		tempPtr = tempPtr->getRight();
 
@@ -108,7 +108,7 @@ TreeNode<K, T>* Tree<K, T>::getBiggestNode(TreeNode<K, T>* rootPtr)const
 }
 
 template<class K, class T>
-void Tree<K, T>::insert(K key, T data, int &insertCounter)
+void BST<K, T>::insert(K key, T data, int &insertCounter)
 {
 	insertCounter = 0;
 	insertNode(key, data);				insertCounter++;
@@ -116,21 +116,21 @@ void Tree<K, T>::insert(K key, T data, int &insertCounter)
 }
 
 template<class K, class T>
-void Tree<K, T>::insertNode(K k, T d)
+void BST<K, T>::insertNode(K k, T d)
 {
-	TreeNode<K, T>* t = new TreeNode<K, T>;	//Allocate a new TreeNode
-	TreeNode<K, T>* parent = nullptr;
+	BSTNode<K, T>* t = new BSTNode<K, T>;	//Allocate a new BSTNode
+	BSTNode<K, T>* parent = nullptr;
 
 	t->setpData(d);
 	t->setKey(k);
 	t->setLeft(nullptr);	//Because is will be a leaf node
 	t->setRight(nullptr);
 
-	// If it is a new tree
+	// If it is a new BST
 	if (root == nullptr) root = t;
 	else
 	{
-		TreeNode<K, T> * curr;
+		BSTNode<K, T> * curr;
 		curr = root;
 
 		// Find the Node's parent
@@ -149,9 +149,9 @@ void Tree<K, T>::insertNode(K k, T d)
 }
 
 template<class K, class T>
-void Tree<K, T>::searchByKeyHelper(TreeNode<K,T>* nodePtr,K key, Stack<T>* myList)
+void BST<K, T>::searchByKeyHelper(BSTNode<K,T>* nodePtr,K key, Stack<T>* myList)
 {
-	//Traverse the tree
+	//Traverse the BST
 	if (nodePtr)
 	{
 		searchByKeyHelper(nodePtr->getLeft(),key,myList);
@@ -161,7 +161,7 @@ void Tree<K, T>::searchByKeyHelper(TreeNode<K,T>* nodePtr,K key, Stack<T>* myLis
 }
 
 template<class K, class T>
-void Tree<K, T>::searchBySmallestKeyHelper(TreeNode<K, T>*nodePtr, K key, Stack<T>*myStack)
+void BST<K, T>::searchBySmallestKeyHelper(BSTNode<K, T>*nodePtr, K key, Stack<T>*myStack)
 {
 	if (nodePtr)
 	{
@@ -172,7 +172,7 @@ void Tree<K, T>::searchBySmallestKeyHelper(TreeNode<K, T>*nodePtr, K key, Stack<
 }
 
 template<class K, class T>
-void Tree<K, T>::searchByGreatestKeyHelper(TreeNode<K, T>*nodePtr, K key, Stack<T>*myStack)
+void BST<K, T>::searchByGreatestKeyHelper(BSTNode<K, T>*nodePtr, K key, Stack<T>*myStack)
 {
 	if (nodePtr)
 	{
@@ -183,17 +183,17 @@ void Tree<K, T>::searchByGreatestKeyHelper(TreeNode<K, T>*nodePtr, K key, Stack<
 }
 
 template<class K, class T>
-T Tree<K, T>::searchByKey(K key)
+T BST<K, T>::searchByKey(K key)
 {
-	TreeNode <K, T>* nodePtr = root;
+	BSTNode <K, T>* nodePtr = root;
 
-	//Traverse the tree
+	//Traverse the BST
 	while (nodePtr != nullptr)
 	{
 		if (nodePtr->getKey() == key)
 			return nodePtr->getpData();
 		else if (key < nodePtr->getKey())
-			nodePtr = nodePtr->getLeft();	//Else if the data is less, move to the left of the tree
+			nodePtr = nodePtr->getLeft();	//Else if the data is less, move to the left of the BST
 		else
 			nodePtr = nodePtr->getRight(); //Else, Move to the right
 	}
@@ -201,62 +201,62 @@ T Tree<K, T>::searchByKey(K key)
 }
 
 template<class K, class T>
-void Tree<K, T>::searchByKey(K key, Stack<T>*myList)
+void BST<K, T>::searchByKey(K key, Stack<T>*myList)
 {
 	searchByKeyHelper(root, key, myList);
 }
 
 template<class K, class T>
-void Tree<K, T>::searchBySmallestKey(K key, Stack<T>*myStack)
+void BST<K, T>::searchBySmallestKey(K key, Stack<T>*myStack)
 {
 	searchBySmallestKeyHelper(root, key, myStack);
 }
 
 template<class K, class T>
-void Tree<K, T>::searchByGreatestKey(K key, Stack<T>*myStack)
+void BST<K, T>::searchByGreatestKey(K key, Stack<T>*myStack)
 {
 	searchByGreatestKeyHelper(root, key, myStack);
 }
 
 
 template<class K, class T>
-void Tree<K, T>::displayInOrder() const
+void BST<K, T>::displayInOrder() const
 {
 	displayInOrder(root);
 }
 
 template<class K, class T>
-void Tree<K, T>::displayPreOrder() const
+void BST<K, T>::displayPreOrder() const
 {
 	displayPreOrder(root);
 }
 
 template<class K, class T>
-void Tree<K, T>::displayPostOrder() const
+void BST<K, T>::displayPostOrder() const
 {
 	displayPostOrder(root);
 }
 
 template<class K, class T>
-void Tree<K, T>::printTree()
+void BST<K, T>::printBST()
 {
-	printIndentedTree(root);
+	printIndentedBST(root);
 }
 
 template<class K, class T>
-int Tree<K, T>::getCountNodes() const
+int BST<K, T>::getCountNodes() const
 {
 	return itemCount;
 }
 
 template<class K, class T>
-bool Tree<K, T>::isEmpty() const
+bool BST<K, T>::isEmpty() const
 {
 	return root == nullptr;
 }
 
 template<class K, class T>
-K Tree<K, T>::getAverage() const
+K BST<K, T>::getAverage() const
 {
 	K sum = 0;
 	calculateSum(root, sum);
@@ -264,37 +264,37 @@ K Tree<K, T>::getAverage() const
 }
 
 template<class K, class T>
-K Tree<K, T>::getSmallest() const
+K BST<K, T>::getSmallest() const
 {
 	return getSmallestNode(root)->getKey();
 }
 
 template<class K, class T>
-K Tree<K, T>::getLargest() const
+K BST<K, T>::getLargest() const
 {
 	return getBiggestNode(root)->getKey();
 }
 
 template<class K, class T>
-int Tree<K, T>::getHeight()
+int BST<K, T>::getHeight()
 {
 	return getHeightHelper(root);
 }
 
 template<class K, class T>
-T Tree<K, T>::getpRootData() const
+T BST<K, T>::getpRootData() const
 {
 	return root->getpData();
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::getRootNode() const
+BSTNode<K, T>* BST<K, T>::getRootNode() const
 {
 	return root;
 }
 
 template<class K, class T>
-void Tree<K, T>::setRootData(K key_input, T newData)
+void BST<K, T>::setRootData(K key_input, T newData)
 {
 	if (root != nullptr)
 	{
@@ -306,7 +306,7 @@ void Tree<K, T>::setRootData(K key_input, T newData)
 }
 
 template<class K, class T>
-int Tree<K, T>::countNodes(TreeNode<K, T> *nodePtr) const
+int BST<K, T>::countNodes(BSTNode<K, T> *nodePtr) const
 {
 	if (nodePtr == nullptr)
 		return 0;
@@ -322,7 +322,7 @@ int Tree<K, T>::countNodes(TreeNode<K, T> *nodePtr) const
 }
 
 template<class K, class T>
-int Tree<K, T>::getHeightHelper(TreeNode<K, T>* nodePtr)
+int BST<K, T>::getHeightHelper(BSTNode<K, T>* nodePtr)
 {
 	if (nodePtr == nullptr)
 		return 0;
@@ -333,7 +333,7 @@ int Tree<K, T>::getHeightHelper(TreeNode<K, T>* nodePtr)
 }
 
 template<class K, class T>
-void Tree<K, T>::displayInOrder(TreeNode<K, T> *nodePtr) const
+void BST<K, T>::displayInOrder(BSTNode<K, T> *nodePtr) const
 {
 	if (nodePtr)
 	{
@@ -344,7 +344,7 @@ void Tree<K, T>::displayInOrder(TreeNode<K, T> *nodePtr) const
 }
 
 template<class K, class T>
-void Tree<K, T>::displayPreOrder(TreeNode<K, T>* nodePtr) const
+void BST<K, T>::displayPreOrder(BSTNode<K, T>* nodePtr) const
 {
 	if (nodePtr)
 	{
@@ -355,7 +355,7 @@ void Tree<K, T>::displayPreOrder(TreeNode<K, T>* nodePtr) const
 }
 
 template<class K, class T>
-void Tree<K, T>::displayPostOrder(TreeNode<K, T>* nodePtr) const
+void BST<K, T>::displayPostOrder(BSTNode<K, T>* nodePtr) const
 {
 	if (nodePtr)
 	{
@@ -366,7 +366,7 @@ void Tree<K, T>::displayPostOrder(TreeNode<K, T>* nodePtr) const
 }
 
 template<class K, class T>
-TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input, int &deleteCounter)
+BSTNode<K, T>* BST<K, T>::deleteNode(BSTNode<K, T>*root, K key_input, int &deleteCounter)
 {
 	if (root == nullptr)
 	{
@@ -389,7 +389,7 @@ TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input, int &de
 		}
 		else if (root->hasLeftChild() && !root->hasRightChild())
 		{
-			TreeNode<K, T> *temp = root->getLeft();					deleteCounter++;
+			BSTNode<K, T> *temp = root->getLeft();					deleteCounter++;
 
 			//deleteNode(root, key_input);
 			delete root;											deleteCounter++;
@@ -398,7 +398,7 @@ TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input, int &de
 		}
 		else if (root->hasRightChild() && !root->hasLeftChild())
 		{
-			TreeNode<K, T>*temp = root->getRight();					deleteCounter++;
+			BSTNode<K, T>*temp = root->getRight();					deleteCounter++;
 			//deleteNode(root, key_input, deleteCounter);
 
 			delete root;											deleteCounter++;
@@ -407,7 +407,7 @@ TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input, int &de
 		}
 		else
 		{
-			TreeNode<K, T> *smallestValue = getSmallestNode(root->getRight());		deleteCounter++;
+			BSTNode<K, T> *smallestValue = getSmallestNode(root->getRight());		deleteCounter++;
 			K minKey_Data = smallestValue->getKey();								deleteCounter++;
 			root->setKey(minKey_Data);												deleteCounter++;
 			root->setRight(deleteNode(root->getRight(), minKey_Data, deleteCounter));				deleteCounter++;
@@ -417,13 +417,13 @@ TreeNode<K, T>* Tree<K, T>::deleteNode(TreeNode<K, T>*root, K key_input, int &de
 }
 
 template <class K, class T>
-int Tree<K, T>::max(int x, int y)
+int BST<K, T>::max(int x, int y)
 {
 	return x > y ? x : y;
 }
 
 template <class K, class T>
-void Tree<K, T>::printIndentedTree(TreeNode<K, T> *p, int indent = 0)
+void BST<K, T>::printIndentedBST(BSTNode<K, T> *p, int indent = 0)
 {
 	int height = getHeight() * 4;
 
@@ -433,7 +433,7 @@ void Tree<K, T>::printIndentedTree(TreeNode<K, T> *p, int indent = 0)
 }
 
 template <class K, class T>
-void Tree<K, T>::printRow(TreeNode<K, T>* p, int height, int depth)
+void BST<K, T>::printRow(BSTNode<K, T>* p, int height, int depth)
 {
 	int placeholder = 0;
 
@@ -464,7 +464,7 @@ void Tree<K, T>::printRow(TreeNode<K, T>* p, int height, int depth)
 }
 
 template<class K, class T>
-void Tree<K, T>::getLine(TreeNode<K, T>*root, int depth, std::vector<K>&vals)
+void BST<K, T>::getLine(BSTNode<K, T>*root, int depth, std::vector<K>&vals)
 {
 	int placeholder = 0;
 	if (depth <= 0 && root != nullptr)
