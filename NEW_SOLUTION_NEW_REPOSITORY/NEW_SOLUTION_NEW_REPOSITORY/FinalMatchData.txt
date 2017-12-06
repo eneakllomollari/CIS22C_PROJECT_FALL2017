@@ -1,5 +1,5 @@
 2008 | Spain, Germany.          | 1 - 0         | Ernst-Happel-Stadion.        | Vienna.         |
-1988 | Netherland, Soviet Union. | 2 - 0         | Olympiastadion.              | Munich.         |
+1988 | Netherland, Soviet Union.| 2 - 0         | Olympiastadion.              | Munich.         |
 1968 | Italy, Yugoslavia.       | 1 - 1 (2 - 0) | Stadio Olimpico.             | Rome.           |
 2010 | Netherlands, Spain.      | 0 - 1         | Soccer City.                 | Johannesburg.   |
 1990 | West Germany, Agentina.  | 1 - 0         | Stadio Olimpico.             | Rome.           |
@@ -23,7 +23,7 @@
 1938 | Italy, Hungary.          | 4 - 2         | Stade Olympique de Colombes. | Paris.          |
 2000 | France, Italy.           | 2 - 1         | Feijenoord Stadion.          | Rotterdam.      |
 1980 | Germany, Belgium.        | 2 - 1         | Stadio Olimpico.             | Rome.           |
-1960 | Soviet Union, Yugoslavia. | 2 - 1         | Parc des Princes.           | Paris.         |
+1960 | Soviet Union, Yugoslavia.| 2 - 1         | Parc des Princes.            | Paris.         |
 2002 | Germany, Brazil.         | 0 - 2         | Yokohama Stadium.            | Yokohama.       |
 1982 | Italy, Germany.          | 3 - 1         | Santiago Bernabeu Stadium.   | Madrid.         |
 1962 | Brazil, Czechoslovakia.  | 3 - 1         | Estadio Nacional.            | Santiago.       |

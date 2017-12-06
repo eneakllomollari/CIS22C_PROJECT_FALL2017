@@ -29,7 +29,12 @@ HeadNode::HeadNode()
 
 HeadNode::~HeadNode()
 {
+	worldCupData->insertDataAddressToStack(worldCupRecycleBin);
+	finalMatchData->insertDataAddressToStack(finalMatchRecycleBin);
+	teamsByYear->insertDataAddressToStack(teamsParticipatedRecycleBin);
+
 	saveToInputFileManager();
+	clearRecycleStacksManager();
 
 	delete winnerBST;
 	delete hostBST;
@@ -1103,9 +1108,27 @@ void HeadNode::saveToInputFileManager()
 void HeadNode::clearRecycleStacksManager()
 {
 	//Clearing the Recycle Bins
-	worldCupRecycleBin->clearStack();
-	teamsParticipatedRecycleBin->clearStack();
-	finalMatchRecycleBin->clearStack();
+	while (!worldCupRecycleBin->isEmpty())
+	{
+		WorldCup *WCObject = worldCupRecycleBin->peek();
+		worldCupRecycleBin->pop();
+		delete WCObject;
+		WCObject = nullptr;
+	}
+	while (!teamsParticipatedRecycleBin->isEmpty())
+	{
+		TeamsParticipated* TPObject = teamsParticipatedRecycleBin->peek();
+		teamsParticipatedRecycleBin->pop();
+		delete TPObject;
+		TPObject = nullptr;
+	}
+	while (!finalMatchRecycleBin->isEmpty())
+	{
+		FinalMatch* FMObject = finalMatchRecycleBin->peek();
+		finalMatchRecycleBin->pop();
+		delete FMObject;
+		FMObject = nullptr;
+	}
 }
 
 void HeadNode::efficencyManager()
