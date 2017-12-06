@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FinalMatch.cpp" />
+    <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="HeadNode.cpp" />
     <ClCompile Include="initializers.cpp" />
     <ClCompile Include="main.cpp" />

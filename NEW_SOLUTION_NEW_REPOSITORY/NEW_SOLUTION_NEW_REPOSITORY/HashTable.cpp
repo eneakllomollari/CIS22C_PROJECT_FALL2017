@@ -37,7 +37,7 @@ HashTable<K, T>::~HashTable()
 template<class K, class T>
 int HashTable<K, T>::hash(const K& k)const
 {
-	return (2 * k + 3) % TABLE_SIZE;
+	return (5 * k + 7) % TABLE_SIZE;
 }
 
 template<class K, class T>

@@ -12,20 +12,21 @@ int main()
 	{
 		//MENU STARTS HERE 
 		//MAIN MENU OF THE PROGRAM
+		std::cout << std::endl << std::endl << std::endl << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Welcome to World Cup Soccer Stats " << std::endl << std::endl;
 
-		do {
+		do 
+		{
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "The list of possible operations\n" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1) Add a new year stats" << std::endl; //this is <add new data>
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2) Remove a year" << std::endl; //this is <delete data>
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Search data in BST" << std::endl; //this is <delete data>
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) Find and display one data record of a year" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List data in hash table sequence" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) List sorted data" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Print indented BST" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Undo Delete " << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "9) Save Changes/Clear the Recovery Stack" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "10) Efficency " << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Find and display one data record of a year" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) List data in hash table sequence" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List sorted data by key" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) Print indented BST" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Undo Delete " << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Save Changes/Clear the Recovery Stack" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "9) Efficency " << std::endl;
 
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0) EXIT\n";
 
@@ -47,35 +48,30 @@ int main()
 				break;
 			case 3:
 				system("CLS");
-				mainHeadNode.searchManager();
+				mainHeadNode.displayKeyManager();
 				system("CLS");
 				break;
 			case 4:
 				system("CLS");
-				mainHeadNode.displayKeyManager();
+				mainHeadNode.displayTableManager();
 				system("CLS");
 				break;
 			case 5:
 				system("CLS");
-				mainHeadNode.displayTableManager();
+				mainHeadNode.sortKeyManager();
 				system("CLS");
 				break;
 			case 6:
 				system("CLS");
-				mainHeadNode.sortManager();
+				mainHeadNode.printIndentedBST();
 				system("CLS");
 				break;
 			case 7:
 				system("CLS");
-				mainHeadNode.printIndentedBST();
-				system("CLS");
-				break;
-			case 8:
-				system("CLS");
 				mainHeadNode.undoDeleteManager();
 				system("CLS");
 				break;
-			case 9:
+			case 8:
 				mainHeadNode.saveToInputFileManager();
 				mainHeadNode.clearRecycleStacksManager();
 				system("CLS");
@@ -84,10 +80,10 @@ int main()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "OPERATION SUCCESFUL!" << std::endl;
 				std::cout << std::endl << std::endl << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "";
-				 std::cout << std::endl << std::endl;system("pause");;
+				std::cout << std::endl << std::endl; system("pause");
 				system("CLS");
 				break;
-			case 10:
+			case 9:
 				system("CLS");
 				//Since we are using BST hash tables, but with the same key the data of one BST is sufficent
 				mainHeadNode.efficencyManager();
@@ -108,6 +104,7 @@ int main()
 			std::cin.ignore(INT_MAX, '\n');
 
 			std::cout << std::endl << std::endl;
+			std::cout << std::endl << std::endl << std::endl << std::endl;
 		} while (choice != 0);	//End of main do while loop
 	}
 	catch (char *msg)

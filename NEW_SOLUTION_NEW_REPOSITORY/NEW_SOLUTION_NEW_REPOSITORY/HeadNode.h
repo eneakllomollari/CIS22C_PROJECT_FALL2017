@@ -18,14 +18,7 @@ class HeadNode
 {
 private:
 	//Declaring the BSTs
-	BST<std::string, WorldCup*> *winnerBST;
-	BST<std::string, WorldCup*> *hostBST;
 	BST<int, WorldCup*> *yearHeldBST;
-	BST<double, WorldCup*> *goalsPgameBST;
-	BST<int, WorldCup*> *aveAtteBST;
-	BST<int, WorldCup*> *totAtteBST;
-	BST<int, WorldCup*> *numGamesBST;
-	BST<int, TeamsParticipated*> *numTeamsBST;
 	BST<int, TeamsParticipated*> *numTeamsbyYearBST;
 	BST<int, FinalMatch*> *finalMatchBST;
 
@@ -60,8 +53,7 @@ public:
 
 	void addManager();
 	void removeManager();
-	void searchManager();
-	void sortManager();
+	void sortKeyManager();
 	void displayKeyManager();
 	void displayTableManager();
 	void printIndentedBST();

@@ -123,13 +123,7 @@ void HeadNode::readFileWorldcupData(std::string &line)
 	
 	//This is where you assign the values to the BSTs and the hash table
 	//Initializing the BSTs
-	hostBST->insert(tempWorldCup->getHostCountry(), tempWorldCup, insertCounter);
-	winnerBST->insert(tempWorldCup->getWinningTeam(), tempWorldCup, insertCounter);
 	yearHeldBST->insert(tempWorldCup->getYearHeld(), tempWorldCup, insertCounter);
-	goalsPgameBST->insert(tempWorldCup->getGoalsPerGame(), tempWorldCup, insertCounter);
-	aveAtteBST->insert(tempWorldCup->getAveAtt(), tempWorldCup, insertCounter);
-	totAtteBST->insert(tempWorldCup->getTotAtt(), tempWorldCup, insertCounter);
-	numGamesBST->insert(tempWorldCup->getNumGames(), tempWorldCup, insertCounter);
 
 	worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounter);
 }
@@ -232,6 +226,6 @@ void HeadNode::readFileTeamsByYearData(std::string &line)
 
 	//"Put" tempTeams_Object with all the teams participated for a specific year into teamsParticTable HashTable
 	teamsByYear->put(yearHeld, tempTeams_Object, putCounter);
-	numTeamsBST->insert(numTeamsParticipated, tempTeams_Object, insertCounter);
+
 	numTeamsbyYearBST->insert(yearHeld, tempTeams_Object, numTeamsByYearBSTCounter);
 }

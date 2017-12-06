@@ -11,8 +11,8 @@ class BST
 private:
 	BSTNode<K, T> *root;		//Root of the BST
 	int itemCount;
-
 protected:
+	void sortByGoalsPerGame();
 	void insertNode(K, T);
 	int countNodes(BSTNode<K, T> *)const;
 	int getHeightHelper(BSTNode<K, T> *);

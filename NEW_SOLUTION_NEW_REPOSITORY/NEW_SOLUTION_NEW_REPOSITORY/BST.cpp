@@ -388,28 +388,19 @@ BSTNode<K, T>* BST<K, T>::deleteNode(BSTNode<K, T>*root, K key_input, int &delet
 		}
 		else if (root->hasLeftChild() && !root->hasRightChild())
 		{
-			BSTNode<K, T> *temp = root->getLeft();					deleteCounter++;
-
-			//deleteNode(root, key_input);
-			delete root;											deleteCounter++;
-			root = nullptr;											//deleteCounter++;
-			return temp;											//deleteCounter++;
+			root = root->getLeft();									deleteCounter++;
+			deleteNode(root, key_input, deleteCounter);
 		}
 		else if (root->hasRightChild() && !root->hasLeftChild())
 		{
-			BSTNode<K, T>*temp = root->getRight();					deleteCounter++;
-			//deleteNode(root, key_input, deleteCounter);
-
-			delete root;											deleteCounter++;
-			root = nullptr;											//deleteCounter++;
-			return temp;											//deleteCounter++;
+			root = root->getRight();								deleteCounter++;
+			deleteNode(root, key_input, deleteCounter);
 		}
 		else
 		{
-			BSTNode<K, T> *smallestValue = getSmallestNode(root->getRight());		deleteCounter++;
-			K minKey_Data = smallestValue->getKey();								deleteCounter++;
+			K minKey_Data = getSmallestNode(root->getRight())->getKey();				deleteCounter++;
 			root->setKey(minKey_Data);												deleteCounter++;
-			root->setRight(deleteNode(root->getRight(), minKey_Data, deleteCounter));				deleteCounter++;
+			root->setRight(deleteNode(root->getRight(), minKey_Data, deleteCounter));deleteCounter++;
 		}
 	}
 	return root;																	deleteCounter++;
