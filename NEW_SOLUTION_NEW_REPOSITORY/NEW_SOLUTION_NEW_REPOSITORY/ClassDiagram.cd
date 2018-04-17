@@ -42,18 +42,18 @@
       <FileName>Stack.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BSTNode&lt;K, T&gt;">
+  <Class Name="BinaryNode&lt;K, T&gt;">
     <Position X="0.5" Y="9.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAwAAAgAAIAAAABAAEAJAACJAICAAAAAAAAAAIwAA=</HashCode>
-      <FileName>BSTNode.h</FileName>
+      <FileName>BinaryNode.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BST&lt;K, T&gt;">
+  <Class Name="BinarySearchTree&lt;K, T&gt;">
     <Position X="0.5" Y="0.5" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AEQAEACERQDBjgAGAAAgCAAEQAioSAAQQAEQSAABQAA=</HashCode>
-      <FileName>BST.h</FileName>
+      <FileName>BinarySearchTree.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

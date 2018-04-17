@@ -1,6 +1,6 @@
-#include "HeadNode.h"
+#include "Metadata.h"
 
-void HeadNode::initializeWorldCupDataManager()
+void Metadata::initializeWorldCupdataManager()
 {
 	//Declare Local Variables/Objects
 	std::string buffer;
@@ -8,14 +8,14 @@ void HeadNode::initializeWorldCupDataManager()
 	std::ifstream finTeamsByYear;
 
 	//Open file for reading
-	finWorldCup.open("worldCupGeneralData.txt");
+	finWorldCup.open("worldCupGeneraldata.txt");
 
 	//If the file is unable to open, then throw an error
-	if (!finWorldCup) throw "worldCupGeneralData.txt FILE COULD NOT BE OPENED IN initializeWorldCupData()"; /*2 operations*/
+	if (!finWorldCup) throw "worldCupGeneraldata.txt FILE COULD NOT BE OPENED IN initializeWorldCupdata()"; /*2 operations*/
 
 	//Read the file line by line and initialize data
 	while (getline(finWorldCup, buffer))
-		readFileWorldcupData(buffer);
+		readFileWorldcupdata(buffer);
 
 	//Close the ifstream object
 	finWorldCup.close();
@@ -26,39 +26,39 @@ void HeadNode::initializeWorldCupDataManager()
 	finTeamsByYear.open("TeamsByYear.txt");
 
 	//If the file couldn't be opened throw an error
-	if (!finTeamsByYear) throw "TeamsbyYear.txt FILE COULD NOT BE OPENED IN initializeWorldCupData()";
+	if (!finTeamsByYear) throw "TeamsbyYear.txt FILE COULD NOT BE OPENED IN initializeWorldCupdata()";
 
 	//Read the file line by line and initialize data
 	while (getline(finTeamsByYear, buffer))
-		readFileTeamsByYearData(buffer);
+		readFileTeamsByYeardata(buffer);
 
 	//Close the ifstream object
 	finTeamsByYear.close();
 }
 
-void HeadNode::initializeFinalMatchDataManager()
+void Metadata::initializeFinalMatchdataManager()
 {
 	//Declare local variables/objects
 	std::string buffer;
 	std::ifstream finFinalMatch;
 
 	//Open file for input
-	finFinalMatch.open("FinalMatchData.txt");
+	finFinalMatch.open("FinalMatchdata.txt");
 
 	//If file is unable to open throw error
-	if (!finFinalMatch) throw "FinalMatchData.txt FILE COULD NOT BE OPENED IN initializeFinalMatchData()";
+	if (!finFinalMatch) throw "FinalMatchdata.txt FILE COULD NOT BE OPENED IN initializeFinalMatchdata()";
 
 	//Read file line by line and initialize data
 	while (getline(finFinalMatch, buffer))
 	{
-		readFileFinalMatchData(buffer);
+		readFileFinalMatchdata(buffer);
 	}
 
 	//Close ifstream object
 	finFinalMatch.close();
 }
 
-void HeadNode::readFileWorldcupData(std::string &line)
+void Metadata::readFileWorldcupdata(std::string &line)
 {
 	int yearHeld, numGames, aveAtt, totAtt;
 	double goalsPerGame;
@@ -121,14 +121,14 @@ void HeadNode::readFileWorldcupData(std::string &line)
 	//Allocating object in the heap
 	WorldCup* tempWorldCup = new WorldCup(yearHeld, winningTeam, goldenBootWinner, numGames, goalsPerGame, aveAtt, totAtt, hostCountry);
 	
-	//This is where you assign the values to the BSTs and the hash table
-	//Initializing the BSTs
-	yearHeldBST->insert(tempWorldCup->getYearHeld(), tempWorldCup, insertCounter);
+	//This is where you assign the values to the BinarySearchTrees and the hash table
+	//Initializing the BinarySearchTrees
+	yearHeldBinarySearchTree->insert(tempWorldCup->getYearHeld(), tempWorldCup, insertCounter);
 
-	worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounter);
+	worldCupdata->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounter);
 }
 
-void HeadNode::readFileFinalMatchData(std::string &line)
+void Metadata::readFileFinalMatchdata(std::string &line)
 {
 	// holds the element position of string find function
 	size_t pos, end_pos;
@@ -183,15 +183,15 @@ void HeadNode::readFileFinalMatchData(std::string &line)
 
 	//Store data in HashTable
 	//Key = yearHeld
-	//Data = FinalMatch
-	finalMatchData->put(temp_FinalMatch_object->getYear(), temp_FinalMatch_object, putCounter);
-	finalMatchBST->insert(temp_FinalMatch_object->getYear(), temp_FinalMatch_object,putCounter);
+	//data = FinalMatch
+	finalMatchdata->put(temp_FinalMatch_object->getYear(), temp_FinalMatch_object, putCounter);
+	finalMatchBinarySearchTree->insert(temp_FinalMatch_object->getYear(), temp_FinalMatch_object,putCounter);
 }
 
-void HeadNode::readFileTeamsByYearData(std::string &line)
+void Metadata::readFileTeamsByYeardata(std::string &line)
 {
 	//Declare local variables/objects
-	int  size = 0, numTeamsParticipated, index = 0, numTeamsByYearBSTCounter = 0;
+	int  size = 0, numTeamsParticipated, index = 0, numTeamsByYearBinarySearchTreeCounter = 0;
 	int insertCounter, putCounter;
 
 	std::string *tempArray_Teams, temp;
@@ -227,5 +227,5 @@ void HeadNode::readFileTeamsByYearData(std::string &line)
 	//"Put" tempTeams_Object with all the teams participated for a specific year into teamsParticTable HashTable
 	teamsByYear->put(yearHeld, tempTeams_Object, putCounter);
 
-	numTeamsbyYearBST->insert(yearHeld, tempTeams_Object, numTeamsByYearBSTCounter);
+	numTeamsbyYearBinarySearchTree->insert(yearHeld, tempTeams_Object, numTeamsByYearBinarySearchTreeCounter);
 }

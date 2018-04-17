@@ -39,11 +39,11 @@ public:
 	void display()const;
 
 	void writeTeamsParticipatedToTxt();
-	void writeWorldCupGeneralDataToTxt();
-	void writeFinalMatchDataToTxt();
+	void writeWorldCupGeneraldataToTxt();
+	void writeFinalMatchdataToTxt();
 	void calculateLongestCollisionPath();
 	
-	void insertDataAddressToStack(Stack<T>*);
+	void insertdataAddressToStack(Stack<T>*);
 };
 #include "HashTable.cpp"
 #endif // !HASHTABLE_H

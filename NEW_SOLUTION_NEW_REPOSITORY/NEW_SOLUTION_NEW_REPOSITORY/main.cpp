@@ -2,16 +2,16 @@
 	FINAL PROJECT CIS 22C / Fall 2017 De Anza College
 	Partners: Enea Kllomolari, Kamaljot Saini, Marcello Rusciano, Carlo Empaynado, Zachary Pascual
 
-	Description: This project demonstrates the data structures we learned in CIS 22C usng statistical data
+	Description: This project demonstrates the data structures we learned in CIS 22C using statistical data
 	from the FIFA World Cup and Euro Soccer Tournaments
 */
 
-#include "HeadNode.h"
+#include "Metadata.h"		//Inclues all the metadata required for the application
 
 int main()
 {
 	//THE MAIN NODE OF THE PROGRAM
-	HeadNode mainHeadNode;		
+	Metadata mainMetadata;		
 
 	int choice;
 
@@ -31,7 +31,7 @@ int main()
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3) Find and display one data record of a year" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "4) List data in hash table sequence" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "5) List sorted data by key" << std::endl;
-			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) Print indented BST" << std::endl;
+			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "6) Print indented BinarySearchTree" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Undo Delete " << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Save Changes/Clear the Recovery Stack" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "9) Efficency " << std::endl;
@@ -46,42 +46,42 @@ int main()
 			{
 			case 1:
 				system("CLS");
-				mainHeadNode.addManager();
+				mainMetadata.addManager();
 				system("CLS");
 				break;
 			case 2:
 				system("CLS");
-				mainHeadNode.removeManager();
+				mainMetadata.removeManager();
 				system("CLS");
 				break;
 			case 3:
 				system("CLS");
-				mainHeadNode.displayKeyManager();
+				mainMetadata.displayKeyManager();
 				system("CLS");
 				break;
 			case 4:
 				system("CLS");
-				mainHeadNode.displayTableManager();
+				mainMetadata.displayTableManager();
 				system("CLS");
 				break;
 			case 5:
 				system("CLS");
-				mainHeadNode.sortKeyManager();
+				mainMetadata.sortKeyManager();
 				system("CLS");
 				break;
 			case 6:
 				system("CLS");
-				mainHeadNode.printIndentedBST();
+				std::cout << "Print function not available!" << std::endl;
 				system("CLS");
 				break;
 			case 7:
 				system("CLS");
-				mainHeadNode.undoDeleteManager();
+				mainMetadata.undoDeleteManager();
 				system("CLS");
 				break;
 			case 8:
-				mainHeadNode.saveToInputFileManager();
-				mainHeadNode.clearRecycleStacksManager();
+				mainMetadata.saveToInputFileManager();
+				mainMetadata.clearRecycleStacksManager();
 				system("CLS");
 				std::cout << std::endl << std::endl << std::endl;
 				std::cout << std::endl << std::endl;
@@ -93,8 +93,8 @@ int main()
 				break;
 			case 9:
 				system("CLS");
-				//Since we are using BST hash tables, but with the same key the data of one BST is sufficent
-				mainHeadNode.efficencyManager();
+				//Since we are using BinarySearchTree hash tables, but with the same key the data of one BinarySearchTree is sufficent
+				mainMetadata.efficencyManager();
 				std::cout << std::endl;
 				 std::cout << std::endl << std::endl;system("pause");;
 				system("CLS");

@@ -433,7 +433,7 @@ void HashTable<K, T>::writeTeamsParticipatedToTxt()
 	file
 */
 template<class K, class T>
-void HashTable<K, T>::writeWorldCupGeneralDataToTxt()
+void HashTable<K, T>::writeWorldCupGeneraldataToTxt()
 {
 	std::ofstream file("WorldCupGeneralData.txt");
 	if (!file) throw "WorldCupGeneralData.txt COULD NOT BE OPENED IN writeWorldCupGeneralDataToTxt()";
@@ -472,7 +472,7 @@ void HashTable<K, T>::writeWorldCupGeneralDataToTxt()
 	stored in HashTable into file "FinalMatchData.txt"
 */
 template<class K, class T>
-void HashTable<K, T>::writeFinalMatchDataToTxt()
+void HashTable<K, T>::writeFinalMatchdataToTxt()
 {
 	//Open file for output
 	std::ofstream file("FinalMatchData.txt");
@@ -542,7 +542,7 @@ void HashTable<K, T>::calculateLongestCollisionPath()
 	HashTable...This will allow us the functionality to undo delete changes
 */
 template<class K, class T>
-void HashTable<K, T>::insertDataAddressToStack(Stack<T>*myStack)
+void HashTable<K, T>::insertdataAddressToStack(Stack<T>*myStack)
 {
 	HashEntry<K, T>*entry;
 	for (int i = 0; i < TABLE_SIZE; i++)

@@ -1,15 +1,15 @@
-#include "HeadNode.h"
+#include "Metadata.h"
 
-/*HeadNode Constructor*/
-HeadNode::HeadNode()
+/*Metadata Constructor*/
+Metadata::Metadata()
 {
-	yearHeldBST = new BST <int, WorldCup*>;
-	finalMatchBST = new BST<int, FinalMatch*>;
-	numTeamsbyYearBST = new BST<int, TeamsParticipated*>;
-	numBSTs = 3;
+	yearHeldBinarySearchTree = new BinarySearchTree <int, WorldCup*>;
+	finalMatchBinarySearchTree = new BinarySearchTree<int, FinalMatch*>;
+	numTeamsbyYearBinarySearchTree = new BinarySearchTree<int, TeamsParticipated*>;
+	numBinarySearchTrees = 3;
 
-	worldCupData = new HashTable<int, WorldCup*>;
-	finalMatchData = new HashTable<int, FinalMatch*>;
+	worldCupdata = new HashTable<int, WorldCup*>;
+	finalMatchdata = new HashTable<int, FinalMatch*>;
 	teamsByYear = new HashTable<int, TeamsParticipated*>;
 	numHashTables = 3;
 
@@ -17,26 +17,26 @@ HeadNode::HeadNode()
 	finalMatchRecycleBin = new Stack <FinalMatch*>;
 	teamsParticipatedRecycleBin = new Stack <TeamsParticipated*>;
 
-	initializeWorldCupDataManager();
-	initializeFinalMatchDataManager();
+	initializeWorldCupdataManager();
+	initializeFinalMatchdataManager();
 }
 
-/*HeadNode Destuctor*/
-HeadNode::~HeadNode()
+/*Metadata Destuctor*/
+Metadata::~Metadata()
 {
-	worldCupData->insertDataAddressToStack(worldCupRecycleBin);
-	finalMatchData->insertDataAddressToStack(finalMatchRecycleBin);
-	teamsByYear->insertDataAddressToStack(teamsParticipatedRecycleBin);
+	worldCupdata->insertdataAddressToStack(worldCupRecycleBin);
+	finalMatchdata->insertdataAddressToStack(finalMatchRecycleBin);
+	teamsByYear->insertdataAddressToStack(teamsParticipatedRecycleBin);
 
 	saveToInputFileManager();
 	clearRecycleStacksManager();
 
-	delete yearHeldBST;
-	delete numTeamsbyYearBST;
-	numBSTs = 0;
+	delete yearHeldBinarySearchTree;
+	delete numTeamsbyYearBinarySearchTree;
+	numBinarySearchTrees = 0;
 
-	delete worldCupData;
-	delete finalMatchData;
+	delete worldCupdata;
+	delete finalMatchdata;
 	delete teamsByYear;
 	numHashTables = 0;
 
@@ -50,12 +50,12 @@ Decription: Menu for entering user data for creating the objects and inserting t
 Pre: none
 Post: none
 */
-void HeadNode::addManager()
+void Metadata::addManager()
 {
 	system("CLS");
 
 	//Operation counters
-	int bstOpCounter = 0, hashTableOpCounter = 0;
+	int BinarySearchTreeOpCounter = 0, hashTableOpCounter = 0;
 	
 	//Will hold the user input
 	int year, numGames, aveAttendance, totAttendance, numberOfTeams;
@@ -78,7 +78,7 @@ void HeadNode::addManager()
 
 		std::cout << std::endl << std::endl;
 
-		//VALIDATE YEAR DATA
+		//VALIDATE YEAR data
 		while ((std::cin.fail() || year < 1930) && year != -1)
 		{
 			if (std::cin.fail())
@@ -102,7 +102,7 @@ void HeadNode::addManager()
 
 		if (year == -1) return;
 
-		if (worldCupData->contains(year) && finalMatchData->contains(year) && teamsByYear->contains(year))
+		if (worldCupdata->contains(year) && finalMatchdata->contains(year) && teamsByYear->contains(year))
 		{
 			std::cout << std::endl << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "THIS YEAR ALREADY EXISTS IN OUR RECORDS!" << std::endl << std::endl;
@@ -310,12 +310,12 @@ void HeadNode::addManager()
 		FinalMatch* tempFinalMatch = new FinalMatch(year, teamsParticipatedArray, goalScoredFirstTeam + " - " + goalScoredSecondTeam, stadiumName, cityHost);
 		TeamsParticipated* tempTeamsParticipated = new TeamsParticipated(year, numberOfTeams, teamsParticipatedArray);
 
-		yearHeldBST->insert(tempWorldCup->getYearHeld(), tempWorldCup, bstOpCounter);
-		numTeamsbyYearBST->insert(tempTeamsParticipated->getYearHeld(), tempTeamsParticipated, bstOpCounter);
-		finalMatchBST->insert(tempFinalMatch->getYear(), tempFinalMatch, bstOpCounter);
+		yearHeldBinarySearchTree->insert(tempWorldCup->getYearHeld(), tempWorldCup, BinarySearchTreeOpCounter);
+		numTeamsbyYearBinarySearchTree->insert(tempTeamsParticipated->getYearHeld(), tempTeamsParticipated, BinarySearchTreeOpCounter);
+		finalMatchBinarySearchTree->insert(tempFinalMatch->getYear(), tempFinalMatch, BinarySearchTreeOpCounter);
 
-		worldCupData->put(tempWorldCup->getYearHeld(), tempWorldCup, hashTableOpCounter);
-		finalMatchData->put(tempFinalMatch->getYear(), tempFinalMatch, hashTableOpCounter);
+		worldCupdata->put(tempWorldCup->getYearHeld(), tempWorldCup, hashTableOpCounter);
+		finalMatchdata->put(tempFinalMatch->getYear(), tempFinalMatch, hashTableOpCounter);
 		teamsByYear->put(tempTeamsParticipated->getYearHeld(), tempTeamsParticipated, hashTableOpCounter);
 
 		system("CLS");
@@ -326,7 +326,7 @@ void HeadNode::addManager()
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed in HashTables:               #" << hashTableOpCounter/3 << " operations." << std::endl;
 		std::cout << std::endl;
 
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed in BST:                      #" << bstOpCounter/10 << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed in BinarySearchTree:                      #" << BinarySearchTreeOpCounter/10 << " operations." << std::endl;
 		std::cout << "\n\n";
 
 	}
@@ -352,11 +352,11 @@ Description: Remove Menu for user to delete data by year the user enters
 Pre: none
 Post: none
 */
-void HeadNode::removeManager()
+void Metadata::removeManager()
 {
 	system("CLS");
 
-	int bstOpCounter = 0, hashTableOpCounter = 0, searchHashTableCounter = 0;
+	int BinarySearchTreeOpCounter = 0, hashTableOpCounter = 0, searchHashTableCounter = 0;
 
 	int choiceYear;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "If you want to go back enter \" 0 \"" << std::endl;
@@ -371,7 +371,7 @@ void HeadNode::removeManager()
 				if (std::cin.fail()) throw 0;
 				break;
 			}
-			catch (int i)
+			catch (int)
 			{
 				std::cout << std::endl << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID ENTRY! PLEASE ENTER A VALID FOUR DIGIT YEAR!";
@@ -389,17 +389,17 @@ void HeadNode::removeManager()
 			return;
 		}
 
-		WorldCup* worldCupObject = worldCupData->get(choiceYear, searchHashTableCounter);
+		WorldCup* worldCupObject = worldCupdata->get(choiceYear, searchHashTableCounter);
 		TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, searchHashTableCounter);
-		FinalMatch* finalMatchObject = finalMatchData->get(choiceYear, searchHashTableCounter);
+		FinalMatch* finalMatchObject = finalMatchdata->get(choiceYear, searchHashTableCounter);
 
-		worldCupData->remove(choiceYear, hashTableOpCounter);
-		finalMatchData->remove(choiceYear, hashTableOpCounter);
+		worldCupdata->remove(choiceYear, hashTableOpCounter);
+		finalMatchdata->remove(choiceYear, hashTableOpCounter);
 		teamsByYear->remove(choiceYear, hashTableOpCounter);
 
-		yearHeldBST->remove(worldCupObject->getYearHeld(), bstOpCounter);
-		finalMatchBST->remove(finalMatchObject->getYear(), bstOpCounter);
-		numTeamsbyYearBST->remove(teamsParticipatedObject->getYearHeld(), bstOpCounter);
+		yearHeldBinarySearchTree->remove(worldCupObject->getYearHeld(), BinarySearchTreeOpCounter);
+		finalMatchBinarySearchTree->remove(finalMatchObject->getYear(), BinarySearchTreeOpCounter);
+		numTeamsbyYearBinarySearchTree->remove(teamsParticipatedObject->getYearHeld(), BinarySearchTreeOpCounter);
 
 		//Pushing the deleted files to the "recycle stacks"
 		worldCupRecycleBin->push(worldCupObject);
@@ -416,7 +416,7 @@ void HeadNode::removeManager()
 		std::cout << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed to remove from the HashTables:          #" << hashTableOpCounter / 3 << " operations." << std::endl;
 		std::cout << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed to remove from the BSTs:                #" << bstOpCounter / 10 << " operations." << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed to remove from the BinarySearchTrees:                #" << BinarySearchTreeOpCounter / 10 << " operations." << std::endl;
 		std::cout << std::endl;
 	}
 	catch (char *msg)
@@ -433,10 +433,10 @@ void HeadNode::removeManager()
 	system("CLS");
 }
 
-void HeadNode::sortKeyManager()
+void Metadata::sortKeyManager()
 {
-	printGeneralWorldCupDataHeader();
-	yearHeldBST->displayInOrder();
+	printGeneralWorldCupdataHeader();
+	yearHeldBinarySearchTree->displayInOrder();
 	std::cout << "\n\n";
 	std::cout << std::endl << std::endl; system("pause");
 	system("CLS");
@@ -448,7 +448,7 @@ Discription: Menu for diplaying the data by key year
 Pre: none
 Post: none
 */
-void HeadNode::displayKeyManager()
+void Metadata::displayKeyManager()
 {
 	int choiceYear;
 
@@ -469,7 +469,7 @@ void HeadNode::displayKeyManager()
 				if (std::cin.fail()) throw 0;
 				break;
 			}
-			catch (int i)
+			catch (int)
 			{
 				std::cout << std::endl << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID ENTRY! PLEASE ENTER A VALID FOUR DIGIT YEAR!";
@@ -488,14 +488,14 @@ void HeadNode::displayKeyManager()
 			return;
 		}
 
-		WorldCup* worldCupObject = worldCupData->get(choiceYear, opCounter);
-		FinalMatch* finalMatchObject = finalMatchData->get(choiceYear, opCounter);
+		WorldCup* worldCupObject = worldCupdata->get(choiceYear, opCounter);
+		FinalMatch* finalMatchObject = finalMatchdata->get(choiceYear, opCounter);
 		TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, opCounter);
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed to search the HashTables:      #" << opCounter / 3 << std::endl;
 		std::cout << "\n\n";
 
-		displayData(worldCupObject, finalMatchObject, teamsParticipatedObject);
+		displaydata(worldCupObject, finalMatchObject, teamsParticipatedObject);
 	}
 	catch (char *msg)
 	{
@@ -516,7 +516,7 @@ Description: Menu for Display The Hash Tables
 Pre: none
 Post: none
 */
-void HeadNode::displayTableManager()
+void Metadata::displayTableManager()
 {
 	char userChoice;
 
@@ -525,9 +525,9 @@ void HeadNode::displayTableManager()
 		std::cout << "\n\n\n";
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "HashTables in the database are shown below!" << std::endl << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1. WorldCup_GeneralData" << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2. FinalMatch_Data" << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3. TeamsParticipated_Data" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1. WorldCup_Generaldata" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "2. FinalMatch_data" << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "3. TeamsParticipated_data" << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0. Return to the Main Menu" << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice here: ";
 		std::cin >> userChoice;
@@ -537,8 +537,8 @@ void HeadNode::displayTableManager()
 		switch (userChoice)
 		{
 		case '1':
-			printGeneralWorldCupDataHeader();
-			worldCupData->display();
+			printGeneralWorldCupdataHeader();
+			worldCupdata->display();
 			for (int i = 0; i < 148; i++)std::cout << "-";
 			std::cout << "\n\n\n";
 
@@ -547,8 +547,8 @@ void HeadNode::displayTableManager()
 
 			break;
 		case '2':
-			printFinalMatchDataHeader();
-			finalMatchData->display();
+			printFinalMatchdataHeader();
+			finalMatchdata->display();
 			for (int i = 0; i < 120; i++)std::cout << "-";
 			std::cout << "\n\n\n";
 
@@ -582,41 +582,15 @@ void HeadNode::displayTableManager()
 	} while (userChoice != '0');
 }
 
-/*
-Description: function for diplaying all biniry serach trees
-Pre: none
-Post: none
-*/
-void HeadNode::printIndentedBST()
-{
-	//DONE AT THE LAST MINUTE BY THE TEAM IN ZACH'S ABSENCE
-	std::cout << "WORLD CUP GENERAL DATA BST!" << std::endl << std::endl;
-	yearHeldBST->printBST();
-	system("pause");
-	system("cls");
-
-
-	std::cout << "TEAMS BY YEAR DATA BST!" << std::endl << std::endl;
-	numTeamsbyYearBST->printBST();
-	system("pause");
-	system("cls");
-
-
-	std::cout << "FINAL MATCH DATA BST!" << std::endl << std::endl;
-	finalMatchBST->printBST();
-	system("pause");
-	system("cls");	
-	//To be completed by Zach
-}
 
 /*
 Description: function for user's deleted data addres to be pushed to a stack so that deleted data can be retrived and inserted back
 Pre: none
 Post: none
 */
-void HeadNode::undoDeleteManager()
+void Metadata::undoDeleteManager()
 {
-	int bstOperations = 0, hashTableOperations = 0;
+	int BinarySearchTreeOperations = 0, hashTableOperations = 0;
 
 	try 
 	{	
@@ -630,21 +604,21 @@ void HeadNode::undoDeleteManager()
 		teamsParticipatedRecycleBin->pop();
 		finalMatchRecycleBin->pop();
 
-		//Re-insert the addresses in the BSTs
-		yearHeldBST->insert(tempWC->getYearHeld(), tempWC, bstOperations);
-		finalMatchBST->insert(tempFM->getYear(), tempFM, bstOperations);
-		numTeamsbyYearBST->insert(tempTP->getYearHeld(), tempTP, bstOperations);
+		//Re-insert the addresses in the BinarySearchTrees
+		yearHeldBinarySearchTree->insert(tempWC->getYearHeld(), tempWC, BinarySearchTreeOperations);
+		finalMatchBinarySearchTree->insert(tempFM->getYear(), tempFM, BinarySearchTreeOperations);
+		numTeamsbyYearBinarySearchTree->insert(tempTP->getYearHeld(), tempTP, BinarySearchTreeOperations);
 
 		//Re-insert the addresses in the hash tables
-		worldCupData->put(tempWC->getYearHeld(), tempWC, hashTableOperations);
-		finalMatchData->put(tempFM->getYear(), tempFM, hashTableOperations);
+		worldCupdata->put(tempWC->getYearHeld(), tempWC, hashTableOperations);
+		finalMatchdata->put(tempFM->getYear(), tempFM, hashTableOperations);
 		teamsByYear->put(tempTP->getYearHeld(), tempTP, hashTableOperations);
 
 		std::cout << std::endl << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Recovery Successful!" << std::endl;
 		std::cout << std::endl << std::endl;
 	
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Averge number of operations performed on BSTs:                 #" << bstOperations / 10 << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Averge number of operations performed on BinarySearchTrees:                 #" << BinarySearchTreeOperations / 10 << std::endl;
 		std::cout << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Averge number of operations performed on HashTables:           #" << hashTableOperations / 3 << std::endl;
 		std::cout << std::endl;
@@ -666,11 +640,11 @@ description: function to save data to text file
 Pre: none
 Post: none
 */
-void HeadNode::saveToInputFileManager()
+void Metadata::saveToInputFileManager()
 {
 	//Saving to Files
-	worldCupData->writeWorldCupGeneralDataToTxt();
-	finalMatchData->writeFinalMatchDataToTxt();
+	worldCupdata->writeWorldCupGeneraldataToTxt();
+	finalMatchdata->writeFinalMatchdataToTxt();
 	teamsByYear->writeTeamsParticipatedToTxt();
 }
 
@@ -679,7 +653,7 @@ description: function to clear the recycle bin stacks
 Pre: none
 Post: none
 */
-void HeadNode::clearRecycleStacksManager()
+void Metadata::clearRecycleStacksManager()
 {
 	//Clearing the Recycle Bins
 	while (!worldCupRecycleBin->isEmpty())
@@ -709,30 +683,30 @@ Description: function to display the Laod factor of each hash table and collisio
 Pre: none
 Post: none
 */
-void HeadNode::efficencyManager()
+void Metadata::efficencyManager()
 {
-	int totalBSTHeight;
+	int totalBinarySearchTreeHeight;
 	system("CLS");
-	//Since we are using BST hash tables, but with the same key the data of one BST is sufficent
+	//Since we are using BinarySearchTree hash tables, but with the same key the data of one BinarySearchTree is sufficent
 	std::cout << std::endl << std::endl << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current World Cup Hash Table load factor:                 " << worldCupData->loadFactor() << "%" << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Final Match Hash Table load factor:               " << finalMatchData->loadFactor() << "%" << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current World Cup Hash Table load factor:                 " << worldCupdata->loadFactor() << "%" << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Final Match Hash Table load factor:               " << finalMatchdata->loadFactor() << "%" << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Teams Participated Hash Table load factor:        " << teamsByYear->loadFactor() << "%" << std::endl;
 	std::cout << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "World Cup HashTable number of collisions:                 #" << worldCupData->getNumCollisions() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "World Cup HashTable longest chain:                        #" << worldCupData->getLongestCollisionPath() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "World Cup HashTable number of collisions:                 #" << worldCupdata->getNumCollisions() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "World Cup HashTable longest chain:                        #" << worldCupdata->getLongestCollisionPath() << std::endl;
 	std::cout << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Teams Participated HashTable number of collisions:        #" << teamsByYear->getNumCollisions() << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Teams Participated HashTable longest chain:               #" << teamsByYear->getLongestCollisionPath() << std::endl;
 	std::cout << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Final Match HashTable number of collisions:               #" << finalMatchData->getNumCollisions() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Final Match HashTable longest chain:                      #" << finalMatchData->getLongestCollisionPath() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Final Match HashTable number of collisions:               #" << finalMatchdata->getNumCollisions() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Final Match HashTable longest chain:                      #" << finalMatchdata->getLongestCollisionPath() << std::endl;
 	std::cout << std::endl << std::endl << std::endl;
 
-	totalBSTHeight = yearHeldBST->getHeight() + numTeamsbyYearBST->getHeight() + finalMatchBST->getHeight();
+	totalBinarySearchTreeHeight = yearHeldBinarySearchTree->getHeight() + numTeamsbyYearBinarySearchTree->getHeight() + finalMatchBinarySearchTree->getHeight();
 
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of Nodes in the BST:           " << yearHeldBST->getCountNodes() << std::endl;
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average height of BSTs:               "<< totalBSTHeight / numBSTs  << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Number of Nodes in the BinarySearchTree:           " << yearHeldBinarySearchTree->getCountNodes() << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average height of BinarySearchTrees:               "<< totalBinarySearchTreeHeight / numBinarySearchTrees  << std::endl;
 	std::cout << std::endl << std::endl << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "";
 }
@@ -742,7 +716,7 @@ void HeadNode::efficencyManager()
  Pre: none
  Post: none
 */
-void HeadNode::printGeneralWorldCupDataHeader()
+void Metadata::printGeneralWorldCupdataHeader()
 {
 	int numDashes = 148;
 	for (int i = 0; i < numDashes; i++)std::cout << "_";
@@ -762,11 +736,11 @@ void HeadNode::printGeneralWorldCupDataHeader()
 
 
 /*
-Description: displays the header for Final Match Data
+Description: displays the header for Final Match data
 Pre: none
 Post: none
 */
-void HeadNode::printFinalMatchDataHeader()
+void Metadata::printFinalMatchdataHeader()
 {
 	int numDashes = 120;
 	for (int i = 0; i < numDashes; i++)std::cout << "_";
@@ -782,7 +756,7 @@ void HeadNode::printFinalMatchDataHeader()
 	std::cout << std::endl;
 }
 
-void HeadNode::displayData(WorldCup*worldCupObject, FinalMatch*finalMatchObject, TeamsParticipated*teamsParticipatedObject)
+void Metadata::displaydata(WorldCup*worldCupObject, FinalMatch*finalMatchObject, TeamsParticipated*teamsParticipatedObject)
 {
 	system("CLS");
 	std::string *teamsParic = teamsParticipatedObject->getTeamsArr();
@@ -800,7 +774,7 @@ void HeadNode::displayData(WorldCup*worldCupObject, FinalMatch*finalMatchObject,
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "HOST COUNTRY:          " << worldCupObject->getHostCountry() << std::endl;
 	std::cout << std::endl << std::endl << std::endl;
 
-	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINAL MATCH DATA" << std::endl << std::endl;
+	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINAL MATCH data" << std::endl << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINALIST 1:            " << finalMatchObject->getTeam1() << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINALIST 2:            " << finalMatchObject->getTeam2() << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "FINAL RESULT:          " << finalMatchObject->getResult() << std::endl;
@@ -812,12 +786,12 @@ void HeadNode::displayData(WorldCup*worldCupObject, FinalMatch*finalMatchObject,
 	for (int i = 0; i < NUM_TEAMS; i++)std::cout << std::setw(WIDTH_BTW_LINES) << "" << i + 1 << ". " << teamsParic[i] << std::endl;
 }
 
-int HeadNode::getNumBSTs()
+int Metadata::getNumBinarySearchTrees()
 {
-	return numBSTs;
+	return numBinarySearchTrees;
 }
 
-int HeadNode::getNumHashTables()
+int Metadata::getNumHashTables()
 {
 	return numHashTables;
 }

@@ -1,15 +1,15 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#include "LinkedNode.h"
+#include "ListNode.h"
 
 template <class T>
 class LinkedList
 {
 protected:
-	LinkedNode <T> *head;									// Pointer to the first LinkedNode
+	ListNode <T> *head;									// Pointer to the first ListNode
 	int counter;											// Count of items
-	LinkedNode <T> *getPointerTo(const T&) const;
+	ListNode <T> *getPointerTo(const T&) const;
 
 public:
 
@@ -24,10 +24,10 @@ public:
 	int getSize() const;
 	bool contains(const T&) const;
 
-	bool deleteLinkedNode(const T);
+	bool deleteListNode(const T);
 	bool deleteFirst();
 
-	void insertLinkedNode(const T);
+	void insertListNode(const T);
 	void insertFirst(T);
 };
 #include "LinkedList.cpp"

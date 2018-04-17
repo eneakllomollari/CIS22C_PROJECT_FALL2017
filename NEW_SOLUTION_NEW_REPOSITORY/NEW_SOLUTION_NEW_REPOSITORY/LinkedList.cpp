@@ -1,17 +1,16 @@
 #include "LinkedList.h"
 
-
 /**
 Description: Insert LinkedNode in the list
 Pre :	LinkedNode to be inserted
 Post :	None
 */
 template<class T>
-void LinkedList<T>::insertLinkedNode(const T LinkedNodeToInsert)
+void LinkedList<T>::insertListNode(const T LinkedNodeToInsert)
 {
-	LinkedNode <T> *newLinkedNode = new LinkedNode <T>(LinkedNodeToInsert);
-	LinkedNode <T> *LinkedNodePtr;
-	LinkedNode <T> *previosLinkedNode = nullptr;
+	ListNode <T> *newListNode = new ListNode <T>(LinkedNodeToInsert);
+	ListNode <T> *ListNodePtr;
+	ListNode <T> *previosListNode = nullptr;
 
 	if (!head)
 	{
@@ -52,8 +51,8 @@ Post :	None
 template<class T>
 void LinkedList<T>::insertFirst(T linkedNodeToInsert)
 {
-	LinkedNode <T> *LinkedNodePtr;
-	LinkedNode <T> *newLinkedNode = new LinkedNode <T>(linkedNodeToInsert);
+	ListNode <T> *LinkedNodePtr;
+	ListNode <T> *newLinkedNode = new ListNode <T>(linkedNodeToInsert);
 
 	LinkedNodePtr = head;
 
@@ -63,10 +62,10 @@ void LinkedList<T>::insertFirst(T linkedNodeToInsert)
 }
 
 template<class T>
-LinkedNode<T>* LinkedList<T>::getPointerTo(const T & target) const
+ListNode<T>* LinkedList<T>::getPointerTo(const T & target) const
 {
 	bool found = false;
-	LinkedNode <T> *curr = head;
+	ListNode <T> *curr = head;
 
 	while (!found && curr != nullptr)
 	{
@@ -99,7 +98,7 @@ LinkedList<T>::LinkedList(const LinkedList<T>& aList)
 
 {
 	counter = aList->counter;
-	LinkedNode <T> *originalChain = aList->head;
+	ListNode <T> *originalChain = aList->head;
 
 	if (originalChain == nullptr) head = nullptr;
 	else
@@ -163,7 +162,7 @@ Post : the number of times the LinkedNode is present in the list
 template<class T>
 void LinkedList<T>::displayList() const
 {
-	LinkedNode <T> *LinkedNodePtr = head;
+	ListNode <T> *LinkedNodePtr = head;
 	while (LinkedNodePtr != nullptr)
 	{
 		std::cout << *LinkedNodePtr->getItem() << std::endl;
@@ -177,7 +176,7 @@ int LinkedList<T>::getFrequencyOf(const T & anEntry) const
 {
 	int frequency = 0,
 		number = 0;
-	LinkedNode <T> *curLinkedNode = head;
+	ListNode <T> *curLinkedNode = head;
 	while (curLinkedNode != nullptr && number < counter)
 	{
 		if (anEntry == curLinkedNode->getItem()) frequency++;
@@ -197,7 +196,7 @@ void LinkedList<T>::clear()
 {
 	while (head != nullptr)
 	{
-		LinkedNode <T> *LinkedNodeToDel = head;
+		ListNode <T> *LinkedNodeToDel = head;
 		head = head->getNext();
 
 		//Here we get the address of the data that we have allocated
@@ -248,18 +247,18 @@ Pre :	LinkedNode to be deleted
 Post :	true if LinkedNode was found and deleted, false otherwise
 */
 template<class T>
-bool LinkedList<T>::deleteLinkedNode(const T LinkedNodeToDelete)
+bool LinkedList<T>::deleteListNode(const T LinkedNodeToDelete)
 {
-	LinkedNode <T> *entryLinkedNode = getPointerTo(LinkedNodeToDelete);
-	bool canRemoveItem = !isEmpty() && entryLinkedNode != nullptr;
+	ListNode <T> *entryNode = getPointerTo(LinkedNodeToDelete);
+	bool canRemoveItem = !isEmpty() && entryNode != nullptr;
 
 	if (canRemoveItem)
 	{
 		//Copy data from first LinkedNode to located LinkedNode
-		entryLinkedNode->setItem(head->getItem());
+		entryNode->setItem(head->getItem());
 
 		//Delete first LinkedNode
-		LinkedNode <T> *LinkedNodeToDel = head;
+		ListNode <T> *LinkedNodeToDel = head;
 		head = head->getNext();
 
 		//Return LinkedNode to the system
@@ -281,7 +280,7 @@ Post : True if LinkedNode was found and deleted, false otherwise
 template<class T>
 bool LinkedList<T>::deleteFirst()
 {
-	LinkedNode <T> *temp;
+	ListNode <T> *temp;
 
 	if (isEmpty()) return false;
 

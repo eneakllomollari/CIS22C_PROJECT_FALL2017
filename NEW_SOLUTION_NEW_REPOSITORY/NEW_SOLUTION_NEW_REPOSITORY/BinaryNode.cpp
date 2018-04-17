@@ -1,90 +1,90 @@
-#include "BSTNode.h"
+#include "BinaryNode.h"
 
 template<class K, class T>
-BSTNode<K, T>::BSTNode()
+BinaryNode<K, T>::BinaryNode()
 {
 	left = right = nullptr;
 }
 
 template<class K, class T>
-BSTNode<K, T>::BSTNode(T d)
+BinaryNode<K, T>::BinaryNode(T d)
 {
-	pData = d;
+	pdata = d;
 	left = nullptr;
 	right = nullptr;
 }
 
 template<class K, class T>
-BSTNode<K, T>::BSTNode(K k, T d)
+BinaryNode<K, T>::BinaryNode(K k, T d)
 {
 	key = k;
-	pData = d;
+	pdata = d;
 	left = nullptr;
 	right = nullptr;
 }
 
 template<class K, class T>
-void BSTNode<K, T>::setLeft(BSTNode<K, T> *l)
+void BinaryNode<K, T>::setLeft(BinaryNode<K, T> *l)
 {
 	left = l;
 }
 
 template<class K, class T>
-void BSTNode<K, T>::setRight(BSTNode<K, T> *r)
+void BinaryNode<K, T>::setRight(BinaryNode<K, T> *r)
 {
 	right = r;
 }
 
 template<class K, class T>
-void BSTNode<K, T>::setpData(T d)
+void BinaryNode<K, T>::setpData(T d)
 {
-	pData = d;
+	pdata = d;
 }
 
 template<class K, class T>
-void BSTNode<K, T>::setKey(K k)
+void BinaryNode<K, T>::setKey(K k)
 {
 	key = k;
 }
 
 template<class K, class T>
-bool BSTNode<K, T>::isLeaf() const
+bool BinaryNode<K, T>::isLeaf() const
 {
 	return left == nullptr && right == nullptr;
 }
 
 template<class K, class T>
-bool BSTNode<K, T>::hasLeftChild() const
+bool BinaryNode<K, T>::hasLeftChild() const
 {
 	return left != nullptr;
 }
 
 template<class K, class T>
-bool BSTNode<K, T>::hasRightChild() const
+bool BinaryNode<K, T>::hasRightChild() const
 {
 	return right != nullptr;
 }
 
 template<class K, class T>
-BSTNode<K, T>* BSTNode<K, T>::getRight()
+BinaryNode<K, T>* BinaryNode<K, T>::getRight()
 {
 	return right;
 }
 
 template<class K, class T>
-BSTNode<K, T>* BSTNode<K, T>::getLeft()
+BinaryNode<K, T>* BinaryNode<K, T>::getLeft()
 {
 	return left;
 }
 
 template<class K, class T>
-T BSTNode<K, T>::getpData()
+T BinaryNode<K, T>::getpdata()
 {
-	return pData;
+	return pdata;
 }
 
 template<class K, class T>
-K BSTNode<K, T>::getKey()
+K BinaryNode<K, T>::getKey()
 {
 	return key;
 }

@@ -1,6 +1,5 @@
-2016 | Portugal, France.        | 1 - 0         | Parc des Princes.            | Paris.          |
 1934 | Italy, Czechoslovakia.   | 2 - 1         | Stadio Nazionale PNF.        | Rome.           |
-2008 | Spain, Germany.          | 1 - 0         | Ernst-Happel-Stadion.        | Vienna.         |
+2016 | Portugal, France.        | 1 - 0         | Parc des Princes.            | Paris.          |
 2000 | France, Italy.           | 2 - 1         | Feijenoord Stadion.          | Rotterdam.      |
 1992 | Denmark, Germany.        | 2 - 0         | Ullevi.                      | Gothenburg.     |
 1984 | France, Spain.           | 2 - 0         | Parc des Princes.            | Paris.          |
@@ -16,8 +15,8 @@
 1962 | Brazil, Czechoslovakia.  | 3 - 1         | Estadio Nacional.            | Santiago.       |
 1954 | Germany FR, Hungary.     | 3 - 2         | Wankford Stadium.            | Bern.           |
 1938 | Italy, Hungary.          | 4 - 2         | Stade Olympique de Colombes. | Paris.          |
-2012 | Spain, Italy.            | 4 - 0         | Olympic Stadium.             | Kiev.           |
 1930 | Uruguay, Argentina.      | 4 - 2         | Estadio Centenario.          | Montevideo.     |
+2012 | Spain, Italy.            | 4 - 0         | Olympic Stadium.             | Kiev.           |
 2004 | Greece, Portugal.        | 1 - 0         | Estádio da Luz.              | Lisbon.         |
 1996 | Germany, Czech Republic. | 2 - 1         | Wembley Stadium.             | London.         |
 1988 | Netherland, Russia.      | 2 - 0         | Olympiastadion.              | Munich.         |

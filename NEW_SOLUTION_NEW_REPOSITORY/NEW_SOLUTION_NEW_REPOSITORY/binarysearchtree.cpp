@@ -1,4 +1,4 @@
-#include "BST.h"
+#include "BinarySearchTree.h"
 
 /*
 	Pre: N/A
@@ -7,7 +7,7 @@
 	the appropriate variables will be initialized
 */
 template<class K, class T>
-BST<K, T>::BST()
+BinarySearchTree<K, T>::BinarySearchTree()
 {
 	root = nullptr;
 	itemCount = 0;
@@ -20,10 +20,10 @@ BST<K, T>::BST()
 	will be taken in order to ensure no memory leaks occur
 */
 template<class K, class T>
-BST<K, T>::~BST()
+BinarySearchTree<K, T>::~BinarySearchTree()
 {
-	//Deletes the BST by calling the clear function, 
-	//which calls destroySubBST function with root
+	//Deletes the BinarySearchTree by calling the clear function, 
+	//which calls destroySubBinarySearchTree function with root
 	//as a parameter
 	clear();
 	itemCount = 0;
@@ -36,9 +36,9 @@ BST<K, T>::~BST()
 	using helper function "destroySubTree"
 */
 template<class K, class T>
-void BST<K, T>::clear()
+void BinarySearchTree<K, T>::clear()
 {
-	destroySubBST(root);
+	destroySubBinarySearchTree(root);
 }
 
 /*
@@ -47,7 +47,7 @@ void BST<K, T>::clear()
 	Post:
 */
 template<class K, class T>
-void BST<K, T>::calculateSum(BSTNode<K, T>*nodePtr, K &sum) const
+void BinarySearchTree<K, T>::calculateSum(BinaryNode<K, T>*nodePtr, K &sum) const
 {
 	if (nodePtr)
 	{
@@ -58,12 +58,12 @@ void BST<K, T>::calculateSum(BSTNode<K, T>*nodePtr, K &sum) const
 }
 
 template<class K, class T>
-void BST<K, T>::destroySubBST(BSTNode<K, T>* nodePtr)
+void BinarySearchTree<K, T>::destroySubBinarySearchTree(BinaryNode<K, T>* nodePtr)
 {
 	if (nodePtr != nullptr)
 	{
-		destroySubBST(nodePtr->getLeft());
-		destroySubBST(nodePtr->getRight());
+		destroySubBinarySearchTree(nodePtr->getLeft());
+		destroySubBinarySearchTree(nodePtr->getRight());
 
 		delete nodePtr;
 		nodePtr = nullptr;
@@ -71,7 +71,7 @@ void BST<K, T>::destroySubBST(BSTNode<K, T>* nodePtr)
 }
 
 template<class K, class T>
-bool BST<K, T>::remove(K key, int & removeCounter)
+bool BinarySearchTree<K, T>::remove(K key, int & removeCounter)
 {
 	int deleteCounter = 0;
 	removeCounter = 0;
@@ -81,10 +81,10 @@ bool BST<K, T>::remove(K key, int & removeCounter)
 }
 
 template<class K, class T>
-BSTNode<K, T>* BST<K, T>::getParentOf(BSTNode<K, T> *nodePtr)const
+BinaryNode<K, T>* BinarySearchTree<K, T>::getParentOf(BinaryNode<K, T> *nodePtr)const
 {
-	BSTNode<K, T> *tempPtr = root;
-	BSTNode<K, T> *parent = nullptr;
+	BinaryNode<K, T> *tempPtr = root;
+	BinaryNode<K, T> *parent = nullptr;
 
 	K key = nodePtr->getKey();
 
@@ -109,9 +109,9 @@ BSTNode<K, T>* BST<K, T>::getParentOf(BSTNode<K, T> *nodePtr)const
 }
 
 template<class K, class T>
-BSTNode<K, T>* BST<K, T>::getSmallestNode(BSTNode<K, T>* rootPtr)const
+BinaryNode<K, T>* BinarySearchTree<K, T>::getSmallestNode(BinaryNode<K, T>* rootPtr)const
 {
-	BSTNode<K, T> *tempPtr = rootPtr;
+	BinaryNode<K, T> *tempPtr = rootPtr;
 	//Traverse all the way to the left most node which is 
 	//at the same time the smallest node
 	while (tempPtr->getLeft() != nullptr)
@@ -120,9 +120,9 @@ BSTNode<K, T>* BST<K, T>::getSmallestNode(BSTNode<K, T>* rootPtr)const
 }
 
 template<class K, class T>
-BSTNode<K, T>* BST<K, T>::getBiggestNode(BSTNode<K, T>* rootPtr)const
+BinaryNode<K, T>* BinarySearchTree<K, T>::getBiggestNode(BinaryNode<K, T>* rootPtr)const
 {
-	BSTNode<K, T> *tempPtr = rootPtr;
+	BinaryNode<K, T> *tempPtr = rootPtr;
 	while (tempPtr->getRight() != nullptr)
 		tempPtr = tempPtr->getRight();
 
@@ -131,7 +131,7 @@ BSTNode<K, T>* BST<K, T>::getBiggestNode(BSTNode<K, T>* rootPtr)const
 }
 
 template<class K, class T>
-void BST<K, T>::insert(K key, T data, int &insertCounter)
+void BinarySearchTree<K, T>::insert(K key, T data, int &insertCounter)
 {
 	insertCounter = 0;
 	insertNode(key, data);				insertCounter++;
@@ -139,21 +139,21 @@ void BST<K, T>::insert(K key, T data, int &insertCounter)
 }
 
 template<class K, class T>
-void BST<K, T>::insertNode(K k, T d)
+void BinarySearchTree<K, T>::insertNode(K k, T d)
 {
-	BSTNode<K, T>* t = new BSTNode<K, T>;	//Allocate a new BSTNode
-	BSTNode<K, T>* parent = nullptr;
+	BinaryNode<K, T>* t = new BinaryNode<K, T>;	//Allocate a new BinaryNode
+	BinaryNode<K, T>* parent = nullptr;
 
 	t->setpData(d);
 	t->setKey(k);
 	t->setLeft(nullptr);	//Because is will be a leaf node
 	t->setRight(nullptr);
 
-	// If it is a new BST
+	// If it is a new BinarySearchTree
 	if (root == nullptr) root = t;
 	else
 	{
-		BSTNode<K, T> * curr;
+		BinaryNode<K, T> * curr;
 		curr = root;
 
 		// Find the Node's parent
@@ -172,113 +172,107 @@ void BST<K, T>::insertNode(K k, T d)
 }
 
 template<class K, class T>
-void BST<K, T>::searchByKeyHelper(BSTNode<K,T>* nodePtr,K key, Stack<T>* myList)
+void BinarySearchTree<K, T>::searchByKeyHelper(BinaryNode<K,T>* nodePtr,K key, Stack<T>* myList)
 {
-	//Traverse the BST
+	//Traverse the BinarySearchTree
 	if (nodePtr)
 	{
 		searchByKeyHelper(nodePtr->getLeft(),key,myList);
-		if (key == nodePtr->getKey()) myList->push(nodePtr->getpData());
+		if (key == nodePtr->getKey()) myList->push(nodePtr->getpdata());
 		searchByKeyHelper(nodePtr->getRight(), key, myList);
 	}
 }
 
 template<class K, class T>
-void BST<K, T>::searchBySmallestKeyHelper(BSTNode<K, T>*nodePtr, K key, Stack<T>*myStack)
+void BinarySearchTree<K, T>::searchBySmallestKeyHelper(BinaryNode<K, T>*nodePtr, K key, Stack<T>*myStack)
 {
 	if (nodePtr)
 	{
-		if (key < nodePtr->getKey()) myStack->push(nodePtr->getpData());
+		if (key < nodePtr->getKey()) myStack->push(nodePtr->getpdata());
 		searchBySmallestKeyHelper(nodePtr->getLeft(), key, myStack);
 		searchBySmallestKeyHelper(nodePtr->getRight(), key, myStack);
 	}
 }
 
 template<class K, class T>
-void BST<K, T>::searchByGreatestKeyHelper(BSTNode<K, T>*nodePtr, K key, Stack<T>*myStack)
+void BinarySearchTree<K, T>::searchByGreatestKeyHelper(BinaryNode<K, T>*nodePtr, K key, Stack<T>*myStack)
 {
 	if (nodePtr)
 	{
-		if (key > nodePtr->getKey()) myStack->push(nodePtr->getpData());
+		if (key > nodePtr->getKey()) myStack->push(nodePtr->getpdata());
 		searchByGreatestKeyHelper(nodePtr->getLeft(), key, myStack);
 		searchByGreatestKeyHelper(nodePtr->getRight(), key, myStack);
 	}
 }
 
 template<class K, class T>
-T BST<K, T>::searchByKey(K key)
+T BinarySearchTree<K, T>::searchByKey(K key)
 {
-	BSTNode <K, T>* nodePtr = root;
+	BinaryNode <K, T>* nodePtr = root;
 
-	//Traverse the BST
+	//Traverse the BinarySearchTree
 	while (nodePtr != nullptr)
 	{
 		if (nodePtr->getKey() == key)
-			return nodePtr->getpData();
+			return nodePtr->getpdata();
 		else if (key < nodePtr->getKey())
-			nodePtr = nodePtr->getLeft();	//Else if the data is less, move to the left of the BST
+			nodePtr = nodePtr->getLeft();	//Else if the data is less, move to the left of the BinarySearchTree
 		else
 			nodePtr = nodePtr->getRight(); //Else, Move to the right
 	}
-	throw "OBJECT COULD NOT BE FOUND IN OUR DATABASE";
+	throw "OBJECT COULD NOT BE FOUND IN OUR dataBASE";
 }
 
 template<class K, class T>
-void BST<K, T>::searchByKey(K key, Stack<T>*myList)
+void BinarySearchTree<K, T>::searchByKey(K key, Stack<T>*myList)
 {
 	searchByKeyHelper(root, key, myList);
 }
 
 template<class K, class T>
-void BST<K, T>::searchBySmallestKey(K key, Stack<T>*myStack)
+void BinarySearchTree<K, T>::searchBySmallestKey(K key, Stack<T>*myStack)
 {
 	searchBySmallestKeyHelper(root, key, myStack);
 }
 
 template<class K, class T>
-void BST<K, T>::searchByGreatestKey(K key, Stack<T>*myStack)
+void BinarySearchTree<K, T>::searchByGreatestKey(K key, Stack<T>*myStack)
 {
 	searchByGreatestKeyHelper(root, key, myStack);
 }
 
 template<class K, class T>
-void BST<K, T>::displayInOrder() const
+void BinarySearchTree<K, T>::displayInOrder() const
 {
 	displayInOrder(root);
 }
 
 template<class K, class T>
-void BST<K, T>::displayPreOrder() const
+void BinarySearchTree<K, T>::displayPreOrder() const
 {
 	displayPreOrder(root);
 }
 
 template<class K, class T>
-void BST<K, T>::displayPostOrder() const
+void BinarySearchTree<K, T>::displayPostOrder() const
 {
 	displayPostOrder(root);
 }
 
 template<class K, class T>
-void BST<K, T>::printBST()
-{
-	printIndentedBST(root);
-}
-
-template<class K, class T>
-int BST<K, T>::getCountNodes() const
+int BinarySearchTree<K, T>::getCountNodes() const
 {
 	return itemCount;
 }
 
 template<class K, class T>
-bool BST<K, T>::isEmpty() const
+bool BinarySearchTree<K, T>::isEmpty() const
 {
 	return root == nullptr;
 }
 
 template<class K, class T>
-K BST<K, T>::getAverage() const
+K BinarySearchTree<K, T>::getAverage() const
 {
 	K sum = 0;
 	calculateSum(root, sum);
@@ -286,49 +280,49 @@ K BST<K, T>::getAverage() const
 }
 
 template<class K, class T>
-K BST<K, T>::getSmallest() const
+K BinarySearchTree<K, T>::getSmallest() const
 {
 	return getSmallestNode(root)->getKey();
 }
 
 template<class K, class T>
-K BST<K, T>::getLargest() const
+K BinarySearchTree<K, T>::getLargest() const
 {
 	return getBiggestNode(root)->getKey();
 }
 
 template<class K, class T>
-int BST<K, T>::getHeight()
+int BinarySearchTree<K, T>::getHeight()
 {
 	return getHeightHelper(root);
 }
 
 template<class K, class T>
-T BST<K, T>::getpRootData() const
+T BinarySearchTree<K, T>::getpRootdata() const
 {
-	return root->getpData();
+	return root->getpdata();
 }
 
 template<class K, class T>
-BSTNode<K, T>* BST<K, T>::getRootNode() const
+BinaryNode<K, T>* BinarySearchTree<K, T>::getRootNode() const
 {
 	return root;
 }
 
 template<class K, class T>
-void BST<K, T>::setRootData(K key_input, T newData)
+void BinarySearchTree<K, T>::setRootdata(K key_input, T newdata)
 {
 	if (root != nullptr)
 	{
-		root->setpData(newData);
+		root->setpdata(newdata);
 		root->setKey(key_input);
 	}
 
-	else insertNode(key_input, newData);
+	else insertNode(key_input, newdata);
 }
 
 template<class K, class T>
-int BST<K, T>::countNodes(BSTNode<K, T> *nodePtr) const
+int BinarySearchTree<K, T>::countNodes(BinaryNode<K, T> *nodePtr) const
 {
 	if (nodePtr == nullptr)
 		return 0;
@@ -344,7 +338,7 @@ int BST<K, T>::countNodes(BSTNode<K, T> *nodePtr) const
 }
 
 template<class K, class T>
-int BST<K, T>::getHeightHelper(BSTNode<K, T>* nodePtr)
+int BinarySearchTree<K, T>::getHeightHelper(BinaryNode<K, T>* nodePtr)
 {
 	if (nodePtr == nullptr)
 		return 0;
@@ -355,40 +349,40 @@ int BST<K, T>::getHeightHelper(BSTNode<K, T>* nodePtr)
 }
 
 template<class K, class T>
-void BST<K, T>::displayInOrder(BSTNode<K, T> *nodePtr) const
+void BinarySearchTree<K, T>::displayInOrder(BinaryNode<K, T> *nodePtr) const
 {
 	if (nodePtr)
 	{
 		displayInOrder(nodePtr->getLeft());
-		std::cout << *nodePtr->getpData() << "\n";
+		std::cout << *nodePtr->getpdata() << "\n";
 		displayInOrder(nodePtr->getRight());
 	}
 }
 
 template<class K, class T>
-void BST<K, T>::displayPreOrder(BSTNode<K, T>* nodePtr) const
+void BinarySearchTree<K, T>::displayPreOrder(BinaryNode<K, T>* nodePtr) const
 {
 	if (nodePtr)
 	{
-		std::cout << *nodePtr->getpData() << "\n";
+		std::cout << *nodePtr->getpdata() << "\n";
 		displayPreOrder(nodePtr->getLeft());
 		displayPreOrder(nodePtr->getRight());
 	}
 }
 
 template<class K, class T>
-void BST<K, T>::displayPostOrder(BSTNode<K, T>* nodePtr) const
+void BinarySearchTree<K, T>::displayPostOrder(BinaryNode<K, T>* nodePtr) const
 {
 	if (nodePtr)
 	{
 		displayPostOrder(nodePtr->getLeft());
 		displayPostOrder(nodePtr->getRight());
-		std::cout << *nodePtr->getpData() << "\n";
+		std::cout << *nodePtr->getpdata() << "\n";
 	}
 }
 
 template<class K, class T>
-BSTNode<K, T>* BST<K, T>::deleteNode(BSTNode<K, T>*root, K key_input, int &deleteCounter)
+BinaryNode<K, T>* BinarySearchTree<K, T>::deleteNode(BinaryNode<K, T>*root, K key_input, int &deleteCounter)
 {
 	if (root == nullptr)
 	{
@@ -421,32 +415,22 @@ BSTNode<K, T>* BST<K, T>::deleteNode(BSTNode<K, T>*root, K key_input, int &delet
 		}
 		else
 		{
-			K minKey_Data = getSmallestNode(root->getRight())->getKey();				deleteCounter++;
-			root->setKey(minKey_Data);												deleteCounter++;
-			root->setRight(deleteNode(root->getRight(), minKey_Data, deleteCounter));deleteCounter++;
+			K minKey_data = getSmallestNode(root->getRight())->getKey();				deleteCounter++;
+			root->setKey(minKey_data);												deleteCounter++;
+			root->setRight(deleteNode(root->getRight(), minKey_data, deleteCounter));deleteCounter++;
 		}
 	}
 	return root;																	deleteCounter++;
 }
 
 template <class K, class T>
-int BST<K, T>::max(int x, int y)
+int BinarySearchTree<K, T>::max(int x, int y)
 {
 	return x > y ? x : y;
 }
 
 template <class K, class T>
-void BST<K, T>::printIndentedBST(BSTNode<K, T> *p, int indent = 0)
-{
-	int height = getHeight() * 4;
-
-
-	for (int i = 0; i < height; i++)
-		printRow(p, height, i);
-}
-
-template <class K, class T>
-void BST<K, T>::printRow(BSTNode<K, T>* p, int height, int depth)
+void BinarySearchTree<K, T>::printRow(BinaryNode<K, T>* p, int height, int depth)
 {
 	int placeholder = 0;
 
@@ -477,7 +461,7 @@ void BST<K, T>::printRow(BSTNode<K, T>* p, int height, int depth)
 }
 
 template<class K, class T>
-void BST<K, T>::getLine(BSTNode<K, T>*root, int depth, std::vector<K>&vals)
+void BinarySearchTree<K, T>::getLine(BinaryNode<K, T>*root, int depth, std::vector<K>&vals)
 {
 	int placeholder = 0;
 	if (depth <= 0 && root != nullptr)
