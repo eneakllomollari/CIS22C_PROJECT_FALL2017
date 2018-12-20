@@ -109,7 +109,7 @@ int main()
 				break;
 			}
 			std::cin.clear();             //it takes care of the strings entered
-			std::cin.ignore(INT_MAX, '\n');
+			std::cin.ignore(100, '\n');
 
 			std::cout << std::endl << std::endl;
 			std::cout << std::endl << std::endl << std::endl << std::endl;
