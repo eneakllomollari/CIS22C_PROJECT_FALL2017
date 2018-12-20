@@ -14,30 +14,29 @@ void LinkedList<T>::insertListNode(const T LinkedNodeToInsert)
 
 	if (!head)
 	{
-		head = newLinkedNode;
-		newLinkedNode->setNext(nullptr);
+		head = newListNode;
+		newListNode->setNext(nullptr);
 	}
 	else
 	{
-		LinkedNodePtr = head;
+		ListNodePtr = head;
+		previosListNode = nullptr;
 
-		previosLinkedNode = nullptr;
-
-		while (LinkedNodePtr != nullptr && LinkedNodePtr->getItem() < LinkedNodeToInsert)
+		while (ListNodePtr != nullptr && ListNodePtr->getItem() < LinkedNodeToInsert)
 		{
-			previosLinkedNode = LinkedNodePtr;
-			LinkedNodePtr = LinkedNodePtr->getNext();
+			previosListNode = ListNodePtr;
+			ListNodePtr = ListNodePtr->getNext();
 		}
 
-		if (previosLinkedNode == nullptr)
+		if (previosListNode == nullptr)
 		{
-			head = newLinkedNode;
-			newLinkedNode->setNext(LinkedNodePtr);
+			head = newListNode;
+			newListNode->setNext(ListNodePtr);
 		}
 		else
 		{
-			previosLinkedNode->setNext(newLinkedNode);
-			newLinkedNode->setNext(LinkedNodePtr);
+			previosListNode->setNext(newListNode);
+			newListNode->setNext(ListNodePtr);
 		}
 	}
 	counter++;
@@ -104,11 +103,11 @@ LinkedList<T>::LinkedList(const LinkedList<T>& aList)
 	else
 	{
 		//Copy first LinkedNode
-		head = new LinkedNode <T>();
+		head = new ListNode <T>();
 		head->setItem(originalChain->getItem());
 
 		//Copy remaining LinkedNodes
-		LinkedNode <T> *newChain = head;
+		ListNode <T> *newChain = head;
 		while (originalChain != nullptr)
 		{
 			originalChain = originalChain->getNext();
@@ -117,7 +116,7 @@ LinkedList<T>::LinkedList(const LinkedList<T>& aList)
 			T nextItem = originalChain->getItem();
 
 			//Create a new LinkedNode containing the next item
-			LinkedNode <T> *newLinkedNode = new LinkedNode <T>(nextItem);
+			ListNode<T> *newLinkedNode = new ListNode <T>(nextItem);
 
 			//Link new LinkedNode to end of chain
 			newChain->setNext(newLinkedNode);

@@ -27,7 +27,7 @@ Post :	Assigns the  head and counter using the base class constructor
 template<class T>
 Stack<T>::Stack()
 {
-	LinkedList();
+	LinkedList<T>();
 }
 
 template<class T>
@@ -69,7 +69,7 @@ Post :	The top of the stack
 template<class T>
 T Stack<T>::peek()
 {
-	if (head == nullptr) throw "The recovery bin is empty! You Have not deleted anything yet";
+	if (this->head== nullptr) throw "The recovery bin is empty! You Have not deleted anything yet";
 	return this->head->getItem();
 }
 
@@ -82,7 +82,7 @@ Post :	True if the stack is empty, otherwise false
 template<class T>
 bool Stack<T>::isEmpty()
 {
-	return counter == 0;
+	return this->getSize()== 0;
 }
 
 /**
@@ -93,7 +93,7 @@ Post :	True if the stack is empty, otherwise false
 template <class T>
 int Stack<T>::getSize()
 {
-	return counter;
+	return this->counter;
 }
 
 /**
