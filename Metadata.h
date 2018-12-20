@@ -18,9 +18,9 @@ class Metadata
 {
 private:
 	//Declaring the BinarySearchTrees
-	BinarySearchTree<int, WorldCup*> *yearHeldBinarySearchTree;
-	BinarySearchTree<int, TeamsParticipated*> *numTeamsbyYearBinarySearchTree;
-	BinarySearchTree<int, FinalMatch*> *finalMatchBinarySearchTree;
+	BinarySearchTree<int, WorldCup*> *yearHeldBST;
+	BinarySearchTree<int, TeamsParticipated*> *numTeamsbyYearBST;
+	BinarySearchTree<int, FinalMatch*> *finalMatchBST;
 
 	//Declaring the hash tables
 	HashTable<int, WorldCup*> *worldCupdata;

@@ -11,7 +11,7 @@
 int main()
 {
 	//THE MAIN NODE OF THE PROGRAM
-	Metadata* mainMetadata = new Metadata;		
+	Metadata mainMetadata;		
 
 	int choice;
 
@@ -46,27 +46,27 @@ int main()
 			{
 			case 1:
 				system("CLS");
-				mainMetadata->addManager();
+				mainMetadata.addManager();
 				system("CLS");
 				break;
 			case 2:
 				system("CLS");
-				mainMetadata->removeManager();
+				mainMetadata.removeManager();
 				system("CLS");
 				break;
 			case 3:
 				system("CLS");
-				mainMetadata->displayKeyManager();
+				mainMetadata.displayKeyManager();
 				system("CLS");
 				break;
 			case 4:
 				system("CLS");
-				mainMetadata->displayTableManager();
+				mainMetadata.displayTableManager();
 				system("CLS");
 				break;
 			case 5:
 				system("CLS");
-				mainMetadata->sortKeyManager();
+				mainMetadata.sortKeyManager();
 				system("CLS");
 				break;
 			case 6:
@@ -76,12 +76,12 @@ int main()
 				break;
 			case 7:
 				system("CLS");
-				mainMetadata->undoDeleteManager();
+				mainMetadata.undoDeleteManager();
 				system("CLS");
 				break;
 			case 8:
-				mainMetadata->saveToInputFileManager();
-				mainMetadata->clearRecycleStacksManager();
+				mainMetadata.saveToInputFileManager();
+				mainMetadata.clearRecycleStacksManager();
 				system("CLS");
 				std::cout << std::endl << std::endl << std::endl;
 				std::cout << std::endl << std::endl;
@@ -94,7 +94,7 @@ int main()
 			case 9:
 				system("CLS");
 				//Since we are using BinarySearchTree hash tables, but with the same key the data of one BinarySearchTree is sufficent
-				mainMetadata->efficencyManager();
+				mainMetadata.efficencyManager();
 				std::cout << std::endl;
 				 std::cout << std::endl << std::endl;system("pause");;
 				system("CLS");
@@ -129,8 +129,6 @@ int main()
 	std::cout << "\n\n\n\n\n\n\n\n\n\n\n";
 
 	std::cout << std::endl << std::endl;system("pause");;
-	
-	delete mainMetadata;
 
 	return 0;
 }
