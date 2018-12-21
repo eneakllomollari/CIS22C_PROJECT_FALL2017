@@ -1,6 +1,8 @@
 #ifndef ListNode_H
 #define ListNode_H
 
+#include <iostream>
+
 template<class T >
 class ListNode
 {
@@ -19,5 +21,4 @@ public:
 	T getItem() const;
 	ListNode <T> *getNext() const;
 };
-#include "ListNode.cpp"
 #endif // !ListNode_H

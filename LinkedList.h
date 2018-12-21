@@ -30,5 +30,4 @@ public:
 	void insertListNode(const T);
 	void insertFirst(T);
 };
-#include "LinkedList.cpp"
 #endif

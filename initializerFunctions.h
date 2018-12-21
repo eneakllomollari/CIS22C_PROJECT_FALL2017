@@ -6,16 +6,16 @@
 #include "WorldCup.h"
 #include "FinalMatch.h"
 #include "TeamsParticipated.h"
-#include "Tree.h"
+#include "BinarySearchTree.h"
 #include "HashTable.h"
 
 //Functions that initialize the data at he beggining of the program
-void initializeWorldCupData(Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&, HashTable<int, TeamsParticipated>&, Tree<int, TeamsParticipated>&);
+void initializeWorldCupData(BinarySearchTree<int, WorldCup>&, BinarySearchTree<double, WorldCup>&, BinarySearchTree<int, WorldCup>&, BinarySearchTree<int, WorldCup>&, BinarySearchTree<int, WorldCup>&, HashTable<int, WorldCup>&, HashTable<int, TeamsParticipated>&, BinarySearchTree<int, TeamsParticipated>&);
 void initializeFinalMatchData(HashTable<int, FinalMatch>&);
 
-void readFileWorldcupData(std::string &, Tree<int, WorldCup>&, Tree<double, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, Tree<int, WorldCup>&, HashTable<int, WorldCup>&);
+void readFileWorldcupData(std::string &, BinarySearchTree<int, WorldCup>&, BinarySearchTree<double, WorldCup>&, BinarySearchTree<int, WorldCup>&, BinarySearchTree<int, WorldCup>&, BinarySearchTree<int, WorldCup>&, HashTable<int, WorldCup>&);
 void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>&);
-void readFileTeamsByYearData(std::string &, HashTable<int, TeamsParticipated>&, Tree<int, TeamsParticipated>&);
+void readFileTeamsByYearData(std::string &, HashTable<int, TeamsParticipated>&, BinarySearchTree<int, TeamsParticipated>&);
 
 
 #endif // !INITIALIZER_FUNCTIONS_h

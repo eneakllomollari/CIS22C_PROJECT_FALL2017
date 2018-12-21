@@ -3,6 +3,10 @@
 
 #include "HashEntry.h"
 #include "Stack.h"
+#include "TeamsParticipated.h"
+#include "WorldCup.h"
+#include "FinalMatch.h"
+
 template <class K, class T>
 
 class HashTable
@@ -45,5 +49,4 @@ public:
 	
 	void insertdataAddressToStack(Stack<T>*);
 };
-#include "HashTable.cpp"
 #endif // !HASHTABLE_H

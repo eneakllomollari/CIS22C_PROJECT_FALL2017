@@ -1,5 +1,5 @@
-#ifndef METADATA
-#define METADATA
+#ifndef METADATA_H_
+#define METADATA_H_
 
 #include <fstream>
 #include <sstream>

@@ -13,6 +13,7 @@ private:
 	std::string city;
 
 public:
+	FinalMatch(){};
 	FinalMatch(int,std::string*, std::string, std::string, std::string);
 	void setYear(int);
 	void setTeams(std::string, std::string);

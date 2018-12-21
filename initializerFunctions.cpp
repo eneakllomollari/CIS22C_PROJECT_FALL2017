@@ -3,8 +3,8 @@
 
 
 /*
-Pre: This function requires the addresses of multiple Trees to initialize data into.
--Trees needed to be passed(All Have "WorldCup" Object Data in TreeNodes)
+Pre: This function requires the addresses of multiple BinarySearchTrees to initialize data into.
+-BinarySearchTrees needed to be passed(All Have "WorldCup" Object Data in BinarySearchTreeNodes)
 1) yearHeld (Key: Year World Cup Held)
 2) gpgT (Key: Goals Per Game)
 3) aveAttT (Key: Average Attendance World Cup)
@@ -15,13 +15,13 @@ Also, it expects two HashTable references as Input
 -HashTables Contain Data of WorldCup and TeamsParticipated
 1) worldCupData, TeamsPariticpated Hashtables (Key: Year World Cup Held)
 
-Post: Upon completion, this function will initialize the data into the respective Trees and Hashtables passed into it.
+Post: Upon completion, this function will initialize the data into the respective BinarySearchTrees and Hashtables passed into it.
 
 SIDE NOTES: Initialization functions use Read Functions as Helpers
 
 */
-void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt,
-	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>&worldCupData, HashTable<int, TeamsParticipated>&teamsParticTable, Tree<int, TeamsParticipated>&numTeamsTree)
+void initializeWorldCupData(BinarySearchTree<int, WorldCup>& yearHeld, BinarySearchTree<double, WorldCup>& gpgT, BinarySearchTree<int, WorldCup>&aveAttT, BinarySearchTree<int, WorldCup>& totalAtt,
+	BinarySearchTree<int, WorldCup>&numGames, HashTable<int, WorldCup>&worldCupData, HashTable<int, TeamsParticipated>&teamsParticTable, BinarySearchTree<int, TeamsParticipated>&numTeamsBinarySearchTree)
 {
 	//Declare Local Variables/Objects
 	std::string buffer;
@@ -51,7 +51,7 @@ void initializeWorldCupData(Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup
 
 	//Read the file line by line and initialize data
 	while (getline(finTeamsByYear, buffer))
-		readFileTeamsByYearData(buffer, teamsParticTable, numTeamsTree);
+		readFileTeamsByYearData(buffer, teamsParticTable, numTeamsBinarySearchTree);
 
 	//Close the ifstream object
 	finTeamsByYear.close();
@@ -98,7 +98,7 @@ Pre: Reference to String and reference to HashTable(Key: Year World Cup, Data: T
 Post: Upon completion, this function will have read and stored data into "teamsParticTable" HashTable with (Key: Year World Cup, Data: TeamsParticipated Object)
 
 */
-void readFileTeamsByYearData(std::string& line, HashTable<int, TeamsParticipated>& teamsParticTable, Tree<int, TeamsParticipated>&numTeamsTree)
+void readFileTeamsByYearData(std::string& line, HashTable<int, TeamsParticipated>& teamsParticTable, BinarySearchTree<int, TeamsParticipated>&numTeamsBinarySearchTree)
 {
 	//Declare local variables/objects
 	int  size = 0, numTeamsParticipated, index = 0;
@@ -138,7 +138,7 @@ void readFileTeamsByYearData(std::string& line, HashTable<int, TeamsParticipated
 	//"Put" tempTeams_Object with all the teams participated for 
 	//a specific year into teamsParticTable HashTable
 	teamsParticTable.put(yearHeld, tempTeams_Object, putCounter);
-	numTeamsTree.insert(numTeamsParticipated, tempTeams_Object, insertCounter);
+	numTeamsBinarySearchTree.insert(numTeamsParticipated, tempTeams_Object, insertCounter);
 	//Delete Pointer to Dynamically Allocated array of strings
 	//delete[] tempArray_Teams;
 }
@@ -209,8 +209,8 @@ void readFileFinalMatchData(std::string &line, HashTable<int, FinalMatch>& final
 
 
 /*
-Pre: This function requires the addresses of multiple Trees to store data into.
--Trees needed to be passed(All Have "WorldCup" Object Data in TreeNodes)
+Pre: This function requires the addresses of multiple BinarySearchTrees to store data into.
+-BinarySearchTrees needed to be passed(All Have "WorldCup" Object Data in BinarySearchTreeNodes)
 1) yearHeld (Key: Year World Cup Held)
 2) gpgT (Key: Goals Per Game)
 3) aveAttT (Key: Average Attendance World Cup)
@@ -221,10 +221,10 @@ Also, it expects two HashTable references as Input
 -HashTables Contain Data of WorldCup and TeamsParticipated
 1) worldCupData, TeamsPariticpated Hashtables (Key: Year World Cup Held)
 
-Post: Upon completion, this function will have read and stored the data into the respective Trees and Hashtables passed into it.
+Post: Upon completion, this function will have read and stored the data into the respective BinarySearchTrees and Hashtables passed into it.
 */
-void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree<double, WorldCup>& gpgT, Tree<int, WorldCup>&aveAttT, Tree<int, WorldCup>& totalAtt,
-	Tree<int, WorldCup>&numGames, HashTable<int, WorldCup>& worldCupData)
+void readFileWorldcupData(std::string &line, BinarySearchTree<int, WorldCup>& yearHeld, BinarySearchTree<double, WorldCup>& gpgT, BinarySearchTree<int, WorldCup>&aveAttT, BinarySearchTree<int, WorldCup>& totalAtt,
+	BinarySearchTree<int, WorldCup>&numGames, HashTable<int, WorldCup>& worldCupData)
 {
 	//Temporary object to be used for initialization
 	WorldCup tempWorldCup;
@@ -282,8 +282,8 @@ void readFileWorldcupData(std::string &line, Tree<int, WorldCup>& yearHeld, Tree
 	pos = buffer.find('|');
 	tempWorldCup.setHostCountry(buffer.substr(pos + 2));
 
-	//This is where you assign the values to the trees and the hash table
-	//Initializing the trees
+	//This is where you assign the values to the BinarySearchTrees and the hash table
+	//Initializing the BinarySearchTrees
 	yearHeld.insert(tempWorldCup.getYearHeld(), tempWorldCup, insertCounter);
 	gpgT.insert(tempWorldCup.getGoalsPerGame(), tempWorldCup, insertCounter);
 	aveAttT.insert(tempWorldCup.getAveAtt(), tempWorldCup, insertCounter);

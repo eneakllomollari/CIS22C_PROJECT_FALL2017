@@ -64,5 +64,4 @@ public:
 	void displayPostOrder()const;
 
 };
-#include "BinarySearchTree.cpp"
 #endif // !BinarySearchTree_H

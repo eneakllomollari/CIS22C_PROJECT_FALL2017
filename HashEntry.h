@@ -1,6 +1,9 @@
 #ifndef HASHENTRY_H
 #define HASHENTRY_H
 
+#include <iostream>
+#include <fstream>
+
 template<class K, class T>
 class HashEntry
 {
@@ -25,5 +28,4 @@ public:
 	HashEntry<K, T>* getNext() const;
 
 };
-#include "HashEntry.cpp"
 #endif // !HASHENTRY_H

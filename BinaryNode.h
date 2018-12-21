@@ -1,5 +1,8 @@
-#ifndef BinaryNode_H
-#define BinaryNode_H
+#ifndef BINARYNODE_H
+#define BINARYNODE_H
+
+#include <iostream>
+#include <iomanip>
 
 template<class K, class T>
 class BinaryNode
@@ -30,5 +33,4 @@ public:
 	T getpdata();
 	K getKey();
 };
-#include "BinaryNode.cpp"
 #endif // !BinaryNode_H
