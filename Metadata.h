@@ -65,7 +65,6 @@ public:
 	int getNumHashTables();
 };
 
-/*Metadata Constructor*/
 Metadata::Metadata()
 {
 	yearHeldBST = new BinarySearchTree<int, WorldCup*>;
@@ -86,7 +85,6 @@ Metadata::Metadata()
 	initializeFinalMatchdataManager();
 }
 
-/*Metadata Destructor*/
 Metadata::~Metadata()
 {
 	worldCupdata->insertdataAddressToStack(worldCupRecycleBin);
@@ -110,19 +108,11 @@ Metadata::~Metadata()
 	delete teamsParticipatedRecycleBin;
 }
 
-/*
-Decription: Menu for entering user data for creating the objects and inserting the data to trees and Hash Table 
-Pre: none
-Post: none
-*/
 void Metadata::addManager()
 {
 	system("CLS");
 
-	//Operation counters
 	int bstOpCounter = 0, hashTableOpCounter = 0;
-	
-	//Will hold the user input
 	int year, numGames, aveAttendance, totAttendance, numberOfTeams;
 	double goalsPerGame;
 
@@ -130,9 +120,7 @@ void Metadata::addManager()
 
 	std::string firstTeamFinalMatch, secondteamFinalMatch, stadiumName, cityHost, *teamsParticipatedArray;
 
-	//Run entire code in "Try" Block #ExceptionHandling
 	try {
-		//Clear Screen
 		system("CLS");
 
 		std::cout << "\n\n\n\n";
@@ -143,7 +131,6 @@ void Metadata::addManager()
 
 		std::cout << std::endl << std::endl;
 
-		//VALIDATE YEAR DATA
 		while ((std::cin.fail() || year < 1930) && year != -1)
 		{
 			if (std::cin.fail())
@@ -180,7 +167,6 @@ void Metadata::addManager()
 		std::cin >> numberOfTeams;
 		getline(std::cin, dummy);
 
-		//VALIDATE NUMBER OF TEAMS
 		while ((std::cin.fail() || numberOfTeams < 2) && numberOfTeams != -1)
 		{
 			if (std::cin.fail())
@@ -196,16 +182,12 @@ void Metadata::addManager()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Number of Teams must be greater than or equal to 2 " << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Teams:                                            ";
 			}
-
 			std::cin >> numberOfTeams;
 			getline(std::cin, dummy);
-
 		}
-
 		if (numberOfTeams == -1) return;
 
 		teamsParticipatedArray = new std::string[numberOfTeams];
-		
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the teams:                " << std::endl;
 		for (int n = 0; n < numberOfTeams; n++)
 		{
@@ -226,7 +208,6 @@ void Metadata::addManager()
 		std::cin >> numGames;
 		getline(std::cin, dummy);
 
-		//VALIDATE NUMBER OF GAMES
 		while ((std::cin.fail() || numGames < 0) && numGames != -1)
 		{
 			if (std::cin.fail())
@@ -235,7 +216,6 @@ void Metadata::addManager()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Number of Games:                                            ";
 				std::cin.clear();
 				std::cin.ignore(1000, '\n');
-
 			}
 			else
 			{
@@ -245,16 +225,13 @@ void Metadata::addManager()
 
 			std::cin >> numGames;
 			getline(std::cin, dummy);
-
 		}
-
 		if (numGames == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the goals per game:     " << "                            ";
 		std::cin >> goalsPerGame;
 		getline(std::cin, dummy);
 
-		//VALIDATE GOALS PER GAME
 		while ((std::cin.fail() || goalsPerGame < 0) && goalsPerGame != -1)
 		{
 			if (std::cin.fail())
@@ -273,16 +250,13 @@ void Metadata::addManager()
 
 			std::cin >> goalsPerGame;
 			getline(std::cin, dummy);
-
 		}
-
 		if (goalsPerGame == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the average attendance: " << "                            ";
 		std::cin >> aveAttendance;
 		getline(std::cin, dummy);
 
-		//VALIDATE AVERAGE ATTENDANCE
 		while ((std::cin.fail() || aveAttendance < 0) && aveAttendance != -1)
 		{
 			if (std::cin.fail())
@@ -291,26 +265,21 @@ void Metadata::addManager()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Average Attendance:                                            ";
 				std::cin.clear();
 				std::cin.ignore(1000, '\n');
-
 			}
 			else
 			{
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Average Attendance cannot be less than 0.... " << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Average Attendance:                                            ";
 			}
-
 			std::cin >> aveAttendance;
 			getline(std::cin, dummy);
-
 		}
-
 		if (aveAttendance == -1) return;
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the total attendance:   " << "                            ";
 		std::cin >> totAttendance;
 		getline(std::cin, dummy);
 
-		//VALIDATE TOTAL ATTENDANCE
 		while ((std::cin.fail() || totAttendance < 0) && totAttendance != -1)
 		{
 			if (std::cin.fail())
@@ -319,17 +288,14 @@ void Metadata::addManager()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Total Attendance:                                            ";
 				std::cin.clear();
 				std::cin.ignore(1000, '\n');
-
 			}
 			else
 			{
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "ERROR: INVALID INPUT! Total Attendance cannot be less than 0.... " << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Re-Enter Total Attendance:                                            ";
 			}
-
 			std::cin >> totAttendance;
 			getline(std::cin, dummy);
-
 		}
 
 		if (totAttendance == -1) return;
@@ -358,8 +324,6 @@ void Metadata::addManager()
 		std::cin >> goalScoredSecondTeam;
 		if (goalScoredSecondTeam == "-1") return;
 		getline(std::cin, dummy);
-	//	if (std::cin.fail()) throw "\n\t\t\t\t\t\t\t\tINVALID NUMBER OF GOALS";
-
 
 		std::cout << std::left << std::setw(WIDTH_BTW_LINES) << "" << "Enter the stadium's name:                     ";
 		getline(std::cin, stadiumName);
@@ -369,8 +333,6 @@ void Metadata::addManager()
 		getline(std::cin, cityHost);
 		if (cityHost == "-1") return;
 		
-		
-		//*************************************
 		WorldCup* tempWorldCup = new WorldCup(year, winningCountry, bestPlayer, numGames, goalsPerGame, aveAttendance, totAttendance, hostCountry);
 		FinalMatch* tempFinalMatch = new FinalMatch(year, teamsParticipatedArray, goalScoredFirstTeam + " - " + goalScoredSecondTeam, stadiumName, cityHost);
 		TeamsParticipated* tempTeamsParticipated = new TeamsParticipated(year, numberOfTeams, teamsParticipatedArray);
@@ -393,7 +355,6 @@ void Metadata::addManager()
 
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed in BST:                      #" << bstOpCounter/10 << " operations." << std::endl;
 		std::cout << "\n\n";
-
 	}
 	catch (char *msg)
 	{
@@ -412,17 +373,11 @@ void Metadata::addManager()
 	system("CLS");
 }
 
-/*
-Description: Remove Menu for user to delete data by year the user enters
-Pre: none
-Post: none
-*/
 void Metadata::removeManager()
 {
 	system("CLS");
 
 	int bstOpCounter = 0, hashTableOpCounter = 0, searchHashTableCounter = 0;
-
 	int choiceYear;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "If you want to go back enter \" 0 \"" << std::endl;
 	try {
@@ -447,13 +402,12 @@ void Metadata::removeManager()
 			}
 			std::cin.clear();
 			std::cin.ignore(100, '\n');
-		}	   //Input Validation
+		}
 		if (choiceYear == 0)
 		{
 			system("CLS");
 			return;
 		}
-
 		WorldCup* worldCupObject = worldCupdata->get(choiceYear, searchHashTableCounter);
 		TeamsParticipated* teamsParticipatedObject = teamsByYear->get(choiceYear, searchHashTableCounter);
 		FinalMatch* finalMatchObject = finalMatchdata->get(choiceYear, searchHashTableCounter);
@@ -466,7 +420,6 @@ void Metadata::removeManager()
 		finalMatchBST->remove(finalMatchObject->getYear(), bstOpCounter);
 		numTeamsbyYearBST->remove(teamsParticipatedObject->getYearHeld(), bstOpCounter);
 
-		//Pushing the deleted files to the "recycle stacks"
 		worldCupRecycleBin->push(worldCupObject);
 		finalMatchRecycleBin->push(finalMatchObject);
 		teamsParticipatedRecycleBin->push(teamsParticipatedObject);
@@ -494,7 +447,7 @@ void Metadata::removeManager()
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "EXPECTION THROWN";
 	}
 
-	 std::cout << std::endl << std::endl;system("pause");
+	std::cout << std::endl << std::endl;system("pause");
 	system("CLS");
 }
 
@@ -508,22 +461,15 @@ void Metadata::sortKeyManager()
 
 }
 
-/*
-Discription: Menu for diplaying the data by key year 
-Pre: none
-Post: none
-*/
 void Metadata::displayKeyManager()
 {
 	int choiceYear;
-
 	int opCounter = 0;
 
 	system("CLS");
 	try
 	{
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "If you want to go back enter \" 0 \"" << std::endl;
-
 		while (true)
 		{
 			try {
@@ -545,8 +491,7 @@ void Metadata::displayKeyManager()
 			}
 			std::cin.clear();
 			std::cin.ignore(100, '\n');
-		}	   //Input Validation
-
+		}
 		if (choiceYear == 0)
 		{
 			system("CLS");
@@ -576,11 +521,6 @@ void Metadata::displayKeyManager()
 	system("CLS");
 }
 
-/*
-Description: Menu for Display The Hash Tables
-Pre: none
-Post: none
-*/
 void Metadata::displayTableManager()
 {
 	char userChoice;
@@ -635,9 +575,8 @@ void Metadata::displayTableManager()
 			std::cout << std::endl << std::endl;
 			system("pause");
 			system("CLS");
-
 			break;
-		case '0':break;
+		case '0': break;
 		default:
 			system("CLS");
 			std::cout << "\n\n\n";
@@ -647,33 +586,23 @@ void Metadata::displayTableManager()
 	} while (userChoice != '0');
 }
 
-/*
-Description: function for user's deleted data addres to be pushed to a stack so that deleted data can be retrived and inserted back
-Pre: none
-Post: none
-*/
 void Metadata::undoDeleteManager()
 {
 	int bstOperations = 0, hashTableOperations = 0;
-
-	try 
+	try
 	{	
-		//Get the addresses that are at the top of the stack
 		WorldCup* tempWC = worldCupRecycleBin->peek();
 		TeamsParticipated* tempTP = teamsParticipatedRecycleBin->peek();
 		FinalMatch* tempFM = finalMatchRecycleBin->peek();
 
-		//pop the stacks
 		worldCupRecycleBin->pop();
 		teamsParticipatedRecycleBin->pop();
 		finalMatchRecycleBin->pop();
 
-		//Re-insert the addresses in the BSTs
 		yearHeldBST->insert(tempWC->getYearHeld(), tempWC, bstOperations);
 		finalMatchBST->insert(tempFM->getYear(), tempFM, bstOperations);
 		numTeamsbyYearBST->insert(tempTP->getYearHeld(), tempTP, bstOperations);
 
-		//Re-insert the addresses in the hash tables
 		worldCupdata->put(tempWC->getYearHeld(), tempWC, hashTableOperations);
 		finalMatchdata->put(tempFM->getYear(), tempFM, hashTableOperations);
 		teamsByYear->put(tempTP->getYearHeld(), tempTP, hashTableOperations);
@@ -682,9 +611,9 @@ void Metadata::undoDeleteManager()
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Recovery Successful!" << std::endl;
 		std::cout << std::endl << std::endl;
 	
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Averge number of operations performed on BSTs:                 #" << bstOperations / 10 << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed on BSTs:                 #" << bstOperations / 10 << std::endl;
 		std::cout << std::endl;
-		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Averge number of operations performed on HashTables:           #" << hashTableOperations / 3 << std::endl;
+		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Average number of operations performed on HashTables:           #" << hashTableOperations / 3 << std::endl;
 		std::cout << std::endl;
 		std::cout << std::endl << std::endl; system("pause");
 		system("CLS");
@@ -699,27 +628,15 @@ void Metadata::undoDeleteManager()
 	}
 }
 
-/*
-description: function to save data to text file
-Pre: none
-Post: none
-*/
 void Metadata::saveToInputFileManager()
 {
-	//Saving to Files
 	worldCupdata->writeWorldCupGeneraldataToTxt();
 	finalMatchdata->writeFinalMatchdataToTxt();
 	teamsByYear->writeTeamsParticipatedToTxt();
 }
 
-/*
-description: function to clear the recycle bin stacks
-Pre: none
-Post: none
-*/
 void Metadata::clearRecycleStacksManager()
 {
-	//Clearing the Recycle Bins
 	while (!worldCupRecycleBin->isEmpty())
 	{
 		WorldCup *WCObject = worldCupRecycleBin->peek();
@@ -743,16 +660,10 @@ void Metadata::clearRecycleStacksManager()
 	}
 }
 
-/*
-Description: function to display the Laod factor of each hash table and collisions. Display the hieght of each tree
-Pre: none
-Post: none
-*/
 void Metadata::efficencyManager()
 {
 	int totalBSTHeight;
 	system("CLS");
-	//Since we are using BST hash tables, but with the same key the data of one BST is sufficent
 	std::cout << std::endl << std::endl << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current World Cup Hash Table load factor:                 " << worldCupdata->loadFactor() << "%" << std::endl;
 	std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Current Final Match Hash Table load factor:               " << finalMatchdata->loadFactor() << "%" << std::endl;
@@ -776,11 +687,6 @@ void Metadata::efficencyManager()
 	std::cout << std::setw(WIDTH_BTW_LINES) << "";
 }
 
-/*
- Description: displays the header for world cup data
- Pre: none
- Post: none
-*/
 void Metadata::printGeneralWorldCupdataHeader()
 {
 	int numDashes = 148;
@@ -799,11 +705,6 @@ void Metadata::printGeneralWorldCupdataHeader()
 	std::cout << std::endl;
 }
 
-/*
-Description: displays the header for Final Match Data
-Pre: none
-Post: none
-*/
 void Metadata::printFinalMatchdataHeader()
 {
 	int numDashes = 120;
@@ -860,75 +761,57 @@ int Metadata::getNumHashTables()
 	return numHashTables;
 }
 
-#include "Metadata.h"
-
 void Metadata::initializeWorldCupdataManager()
 {
-	//Declare Local Variables/Objects
 	std::string buffer;
 	std::ifstream finWorldCup;
 	std::ifstream finTeamsByYear;
 
-	//Open file for reading
     std::string wcgeneral;
     std::cout << "Enter the world cup general data directory: ";
     getline(std::cin,wcgeneral);
 
     finWorldCup.open(wcgeneral);
 
-	//If the file is unable to open, then throw an error
 	if (!finWorldCup) throw "worldCupGeneraldata.txt FILE COULD NOT BE OPENED IN initializeWorldCupdata()"; /*2 operations*/
 
-	//Read the file line by line and initialize data
 	while (getline(finWorldCup, buffer))
 		readFileWorldcupdata(buffer);
 
-	//Close the ifstream object
 	finWorldCup.close();
 
-	//*************************************
-
-	//Open second file for reading
     std::string teamsbyyear;
     std::cout << "Enter the teams by year data directory: ";
     getline(std::cin,teamsbyyear);
 
 	finTeamsByYear.open(teamsbyyear);
 
-	//If the file couldn't be opened throw an error
 	if (!finTeamsByYear) throw "TeamsbyYear.txt FILE COULD NOT BE OPENED IN initializeWorldCupdata()";
 
-	//Read the file line by line and initialize data
 	while (getline(finTeamsByYear, buffer))
 		readFileTeamsByYeardata(buffer);
 
-	//Close the ifstream object
 	finTeamsByYear.close();
 }
 
 void Metadata::initializeFinalMatchdataManager()
 {
-	//Declare local variables/objects
 	std::string buffer;
 	std::ifstream finFinalMatch;
 
-	//Open file for input
     std::string finMatch;
 	std::cout << "Enter the final match data directory: ";
 	getline(std::cin, finMatch);
 
 	finFinalMatch.open(finMatch);
 
-	//If file is unable to open throw error
 	if (!finFinalMatch) throw "FinalMatchdata.txt FILE COULD NOT BE OPENED IN initializeFinalMatchdata()";
 
-	//Read file line by line and initialize data
 	while (getline(finFinalMatch, buffer))
 	{
 		readFileFinalMatchdata(buffer);
 	}
 
-	//Close ifstream object
 	finFinalMatch.close();
 }
 
@@ -938,22 +821,18 @@ void Metadata::readFileWorldcupdata(std::string &line)
 	double goalsPerGame;
 	std::string winningTeam, goldenBootWinner,hostCountry;
 
-	// holds the element position of string find function
 	size_t pos, end_pos;
 
 	int insertCounter, putCounter;
 	std::string temp;
 	std::string buffer = line;
 
-	// set year held
 	yearHeld = stoi(buffer.substr(0, 5));
 
-	// set winning team
 	buffer = buffer.substr(7);
 	pos = buffer.find(' ');
 	winningTeam = buffer.substr(0, pos);
 
-	// sets golden B winner
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	end_pos = buffer.find(' ');
@@ -967,36 +846,28 @@ void Metadata::readFileWorldcupdata(std::string &line)
 	goldenBootWinner = temp;
 
 
-	// sets number of games
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	numGames = std::stoi(buffer.substr(0, 2));;
 
-	// sets goals per game
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	goalsPerGame = std::stod(buffer.substr(0, 4));
 
-	// sets average attendance
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	aveAtt = std::stoi(buffer.substr(0, 5));
 
-	// sets total attendance
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	end_pos = buffer.find(' ');
 	totAtt = std::stoi(buffer.substr(0, end_pos));
 
-	// sets host country
 	pos = buffer.find('|');
 	hostCountry = buffer.substr(pos + 2);
 
-	//Allocating object in the heap
 	WorldCup* tempWorldCup = new WorldCup(yearHeld, winningTeam, goldenBootWinner, numGames, goalsPerGame, aveAtt, totAtt, hostCountry);
 	
-	//This is where you assign the values to the BinarySearchTrees and the hash table
-	//Initializing the BinarySearchTrees
 	yearHeldBST->insert(tempWorldCup->getYearHeld(), tempWorldCup, insertCounter);
 
 	worldCupdata->put(tempWorldCup->getYearHeld(), tempWorldCup, putCounter);
@@ -1004,11 +875,8 @@ void Metadata::readFileWorldcupdata(std::string &line)
 
 void Metadata::readFileFinalMatchdata(std::string &line)
 {
-	// holds the element position of string find function
 	size_t pos, end_pos;
-
-	int putCounter;
-	int year;
+	int putCounter, year;
 	std::string buffer = line;
 
 	std::string temp1, temp2;
@@ -1016,11 +884,10 @@ void Metadata::readFileFinalMatchdata(std::string &line)
 	std::string result;
 	std::string stadium;
 	std::string city;
-	//set year
+
 	pos = buffer.find('|');
 	year = stoi(buffer.substr(0, pos - 1));
 
-	// sets team 1 and team 2
 	buffer = buffer.substr(7);
 	pos = buffer.find(',');
 	temp1 = buffer.substr(0, pos);
@@ -1030,24 +897,19 @@ void Metadata::readFileFinalMatchdata(std::string &line)
 	teams[0] = temp1;
 	teams[1] = temp2;
 
-	// set results
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	temp1 = buffer.substr(0, 5);
 	end_pos = buffer.find(')');
 
-	if (buffer[6] == '(') {
-		temp1 += buffer.substr(5, end_pos - 4);
-	}
-	result = temp1;
+	if (buffer[6] == '(')
+        result += buffer.substr(5, end_pos - 4);
 
-	// set stadium
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	end_pos = buffer.find('.');
 	stadium = (buffer.substr(0, end_pos));
 
-	// set city
 	pos = buffer.find('|');
 	buffer = buffer.substr(pos + 2);
 	end_pos = buffer.find('.');
@@ -1055,41 +917,31 @@ void Metadata::readFileFinalMatchdata(std::string &line)
 
 	FinalMatch* temp_FinalMatch_object = new FinalMatch(year, teams, result, stadium, city);
 
-	//Store data in HashTable
-	//Key = yearHeld
-	//data = FinalMatch
 	finalMatchdata->put(temp_FinalMatch_object->getYear(), temp_FinalMatch_object, putCounter);
 	finalMatchBST->insert(temp_FinalMatch_object->getYear(), temp_FinalMatch_object,putCounter);
 }
 
 void Metadata::readFileTeamsByYeardata(std::string &line)
 {
-	//Declare local variables/objects
 	int  size = 0, numTeamsParticipated, index = 0, numTeamsByYearBinarySearchTreeCounter = 0;
 	int insertCounter, putCounter;
 
 	std::string *tempArray_Teams, temp;
 
-	//Convert the string input YearHeld to an integer value
 	int yearHeld = std::stoi(line.substr(0, 4));
 
-	//Line now stores the year of the World Cup
 	line = line.substr(6);
 
 	std::istringstream buffer(line);
 
-	//Calculates the # of Teams Participated
 	for (auto &i : line)
 		if (i == ',') size++;
 	size += 1;
 
-	//Set the number of teams after caluclation
 	numTeamsParticipated = size;
 
-	//Dynamically allocated array of strings
 	tempArray_Teams = new std::string[numTeamsParticipated];
 
-	//Store the teams between commas into "Temp" string
 	while (getline(buffer, temp, ','))
 	{
 		temp = temp.substr(1);
@@ -1098,9 +950,8 @@ void Metadata::readFileTeamsByYeardata(std::string &line)
 	}
 	TeamsParticipated* tempTeams_Object = new TeamsParticipated(yearHeld, numTeamsParticipated, tempArray_Teams);
 
-	//"Put" tempTeams_Object with all the teams participated for a specific year into teamsParticTable HashTable
 	teamsByYear->put(yearHeld, tempTeams_Object, putCounter);
-
 	numTeamsbyYearBST->insert(yearHeld, tempTeams_Object, numTeamsByYearBinarySearchTreeCounter);
 }
+
 #endif // !HEAD_NODE

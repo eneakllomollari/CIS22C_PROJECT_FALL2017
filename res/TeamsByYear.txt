@@ -1,5 +1,5 @@
-2016 | France, England, Czech Republic, Iceland, Austria, Northern Ireland, Portugal, Spain, Switzerland, Italy, Belgium, Wales, Romania, Albania, Germany, Poland, Russia, Slovakia, Croatia, Turkey, Hungary, Republic of Ireland, Sweden, Ukraine
 1934 | Argentina, Brazil, USA, Austria, Belgium, Czechoslovakia, France, Germany, Hungary, Italy, Netherlands, Romania, Spain, Sweden, Switzerland, Egypt
+2016 | France, England, Czech Republic, Iceland, Austria, Northern Ireland, Portugal, Spain, Switzerland, Italy, Belgium, Wales, Romania, Albania, Germany, Poland, Russia, Slovakia, Croatia, Turkey, Hungary, Republic of Ireland, Sweden, Ukraine
 2000 | Belgium, Netherlands, Czech Republic, Norway, Sweden, Spain, Italy, Germany, France, Romania, Yugoslavia, Portugal, Denmark, England, Slovenia, Turkey
 1992 | Austria, Belgium, Russia, Denmark, France, Germany, Hungary, Italy, Netherlands, Portugal, Spain, Sweden, Switzerland
 1984 | France, Belgium, Portugal, Denmark, Germany, Romania, Yugoslavia, Spain
@@ -15,8 +15,8 @@
 1962 | Argentina, Brazil, Chile, Colombia, Uruguay, Mexico, Bulgaria, Czechoslovakia, England, Germany FR, Hungary, Italy, Russia, Spain, Switzerland, Yugoslavia
 1954 | Brazil, Uruguay, Mexico, Austria, Belgium, Czechoslovakia, England, France, Germany FR, Hungary, Italy, Scotland, Switzerland, Turkey, Yugoslavia, Korea Republic
 1938 | Brazil, Cuba, Belgium, Czechoslovakia, France, Germany, Hungary, Italy, Netherlands, Norway, Poland, Romania, Sweden, Switzerland, Dutch East Indies
-2012 | Poland, Ukraine, Germany, Italy, Netherlands, Spain, England, Russia, France, Greece, Denmark, Sweden, Croatia, Czech Republic, Portugal, Republic of Irland
 1930 | Argentina, Bolivia, Brazil, Chile, Paraguay, Peru, Uruguay, Mexico, USA, Belgium, France, Romania, Yugoslavia
+2012 | Poland, Ukraine, Germany, Italy, Netherlands, Spain, England, Russia, France, Greece, Denmark, Sweden, Croatia, Czech Republic, Portugal, Republic of Irland
 2004 | Portugal, France, Czech Republic, Sweden, Bulgaria, Denmark, Germany, Greece, England, Italy, Switzerland, Croatia, Latvia, Netherlands, Spain, Russia
 1996 | England, Switzerland, Romania, France, Spain, Denmark, Turkey, Croatia, Italy, Czech Republic, Portugal, Germany, Bulgaria, Russia, Scotland, Netherland
 1988 | Germany, Denmark, Russia, England, Republic of Irland, Italy, Spain, Netherlands

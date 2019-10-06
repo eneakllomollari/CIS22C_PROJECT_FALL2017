@@ -1,0 +1,34 @@
+2016 | Portugal, France.        |               | Parc des Princes.            | Paris.          |
+1934 | Italy, Czechoslovakia.   |               | Stadio Nazionale PNF.        | Rome.           |
+2000 | France, Italy.           |               | Feijenoord Stadion.          | Rotterdam.      |
+1992 | Denmark, Germany.        |               | Ullevi.                      | Gothenburg.     |
+1984 | France, Spain.           |               | Parc des Princes.            | Paris.          |
+1976 | Czechoslovakia, Germany. |  (5 - 3)      | Red Star Stadium.            | Belgrade.       |
+1968 | Italy, Yugoslavia.       |  (2 - 0)      | Stadio Olimpico.             | Rome.           |
+1960 | Russia, Yugoslavia.      |               | Parc des Princes.            | Paris.          |
+2010 | Netherlands, Spain.      |               | Soccer City.                 | Johannesburg.   |
+2002 | Germany, Brazil.         |               | Yokohama Stadium.            | Yokohama.       |
+1994 | Brazil, Italy.           |  (3 - 2)      | Rose Bowl.                   | Pasadena.       |
+1986 | Argentina, Germany.      |               | Estadio Azteca.              | Mexico City.    |
+1978 | Argentina, NetherLands.  |               | Estadio Monumental.          | Buenos Aires.   |
+1970 | Brazil, Italy.           |               | Estadio Azteca.              | Mexico City.    |
+1962 | Brazil, Czechoslovakia.  |               | Estadio Nacional.            | Santiago.       |
+1954 | Germany FR, Hungary.     |               | Wankford Stadium.            | Bern.           |
+1938 | Italy, Hungary.          |               | Stade Olympique de Colombes. | Paris.          |
+2012 | Spain, Italy.            |               | Olympic Stadium.             | Kiev.           |
+1930 | Uruguay, Argentina.      |               | Estadio Centenario.          | Montevideo.     |
+2004 | Greece, Portugal.        |               | Estádio da Luz.              | Lisbon.         |
+1996 | Germany, Czech Republic. |               | Wembley Stadium.             | London.         |
+1988 | Netherland, Russia.      |               | Olympiastadion.              | Munich.         |
+1980 | Germany, Belgium.        |               | Stadio Olimpico.             | Rome.           |
+1972 | Germany, Russia.         |               | Heysel Stadium.              | Brussels.       |
+1964 | Spain, Russia.           |               | Santiago Bernabéu.           | Madrid.         |
+2014 | Germany, Argentina.      |               | Estadio do Maracana.         | Rio de Janeiro. |
+2006 | Italy, France.           |  (5 - 3)      | Olympiastadion.              | Berlin.         |
+1998 | Brazil, France.          |               | Stade de France.             | Saint-Deniz.    |
+1990 | Germany, Agentina.       |               | Stadio Olimpico.             | Rome.           |
+1982 | Italy, Germany.          |               | Santiago Bernabeu Stadium.   | Madrid.         |
+1974 | Netherlands, Germany.    |               | Olympiastadion.              | Munich.         |
+1966 | England, Germany.        |               | Wembley Stadium.             | London.         |
+1958 | Brazil, Sweden.          |               | Rasunda Stadium.             | Solna.          |
+1950 | Uruguay, Brazil.         |               | Estadio do Maracana.         | Rio de Janeiro. |

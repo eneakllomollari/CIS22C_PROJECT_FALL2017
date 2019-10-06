@@ -157,7 +157,6 @@ double WorldCup::getGoalsPerGame() const
 
 std::ostream & operator<<(std::ostream & os, const WorldCup &wC)
 {
-	//Written by Kamaljot Saini
 	os << std::left << std::setw(6) << wC.getYearHeld();
 	os << std::left << std::setw(18) << wC.getWinningTeam();
 	os << std::left << std::setw(25) << wC.getGoldenBootWinner();
@@ -184,4 +183,5 @@ bool operator==(const WorldCup &a, const WorldCup &b)
 {
 	return a.yearHeld == b.yearHeld;
 }
+
 #endif // !WORLDCUP_H

@@ -1,0 +1,34 @@
+2016 | Portugal  | Antoine Griezmann  | 51 | 2.12 | 47594 | 2427303 | France
+1934 | Italy     | Oldrich Nejedly    | 17 | 4.12 | 21353 | 363000  | Italy
+2000 | France    | Patrick Kluvert    | 31 | 2.74 | 36220 | 1122833 | Belgium and Netherlands
+1992 | Denmark   | Dennis Bergkamp    | 15 | 2.13 | 28674 | 430111  | Sweden 
+1984 | France    | Michel Platini     | 15 | 2.73 | 39978 | 599669  | France
+1976 | Czechoslovakia | Dieter Muller      | 4 | 4.75 | 26522 | 106087  | Yugoslavia
+1968 | Italy     | Dragan Dzajic      | 5 | 1.40 | 52183 | 260916  | Italy
+1960 | Russia    | Milan Galic        | 4 | 4.25 | 19740 | 78958   | France
+2010 | Spain     | Forlan             | 64 | 2.27 | 49670 | 3178856 | South Africa
+2002 | Brazil    | Ronaldo            | 64 | 2.52 | 42269 | 2705197 | South Korea and Japan
+1994 | Brazil    | Hristo Stoichkov   | 52 | 2.69 | 68991 | 3587538 | USA
+1986 | Argentina | Gary Lineker       | 52 | 2.54 | 46039 | 2394031 | Mexico
+1978 | Argentina | Mario Kempes       | 38 | 2.68 | 40679 | 1545791 | Argentina
+1970 | Brazil    | Gerd Mueller       | 32 | 2.97 | 50127 | 1604065 | Mexico
+1962 | Brazil    | Garrincha          | 32 | 2.78 | 27912 | 893172  | Chile
+1954 | Germany   | Sandor Kocsis      | 26 | 5.38 | 29562 | 768607  | Switzerland
+1938 | Italy     | Leonidas           | 18 | 4.67 | 20872 | 375000  | France
+2012 | Spain     | Mario Balotelli    | 31 | 2.45 | 46481 | 1440896 | Poland and Ukraine
+1930 | Uruguay   | Guillermo Staibile | 18 | 3.89 | 32808 | 590549  | Uruguay
+2004 | Greece    | Milan Baros        | 31 | 2.48 | 37306 | 1156473 | Portugal
+1996 | England   | Alan Shearer       | 31 | 2.06 | 41157 | 1275857 | England
+1988 | Netherlands | Marco Van          | 15 | 2.27 | 56656 | 849844  | Germany
+1980 | Germany   | Klaus Allofs       | 14 | 1.93 | 24676 | 345463  | Italy
+1972 | Germany   | Gerd Muller        | 4 | 2.50 | 30470 | 121880  | Belgium
+1964 | Spain     | Ference Bene       | 4 | 3.25 | 39063 | 156253  | Spain
+2014 | Germany   | Rodriguez          | 64 | 2.67 | 53592 | 3429873 | Brazil
+2006 | Italy     | Miroslav Klose     | 64 | 2.30 | 52491 | 3359439 | Germany
+1998 | France    | Davor Suker        | 64 | 2.67 | 43517 | 2785100 | France
+1990 | Germany   | Tomas Skuhravy     | 52 | 2.21 | 48389 | 2516215 | Italy
+1982 | Italy     | Paolo Rossi        | 52 | 2.81 | 40572 | 2109723 | Spain
+1974 | Germany   | Grzegorz Lato      | 38 | 2.55 | 49099 | 1865762 | Germany
+1966 | England   | Eusebio            | 33 | 2.79 | 48848 | 1563135 | England
+1958 | Brazil    | Just Fontaine      | 35 | 3.60 | 23423 | 819810  | Sweden
+1950 | Uruguay   | Ademir             | 23 | 4.04 | 47511 | 1045246 | Brazil

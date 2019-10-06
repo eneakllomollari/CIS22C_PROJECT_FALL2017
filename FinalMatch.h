@@ -101,7 +101,6 @@ std::string FinalMatch::getCity() const
 
 std::ostream& operator<<(std::ostream &o, FinalMatch &m)
 {
-
 	o << std::fixed << std::setprecision(2)
 		<< std::left << std::setw(6) << m.year
 		<< std::left << std::setw(18) << m.teams[0]

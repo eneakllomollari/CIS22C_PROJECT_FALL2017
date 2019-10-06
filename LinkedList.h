@@ -7,8 +7,8 @@ template <class T>
 class LinkedList
 {
 protected:
-	ListNode <T> *head;									// Pointer to the first ListNode
-	int counter;											// Count of items
+	ListNode <T> *head;
+	int counter;
 	ListNode <T> *getPointerTo(const T&) const;
 
 public:
@@ -31,17 +31,12 @@ public:
 	void insertFirst(T);
 };
 
-/**
-Description: Insert LinkedNode in the list
-Pre :	LinkedNode to be inserted
-Post :	None
-*/
 template<class T>
 void LinkedList<T>::insertListNode(const T LinkedNodeToInsert)
 {
 	ListNode <T> *newListNode = new ListNode <T>(LinkedNodeToInsert);
 	ListNode <T> *ListNodePtr;
-	ListNode <T> *previosListNode = nullptr;
+	ListNode <T> *previousListNode = nullptr;
 
 	if (!head)
 	{
@@ -51,33 +46,28 @@ void LinkedList<T>::insertListNode(const T LinkedNodeToInsert)
 	else
 	{
 		ListNodePtr = head;
-		previosListNode = nullptr;
+		previousListNode = nullptr;
 
 		while (ListNodePtr != nullptr && ListNodePtr->getItem() < LinkedNodeToInsert)
 		{
-			previosListNode = ListNodePtr;
+			previousListNode = ListNodePtr;
 			ListNodePtr = ListNodePtr->getNext();
 		}
 
-		if (previosListNode == nullptr)
+		if (previousListNode == nullptr)
 		{
 			head = newListNode;
 			newListNode->setNext(ListNodePtr);
 		}
 		else
 		{
-			previosListNode->setNext(newListNode);
+			previousListNode->setNext(newListNode);
 			newListNode->setNext(ListNodePtr);
 		}
 	}
 	counter++;
 }
 
-/**
-Description: Insert LinkedNode to the first position in the list
-Pre :	LinkedNode to be inserted
-Post :	None
-*/
 template<class T>
 void LinkedList<T>::insertFirst(T linkedNodeToInsert)
 {
@@ -105,11 +95,6 @@ ListNode<T>* LinkedList<T>::getPointerTo(const T & target) const
 	return curr;
 }
 
-/**
-Description: LinkedList Constructor
-Pre :	None
-Post :	head of the list is assigned to nullptr and counter is assigned to 0
-*/
 template<class T>
 LinkedList<T>::LinkedList()
 {
@@ -117,15 +102,8 @@ LinkedList<T>::LinkedList()
 	counter = 0;
 }
 
-
-/**
-Description:  Constructor
-Pre :	list object
-Post :	Adds to contents of the entry list to this list
-*/
 template< class T>
 LinkedList<T>::LinkedList(const LinkedList<T>& aList)
-
 {
 	counter = aList->counter;
 	ListNode <T> *originalChain = aList->head;
@@ -133,62 +111,34 @@ LinkedList<T>::LinkedList(const LinkedList<T>& aList)
 	if (originalChain == nullptr) head = nullptr;
 	else
 	{
-		//Copy first LinkedNode
 		head = new ListNode <T>();
 		head->setItem(originalChain->getItem());
 
-		//Copy remaining LinkedNodes
 		ListNode <T> *newChain = head;
 		while (originalChain != nullptr)
 		{
 			originalChain = originalChain->getNext();
-
-			//Get item from original chain
 			T nextItem = originalChain->getItem();
-
-			//Create a new LinkedNode containing the next item
 			ListNode<T> *newLinkedNode = new ListNode <T>(nextItem);
-
-			//Link new LinkedNode to end of chain
 			newChain->setNext(newLinkedNode);
-
-			//Advance pointer to new last LinkedNode
 			newChain = newChain->getNext();
-		} // end of while
+		}
 		newChain->setNext(nullptr);
-	}//end if
-}//end of copy constructor
+	}
+}
 
-
- /**
- Description: Virtual Destructor
- Pre :	None
- Post :	Frees the memory allocated by the list and deletes the list object
- */
 template <class T>
 LinkedList<T>::~LinkedList()
 {
 	clear();
 }
 
-
-/**
-Description:	Sees whether the list is empty
-Pre: None
-Post: True if list is empty, otherwise is false
-*/
 template <class T>
 bool LinkedList<T>::isEmpty() const
 {
 	return counter == 0;
 }
 
-
-/**
-Description: Get the number of times a LinkedNode is present in the list
-Pre : the LinkedNode whose frequency is to be checked
-Post : the number of times the LinkedNode is present in the list
-*/
 template<class T>
 void LinkedList<T>::displayList() const
 {
@@ -204,8 +154,7 @@ void LinkedList<T>::displayList() const
 template<class T>
 int LinkedList<T>::getFrequencyOf(const T & anEntry) const
 {
-	int frequency = 0,
-		number = 0;
+	int frequency = 0, number = 0;
 	ListNode <T> *curLinkedNode = head;
 	while (curLinkedNode != nullptr && number < counter)
 	{
@@ -216,11 +165,6 @@ int LinkedList<T>::getFrequencyOf(const T & anEntry) const
 	return frequency;
 }
 
-/**
-Description: Clear all the elements in the list
-Pre : None
-Post : None
-*/
 template<class T>
 void LinkedList<T>::clear()
 {
@@ -228,54 +172,24 @@ void LinkedList<T>::clear()
 	{
 		ListNode <T> *LinkedNodeToDel = head;
 		head = head->getNext();
-
-		//Here we get the address of the data that we have allocated
-		//T dataToDel = LinkedNodeToDel->getItem();
-
-		//Remove the link
 		LinkedNodeToDel->setNext(nullptr);
-
-		//Delete the LinkedNode
 		delete LinkedNodeToDel;
-
-		//delete the allocated object
-		//This will avoid the memory leak
-		//delete dataToDel;
-
 	}
 	counter = 0;
 }
 
-
-/**
-Description: Return the size of the list
-Pre :  None
-Post :  The size of the list
-*/
 template<class T>
 int LinkedList<T>::getSize() const
 {
 	return counter;
 }
 
-
-/**
-Description: Checks to see if a LinkedNode is contained in the list
-Pre :	the LinkedNode to be checked
-Post :	true if LinkedNode is contained, false otherwise
-*/
 template<class T>
 bool LinkedList<T>::contains(const T & anEntry) const
 {
 	return getPointerTo(anEntry) != nullptr;
 }
 
-
-/**
-Description: Delete a LinkedNode from the list
-Pre :	LinkedNode to be deleted
-Post :	true if LinkedNode was found and deleted, false otherwise
-*/
 template<class T>
 bool LinkedList<T>::deleteListNode(const T LinkedNodeToDelete)
 {
@@ -284,14 +198,11 @@ bool LinkedList<T>::deleteListNode(const T LinkedNodeToDelete)
 
 	if (canRemoveItem)
 	{
-		//Copy data from first LinkedNode to located LinkedNode
 		entryNode->setItem(head->getItem());
 
-		//Delete first LinkedNode
 		ListNode <T> *LinkedNodeToDel = head;
 		head = head->getNext();
 
-		//Return LinkedNode to the system
 		LinkedNodeToDel->setNext(nullptr);
 		delete LinkedNodeToDel;
 		LinkedNodeToDel = nullptr;
@@ -301,12 +212,6 @@ bool LinkedList<T>::deleteListNode(const T LinkedNodeToDelete)
 	return canRemoveItem;
 }
 
-
-/**
-Description: Delete the first LinkedNode in the list
-Pre :	None
-Post : True if LinkedNode was found and deleted, false otherwise
-*/
 template<class T>
 bool LinkedList<T>::deleteFirst()
 {
@@ -322,6 +227,5 @@ bool LinkedList<T>::deleteFirst()
 
 	return true;
 }
-
 
 #endif

@@ -65,12 +65,7 @@ public:
 
 };
 
-/*
-	Pre: N/A
 
-	Post: Upon creation of Tree object,
-	the appropriate variables will be initialized
-*/
 template<class K, class T>
 BinarySearchTree<K, T>::BinarySearchTree()
 {
@@ -78,12 +73,6 @@ BinarySearchTree<K, T>::BinarySearchTree()
 	itemCount = 0;
 }
 
-/*
-	Pre: N/A
-
-	Post: Upon destruction of Tree object, the appropriate measures
-	will be taken in order to ensure no memory leaks occur
-*/
 template<class K, class T>
 BinarySearchTree<K, T>::~BinarySearchTree()
 {
@@ -94,23 +83,12 @@ BinarySearchTree<K, T>::~BinarySearchTree()
 	itemCount = 0;
 }
 
-/*
-	Pre: N/A
-
-	Post: Upon successful completion will destroy the subTree
-	using helper function "destroySubTree"
-*/
 template<class K, class T>
 void BinarySearchTree<K, T>::clear()
 {
 	destroySubBinarySearchTree(root);
 }
 
-/*
-	Pre: 
-
-	Post:
-*/
 template<class K, class T>
 void BinarySearchTree<K, T>::calculateSum(BinaryNode<K, T>*nodePtr, K &sum) const
 {
@@ -177,8 +155,6 @@ template<class K, class T>
 BinaryNode<K, T>* BinarySearchTree<K, T>::getSmallestNode(BinaryNode<K, T>* rootPtr)const
 {
 	BinaryNode<K, T> *tempPtr = rootPtr;
-	//Traverse all the way to the left most node which is 
-	//at the same time the smallest node
 	while (tempPtr->getLeft() != nullptr)
 		tempPtr = tempPtr->getLeft();
 	return tempPtr;
@@ -190,8 +166,6 @@ BinaryNode<K, T>* BinarySearchTree<K, T>::getBiggestNode(BinaryNode<K, T>* rootP
 	BinaryNode<K, T> *tempPtr = rootPtr;
 	while (tempPtr->getRight() != nullptr)
 		tempPtr = tempPtr->getRight();
-
-	//Will return the right most node which is also the biggest node 
 	return tempPtr;
 }
 
@@ -206,22 +180,20 @@ void BinarySearchTree<K, T>::insert(K key, T data, int &insertCounter)
 template<class K, class T>
 void BinarySearchTree<K, T>::insertNode(K k, T d)
 {
-	BinaryNode<K, T>* t = new BinaryNode<K, T>;	//Allocate a new BinaryNode
+	BinaryNode<K, T>* t = new BinaryNode<K, T>;
 	BinaryNode<K, T>* parent = nullptr;
 
 	t->setpData(d);
 	t->setKey(k);
-	t->setLeft(nullptr);	//Because is will be a leaf node
+	t->setLeft(nullptr);
 	t->setRight(nullptr);
 
-	// If it is a new BinarySearchTree
 	if (root == nullptr) root = t;
 	else
 	{
 		BinaryNode<K, T> * curr;
 		curr = root;
 
-		// Find the Node's parent
 		while (curr)
 		{
 			parent = curr;
@@ -239,7 +211,6 @@ void BinarySearchTree<K, T>::insertNode(K k, T d)
 template<class K, class T>
 void BinarySearchTree<K, T>::searchByKeyHelper(BinaryNode<K,T>* nodePtr,K key, Stack<T>* myList)
 {
-	//Traverse the BinarySearchTree
 	if (nodePtr)
 	{
 		searchByKeyHelper(nodePtr->getLeft(),key,myList);
@@ -275,17 +246,16 @@ T BinarySearchTree<K, T>::searchByKey(K key)
 {
 	BinaryNode <K, T>* nodePtr = root;
 
-	//Traverse the BinarySearchTree
 	while (nodePtr != nullptr)
 	{
 		if (nodePtr->getKey() == key)
 			return nodePtr->getpdata();
 		else if (key < nodePtr->getKey())
-			nodePtr = nodePtr->getLeft();	//Else if the data is less, move to the left of the BinarySearchTree
+			nodePtr = nodePtr->getLeft();
 		else
-			nodePtr = nodePtr->getRight(); //Else, Move to the right
+			nodePtr = nodePtr->getRight();
 	}
-	throw "OBJECT COULD NOT BE FOUND IN OUR dataBASE";
+	throw "OBJECT COULD NOT BE FOUND IN OUR DATABASE";
 }
 
 template<class K, class T>
@@ -395,8 +365,8 @@ int BinarySearchTree<K, T>::countNodes(BinaryNode<K, T> *nodePtr) const
 	{
 		int count = 1;
 
-		count += countNodes(nodePtr->getLeft());	//Count nodes to the left
-		count += countNodes(nodePtr->getRight());	//Count nodes to the right
+		count += countNodes(nodePtr->getLeft());
+		count += countNodes(nodePtr->getRight());
 
 		return count;
 	}
@@ -451,7 +421,8 @@ BinaryNode<K, T>* BinarySearchTree<K, T>::deleteNode(BinaryNode<K, T>*root, K ke
 {
 	if (root == nullptr)
 	{
-		return root;												deleteCounter++;
+        deleteCounter++;
+		return root;
 	}
 	else if (key_input < root->getKey())
 	{
@@ -459,7 +430,7 @@ BinaryNode<K, T>* BinarySearchTree<K, T>::deleteNode(BinaryNode<K, T>*root, K ke
 	}
 	else if (key_input > root->getKey())
 	{
-		root->setRight(deleteNode(root->getRight(), key_input, deleteCounter));	deleteCounter++;
+		root->setRight(deleteNode(root->getRight(), key_input, deleteCounter));	    deleteCounter++;
 	}
 	else
 	{
@@ -485,7 +456,8 @@ BinaryNode<K, T>* BinarySearchTree<K, T>::deleteNode(BinaryNode<K, T>*root, K ke
 			root->setRight(deleteNode(root->getRight(), minKey_data, deleteCounter));deleteCounter++;
 		}
 	}
-	return root;																	deleteCounter++;
+    deleteCounter++;
+	return root;
 }
 
 template <class K, class T>
@@ -498,11 +470,11 @@ template <class K, class T>
 void BinarySearchTree<K, T>::printRow(BinaryNode<K, T>* p, int height, int depth)
 {
 	int placeholder = 0;
-
 	std::vector<K> vec;
 	getLine(p, depth, vec);
 	std::cout << std::setw((height - depth) * 2);
 	bool toggle = true;
+
 	if (vec.size() > 1)
 	{
 		for (int v : vec)

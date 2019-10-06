@@ -1,29 +1,25 @@
 /*
-	FINAL PROJECT CIS 22C / Fall 2017 De Anza College
-	Partners: Enea Kllomolari, Kamaljot Saini, Marcello Rusciano, Carlo Empaynado, Zachary Pascual
+	FINAL PROJECT CIS 22C - Fall 2017 De Anza College
+	Contributors: Enea Kllomolari, Kamaljot Saini, Marcello Rusciano, Carlo Empaynado, Zachary Pascual
 
 	Description: This project demonstrates the data structures we learned in CIS 22C using statistical data
 	from the FIFA World Cup and Euro Soccer Tournaments
 */
 
-#include "Metadata.h"		//Inclues all the metadata required for the application
+#include "Metadata.h"
 
 int main()
 {
-	//THE MAIN NODE OF THE PROGRAM
-	Metadata mainMetadata;		
+	Metadata mainMetadata;
 
 	int choice;
 
 	std::cout << std::fixed << std::setprecision(2);
 	try
 	{
-		//MENU STARTS HERE 
-		//MAIN MENU OF THE PROGRAM
 		std::cout << std::endl << std::endl << std::endl << std::endl;
 		std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Welcome to World Cup Soccer Stats " << std::endl << std::endl;
-
-		do 
+		do
 		{
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "The list of possible operations\n" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "1) Add a new year stats" << std::endl; //this is <add new data>
@@ -35,12 +31,9 @@ int main()
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "7) Undo Delete " << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "8) Save Changes/Clear the Recovery Stack" << std::endl;
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "9) Efficency " << std::endl;
-
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "0) EXIT\n";
-
 			std::cout << std::setw(WIDTH_BTW_LINES) << "" << "Enter your choice: ";
 			std::cin >> choice;
-
 			std::cout << "\n\n";
 			switch (choice)
 			{
@@ -85,7 +78,7 @@ int main()
 				system("CLS");
 				std::cout << std::endl << std::endl << std::endl;
 				std::cout << std::endl << std::endl;
-				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "OPERATION SUCCESFUL!" << std::endl;
+				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "OPERATION SUCCESSFUL!" << std::endl;
 				std::cout << std::endl << std::endl << std::endl;
 				std::cout << std::setw(WIDTH_BTW_LINES) << "";
 				std::cout << std::endl << std::endl; system("pause");
@@ -93,7 +86,6 @@ int main()
 				break;
 			case 9:
 				system("CLS");
-				//Since we are using BinarySearchTree hash tables, but with the same key the data of one BinarySearchTree is sufficent
 				mainMetadata.efficencyManager();
 				std::cout << std::endl;
 				 std::cout << std::endl << std::endl;system("pause");;
@@ -108,12 +100,11 @@ int main()
 				std::cout << std::setw(WIDTH_BTW_LINES) << "" << "INVALID CHOICE. Please enter a number 1 - 8!" << std::endl;
 				break;
 			}
-			std::cin.clear();             //it takes care of the strings entered
+			std::cin.clear();
 			std::cin.ignore(100, '\n');
-
 			std::cout << std::endl << std::endl;
 			std::cout << std::endl << std::endl << std::endl << std::endl;
-		} while (choice != 0);	//End of main do while loop
+		} while (choice != 0);
 	}
 	catch (char *msg)
 	{
